@@ -53,7 +53,7 @@ ___
 
 It will Downloads and Save the Following Symbols at the directory "reddit-widget"
 
-<img title="karma" src="Symbols/karma.png" width="35" align="center"> <img title="coins" src="Symbols/coins.png" width="50" align="center">
+<img title="karma" src="Symbols/karma.png" width="50" align="center"> <img title="coins" src="Symbols/coins.png" width="50" align="center">
 
 ```
 iCloud Drive/
@@ -65,7 +65,7 @@ iCloud Drive/
 ___
 
 <a href="https://reddit.com/user/hrb7">
-<img title="Follow Me On Reddit @hrb7" src="slack-status/Images/Badges/reddit_black.png" width="200">
+<img title="Follow Me On Reddit @hrb7" src="slack-status/main/Images/Badges/reddit_black.png" width="200">
 </a>
 
 
