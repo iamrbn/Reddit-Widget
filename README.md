@@ -91,7 +91,7 @@ iCloud Drive/
 │  │  ├─ cakedayConfetti.png
 ```
 
-<a href="https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
+<a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
 
 ___
 
