@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Version-1.0-orange.svg?style=flat)
 
-Script which displays the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17">Karma of your Reddit Account.
+Script which shows the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma of your Reddit Account.
 
 
 
@@ -24,22 +24,34 @@ ___
 
 1. Login to your Account and go to https://old.reddit.com/prefs/apps/
 2. Create new **Personal Script**
-<img title="create another app..." src="Images/Screenshots/create_personal_script[step1].png" width="770">
+<img title="create another app..." src="Images/Screenshots/create_personal_script[step1].png" width="850">
 3. Click Checkbox "script" and set a redirect uri (e.g. same as in the image)
-<img title="config app parameter" src="Images/Screenshots/create_application[step2].png" width="770">
+<img title="config app parameter" src="Images/Screenshots/create_application[step2].png" width="850">
 4. Create App
 5. Copy the Client_ID & Client_Secret
-<img title="get app parameter" src="Images/Screenshots/new_application[step3].png" width="760">
+<img title="get app parameter" src="Images/Screenshots/new_application[step3].png" width="850">
 
 
 Official Reddit API Guidlines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 ___
-### Fill Script With Values
+### Config Script
 
+```javascript
+const USERNAME = 'your-username'
+const PASSWORD = 'your-password'
 
+const CLIENT_ID = 'ABC1234567-XYZ7654321'
+const CLIENT_SECRET = 'qwertzuiopasdfghjklyxcvbnm'
+
+const showCoinBalance = true //smallwidget, mediumwidget; 
+const showNotifyBadge = true //smallwidget;
+const showUserTitle = true //largewidget;
+const cornerRadiusProfileImg = 0 //0 if your avatar is'nt a reddit 'snoovatar'. Set >50 for a rounded Image
+const standardRedditClient = 'Apollo' //Apollo or Reddit
+```
 
 ___
-## ⬇️ INSTALL SCRIPT / WIDGET
+## ⬇️ INSTALL SCRIPT & WIDGET
 
 ### Install Script
 1. Install [Scriptable for iOS `↗`](https://apps.apple.com/us/app/scriptable/id1405459188?ign-mpt=uo%3D4 "App Store")
@@ -47,7 +59,7 @@ ___
 or download [this](https://routinehub.co/shortcut/10438/) helper shortcut <!-- or Download [this](https://raw.githubusercontent.com/whothefuckishrb/slack-status/main/Status%20Slack%20Widget.scriptable) scriptable-File -->
 3. `+` Add new Script
 
-<img title="" src="https://github.com/whothefuckishrb/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/addNewScript.png" width="250">
+<img title="" src="https://github.com/iamrbn/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/addNewScript.png" width="250">
 
 4. Paste it into the new Script
 5. Finish
@@ -78,7 +90,12 @@ iCloud Drive/
 │  │  ├─ cakedayApollo.png
 │  │  ├─ cakedayConfetti.png
 ```
+
+<a href="https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
+
 ___
+
+
 <a href="https://reddit.com/user/hrb7">
 <img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="200">
 </a>
