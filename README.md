@@ -2,28 +2,41 @@
 
 ![](https://img.shields.io/badge/Version-1.0-orange.svg?style=flat)
 
-Script which displays the current <img align="center" title="Karma Symbol" src="Symbols/karma.png" width="17">Karma of your Reddit Account.
+Script which displays the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17">Karma of your Reddit Account.
 
 
 
 ## ✨ FEATURES
 
-### Clickable Elements
+### 👆 Clickable Elements
 
 ___
-### The Widgets have a **Dynamic Background** and is available in all sizes
+### 🔲 The Widgets have a **Dynamic Background** and is available in all sizes
 
 ___
-### Refresh Intervall
+### ⏲ Refresh Intervall
 
 
 
 ## ⚙️ SETUP
 
-### Create Reddit App
+### 🛠 Create Reddit App
 
+1. Login to your Account and go to https://old.reddit.com/prefs/apps/
+2. Create new **Personal Script**
+<img title="create another app..." src="Images/Screenshots/create_personal_script[step1].png" width="770">
+3. Click Checkbox "script" and set a redirect uri (e.g. same as in the image)
+<img title="config app parameter" src="Images/Screenshots/create_application[step2].png" width="770">
+4. Create App
+5. Copy the Client_ID & Client_Secret
+<img title="get app parameter" src="Images/Screenshots/new_application[step3].png" width="760">
+
+
+Official Reddit API Guidlines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 ___
 ### Fill Script With Values
+
+
 
 ___
 ## ⬇️ INSTALL SCRIPT / WIDGET
@@ -51,23 +64,29 @@ ___
 
 ## On First Run
 
-It will Downloads and Save the Following Symbols at the directory "reddit-widget"
+It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
-<img title="karma" src="Symbols/karma.png" width="50" align="center"> <img title="coins" src="Symbols/coins.png" width="50" align="center">
+<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="coins" src="Images/coins.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center">
 
 
 ```
 iCloud Drive/
 ├─ Scriptable/
-│  ├─ slack-status-widget/
+│  ├─ Reddit-Widget/
 │  │  ├─ karma.png
 │  │  ├─ coins.png
+│  │  ├─ cakedayApollo.png
+│  │  ├─ cakedayConfetti.png
 ```
 ___
 <a href="https://reddit.com/user/hrb7">
-<img title="Follow Me On Reddit @hrb7" src="https://github.com/whothefuckishrb/slack-status/blob/main/Images/Badges/apollo_black.png" width="200">
+<img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="200">
 </a>
 
-<a href="https://twitter.com/whothefuckishrb">
-<img title="Follow Me On Twitter @whothefuckishrb" src="https://github.com/whothefuckishrb/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/Badges/twitter_black.png" width="245">
+<a href="https://reddit.com/user/iamrbn">
+<img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="200">
+</a>
+
+<a href="https://twitter.com/iamrbn_">
+<img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="205">
 </a>
