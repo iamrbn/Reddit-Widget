@@ -93,7 +93,7 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 5. Finish
 
 ___
-### Add Widget To Homescreen
+### ➕ Add Widget To Homescreen
 1. Go to your homescreen and long tab anywhere
 2. By tapping the `+` it will opens the gallery
 3. chose or search for scriptable
@@ -103,7 +103,7 @@ ___
 7. Finish
 
 ___
-###  On First Run
+### 1️⃣ On First Run
 
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
