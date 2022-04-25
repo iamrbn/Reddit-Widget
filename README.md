@@ -55,7 +55,7 @@ const showCoinBalance = true //smallwidget, mediumwidget
 const showCakedayConfetti = true //smallwidget, mediumwidget
 const showUserTitle = true //mediumwidget, largewidget
 const cornerRadiusProfileImg = 0 //Set +50 for a rounded Image
-const standardRedditClient = 'Apollo'// Apollo or Reddit
+const standardRedditClient = 'Apollo'//Enter Apollo or Reddit
 ```
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 ___
