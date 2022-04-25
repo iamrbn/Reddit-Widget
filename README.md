@@ -2,22 +2,23 @@
 
 ![](https://img.shields.io/badge/Puplic_Version-1.0-orange.svg?style=flat)
 
-Script which shows the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma of your Reddit Account.
 
+
+Script which shows the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma of your Reddit Account.
 
 ## ✨ FEATURES
 
-### Clickable Elements
+### 👀 Overview
 
 <img title="Header Banner" src="Images/Screenshots/haederBanner.png" width="450" align="center">
 
-___
-### Theme
+
+### 🎨 Theme
 The Widget have a **Dynamic Gradient Background**
 
 <img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center">
 
-### Happy Cakeday
+### 🍰 Happy Cakeday
 Today is your Cakeday!? The widget will tell you subtly.  
 
 <img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner.png" width="450" align="center">
@@ -43,22 +44,22 @@ Today is your Cakeday!? The widget will tell you subtly.
 6. Config Script
 
 ```javascript
-const USERNAME = 'your-username'
+const USERNAME = 'your-username' //without 'u/'
 const PASSWORD = 'your-password'
 
 const CLIENT_ID = 'ABC1234567-XYZ7654321'
 const CLIENT_SECRET = 'qwertzuiopasdfghjklyxcvbnm'
 
-const showCoinBalance = true //smallwidget, mediumwidget; 
-const showNotifyBadge = true //smallwidget;
-const showUserTitle = true //largewidget;
-const cornerRadiusProfileImg = 0 //0 if your avatar is a reddit 'snoovatar'. Set >50 for a rounded Image.
-const standardRedditClient = 'Apollo' //Apollo or Reddit
+const showNotifyBadge = true //smallwidget
+const showCoinBalance = true //smallwidget, mediumwidget
+const showUserTitle = true //mediumwidget, largewidget
+const cornerRadiusProfileImg = 0 //Set +50 for a rounded Image
+const standardRedditClient = 'Apollo'// Apollo or Reddit
 ```
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 ___
 
-### Set Widget Parameter
+### 🔐 Set Widget Parameter
 
 Default: `Reddit;60`    
 For App Icon (Small & Medium) and clickable elements; Widget Refresh Intervall in minutes
@@ -70,9 +71,10 @@ If it's not filled the script runs default every 60 minutes.
 Helper-Shortcut for downloading App-Icons from the App-Store: https://routinehub.co/shortcut/11635/
 ___
 
-Run Script in App
+### 🏃 Run Script In App
 
-By running the scirpt In App it will present a menu It's including the current Slack Status in top
+By running the scirpt In App it will present a menu including _Username_, _Total Karma_, _Coin Balance_ & _Unread Inbox Count_ at the Top.
+You can choose one of the following three options in the sheet: Show small-, medium-, largewidget or open your profile in your standard Reddit-Client ([Create Personal Reddit App/Script - 6. Config Script](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#-create-personal-reddit-appscript))
 
 <img title="runInApp" src="Images/Screenshots/runInApp.PNG" width="250" align="center">
 
@@ -100,8 +102,8 @@ ___
 6. [Set the widget Parameters](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#set-widget-parameter) (if you want)
 7. Finish
 
-
-##  On First Run
+___
+###  On First Run
 
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
@@ -121,18 +123,25 @@ iCloud Drive/
 ```
 <img title="coins2" src="Images/coins2.png" width="50" align="center"> <img title="cakedayReddit" src="Images/cakedayReddit.png" width="66" align="center">
 
-<a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
+<h2 style="font-size:1"
+<p align="center" style="font-size:10vw">
+   <a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
+</p>
+</h2>
+
 
 ___
 
 <a href="https://reddit.com/user/hrb7">
-<img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="200">
+  <img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="150">
 </a>
+
 
 <a href="https://reddit.com/user/iamrbn">
-<img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="200">
+  <img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="150">
 </a>
 
+
 <a href="https://twitter.com/iamrbn_">
-<img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="205">
-</a>
+  <img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="155">
+  </a>
