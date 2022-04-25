@@ -52,6 +52,7 @@ const CLIENT_SECRET = 'qwertzuiopasdfghjklyxcvbnm'
 
 const showNotifyBadge = true //smallwidget
 const showCoinBalance = true //smallwidget, mediumwidget
+const showCakedayConfetti = true //smallwidget, mediumwidget
 const showUserTitle = true //mediumwidget, largewidget
 const cornerRadiusProfileImg = 0 //Set +50 for a rounded Image
 const standardRedditClient = 'Apollo'// Apollo or Reddit
