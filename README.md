@@ -9,16 +9,18 @@ Script which shows the current <img align="center" title="Karma Symbol" src="Ima
 
 ### Clickable Elements
 
+<img title="Header Banner" src="Images/Screenshots/haederBanner.png" width="450" align="center">
+
 ___
 ### Theme
 The Widget have a **Dynamic Gradient Background**
 
 <img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center">
 
-___
 ### Happy Cakeday
-Today is your Cakeday!? The widget will tell you subtly.
+Today is your Cakeday!? The widget will tell you subtly.  
 
+<img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner.png" width="450" align="center">
 
 
 ## ⚙️ SETUP
@@ -65,6 +67,7 @@ Long tab the individual widget an chose Edit "Scriptable" or Edit Widget
 set a number for the update intervall (*in minutes*) into the widget Parameter - The script runs every `X` minutes yet.
 If it's not filled the script runs default every 60 minutes.
 
+Helper-Shortcut for downloading App-Icons from the App-Store: https://routinehub.co/shortcut/11635/
 ___
 
 Run Script in App
