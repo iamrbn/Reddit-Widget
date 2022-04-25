@@ -8,17 +8,17 @@ Script which shows the current <img align="center" title="Karma Symbol" src="Ima
 
 ## ✨ FEATURES
 
-### 👀 Overview
+### Overview
 
 <img title="Header Banner" src="Images/Screenshots/haederBanner.png" width="450" align="center">
 
 
-### 🎨 Theme
+### Theme
 The Widget have a **Dynamic Gradient Background**
 
 <img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center">
 
-### 🍰 Happy Cakeday
+### Happy Cakeday
 Today is your Cakeday!? The widget will tell you subtly.  
 
 <img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner.png" width="450" align="center">
@@ -26,7 +26,7 @@ Today is your Cakeday!? The widget will tell you subtly.
 
 ## ⚙️ SETUP
 
-### 🛠 Create Personal Reddit App/Script
+### Create Personal Reddit App/Script
 
 1. Login to your Account and go to https://old.reddit.com/prefs/apps/
 
@@ -59,7 +59,7 @@ const standardRedditClient = 'Apollo'// Apollo or Reddit
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 ___
 
-### 🔐 Set Widget Parameter
+### Set Widget Parameter
 
 Default: `Reddit;60`    
 For App Icon (Small & Medium) and clickable elements; Widget Refresh Intervall in minutes
@@ -71,7 +71,7 @@ If it's not filled the script runs default every 60 minutes.
 Helper-Shortcut for downloading App-Icons from the App-Store: https://routinehub.co/shortcut/11635/
 ___
 
-### 🏃 Run Script In App
+### Run Script In App
 
 By running the scirpt In App it will present a menu including _Username_, _Total Karma_, _Coin Balance_ & _Unread Inbox Count_ at the Top.
 You can choose one of the following three options in the sheet: Show small-, medium-, largewidget or open your profile in your standard Reddit-Client ([Create Personal Reddit App/Script - 6. Config Script](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#-create-personal-reddit-appscript))
@@ -93,7 +93,7 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 5. Finish
 
 ___
-### ➕ Add Widget To Homescreen
+### Add Widget To Homescreen
 1. Go to your homescreen and long tab anywhere
 2. By tapping the `+` it will opens the gallery
 3. chose or search for scriptable
@@ -103,7 +103,7 @@ ___
 7. Finish
 
 ___
-### 1️⃣ On First Run
+### On First Run
 
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
