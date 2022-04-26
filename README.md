@@ -10,18 +10,18 @@ Script which shows the current <img align="center" title="Karma Symbol" src="Ima
 
 ### Overview
 
-<img title="Header Banner" src="Images/Screenshots/haederBanner.png" width="450" align="center">
+<img title="Header Banner" src="Images/Screenshots/haederBanner.png" width="1000" align="center">
 
 
 ### Theme
 The Widget have a **Dynamic Gradient Background**
 
-<img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center">
+<img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="400" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="400" align="center">
 
 ### Happy Cakeday
 Today is your Cakeday!? The widget will tell you subtly.  
 
-<img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner.png" width="450" align="center">
+<img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner.png" width="1000" align="center">
 
 
 ## ⚙️ SETUP
