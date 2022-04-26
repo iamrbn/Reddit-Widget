@@ -4,7 +4,7 @@
 
 
 
-Script which shows the current <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma of your Reddit Account.
+Script which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, Coin-Balance, Profile Image, Cakeday, Profile Image etc.
 
 ## ✨ FEATURES
 
