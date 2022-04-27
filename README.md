@@ -14,7 +14,7 @@ Script which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 
 ### Theme
-The Widget have a **Dynamic Gradient Background**
+The Widget has a **Dynamic Gradient Background**
 
 <img title="Darkmode" src="Images/Screenshots/darkmodeGradient.png" width="400" align="center"> <img title="Lightmode" src="Images/Screenshots/lightmodeGradient.png" width="400" align="center">
 
