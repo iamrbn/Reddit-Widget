@@ -124,25 +124,32 @@ iCloud Drive/
 ```
 <img title="coins2" src="Images/coins2.png" width="50" align="center"> <img title="cakedayReddit" src="Images/cakedayReddit.png" width="66" align="center">
 
+### Known Issues!
+
+- Long **usernames** may not display correctly (Small-Widget)
+- Long **usertitles** may not be displayed correctly in conjunction with **username** (Medium-Widget)
+- High karma values (>10k) may not be displayed correctly (Small-Widget)
+
+___
+
 <h2 style="font-size:1"
 <p align="center" style="font-size:10vw">
    <a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
 </p>
 </h2>
 
-
 ___
 
 <a href="https://reddit.com/user/hrb7">
-  <img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="150">
+  <img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="140">
 </a>
 
 
 <a href="https://reddit.com/user/iamrbn">
-  <img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="150">
+  <img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="140">
 </a>
 
 
 <a href="https://twitter.com/iamrbn_">
-  <img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="155">
+  <img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="145">
   </a>
