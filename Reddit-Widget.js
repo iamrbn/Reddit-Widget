@@ -133,6 +133,7 @@ async function saveImages() {
       console.log("Loading image: " + img)
       let request = new Request(imgURL + img);
       image = await request.loadImage();
+      if(!fm.fileExists(dir))fm.createDirectory(dir,false);
       fm.writeImage(imgPath, image);
     }
   }
