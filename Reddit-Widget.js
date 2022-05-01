@@ -94,7 +94,7 @@ if (minutesDiff() < 525600) { //525600min = one year
 var arr = [data.total_karma, data.link_karma, data.comment_karma, data.awarder_karma, data.awardee_karma, data.coins];
 
 arr.forEach((item, index) => {
-  arr[index] = Intl.NumberFormat('de-DE').format(item).toString(2)//de-DE: 1000=1.000; en-GB: 1000=1,000;
+  arr[index] = Intl.NumberFormat('locale').format(item)//locale parameters instead of 'locale': de-DE 1000=1.000; en-GB 1000=1,000; en-US 1000=1,000;
   if (item >= 1_000_000) {
   arr[index] += 'M'
 } else if (item >= 1_000) {
