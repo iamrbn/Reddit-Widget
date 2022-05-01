@@ -121,8 +121,9 @@ var dateCreated = df.string(new Date(data.created*1000))//date of creating accou
 var accountAge = since + time
 
 // GET IMAGES FROM GITHUB OR ICLOUD
-const fm = FileManager.iCloud()
-const dir = fm.joinPath(fm.documentsDirectory(), "Reddit-Widget")
+let fm = FileManager.iCloud()
+let dir = fm.joinPath(fm.documentsDirectory(), "Reddit-Widget")
+if (!fm.fileExists(dir)) {fm.createDirectory(dir)}
 const imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
 async function saveImages() {
   console.log("loading & saving images")
