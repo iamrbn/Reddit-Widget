@@ -86,7 +86,7 @@ if (minutesDiff() < 525600) { //525600min = one year
   since = Math.abs(minutesDiff()/60/24).toFixed(0)
   time = " d"
 } else {
-  since = Math.abs(minutesDiff()/60/24/7/4/12).toFixed(1)
+  since = Math.abs(minutesDiff()/60/24/365).toFixed(1)
   time = " y"
 }
 
@@ -101,6 +101,10 @@ arr.forEach((item, index) => {
   arr[index] += 'k'
   }
 });
+
+arr.forEach((item, index) => {
+  arr[index] = Intl.NumberFormat('locale', {notation:'compact', maximumSignificantDigits: 4}).format(item)
+})
 
 // DECLARE VARIABLES
 var totalKarma = arr[0];
