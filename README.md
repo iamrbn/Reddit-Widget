@@ -1,10 +1,13 @@
 # Reddit User Widget for Scriptable `{}`
 
-![](https://img.shields.io/badge/Puplic_Version-1.0-orange.svg?style=flat)
-
-
+![](https://img.shields.io/badge/Version-1.1-orange.svg?style=flat)
 
 Script which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, Coin-Balance, Profile Image, Cakeday, Profile Image etc.
+
+**Update Notes 1.1** (May 04th 2022)
+- Updated Function for calculating karma numbers (e.g. 'en-US', 1494 = 1.494K; 20567 = 20.57K; 1000000 = 1M etc.)
+- Added Feature notification Badge also for Medium Widget
+- Added selfupdate function (Function is written by the amazing [@mvan231](https://github.com/mvan231/Scriptable#updater-mechanism-code-example) - Thx for your Support)
 
 ## ✨ FEATURES
 
