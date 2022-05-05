@@ -76,14 +76,6 @@ var wParameter = await args.widgetParameter
     profileURL = `apollo://reddit.com/user/${USERNAME}`
 }
 
-// CALC THE TIME SINCE CREATING ACCOUNT
-function minutesDiff() {
-  let created = new Date(data.created*1000).getTime()
-  let now = new Date(Date.now()).getTime()
-  let minutesDiff = Math.floor((now - created) / 1000 / 60)
-  return minutesDiff
-}
-
 if (minutesDiff() < 525600) { //525600min = one year
   since = Math.abs(minutesDiff()/60/24).toFixed(0)
   time = " d"
@@ -122,6 +114,40 @@ let fm = FileManager.iCloud()
 let dir = fm.joinPath(fm.documentsDirectory(), "Reddit-Widget")
 if (!fm.fileExists(dir)) {fm.createDirectory(dir)}
 const imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
+
+await saveImages()
+try {saveData(data)}
+catch (e) {}
+
+if (config.runsInApp) {
+    await presentMenu()
+} else if (config.runsInWidget) {
+   switch(widgetSize) {
+    case "small": widget = await createSmallWidget(data);
+    break;
+    case "medium": widget = await createMediumWidget(data);
+    break;
+    case "large": widget = await createLargeWidget(data);
+    break;
+    default: widget = await createSmallWidget(data);
+  }
+  Script.setWidget(widget)
+}
+
+/*
+################
+  start functions
+################
+*/
+
+// CALC THE TIME SINCE CREATING ACCOUNT
+function minutesDiff() {
+  let created = new Date(data.created*1000).getTime()
+  let now = new Date(Date.now()).getTime()
+  let minutesDiff = Math.floor((now - created) / 1000 / 60)
+  return minutesDiff
+}
+
 async function saveImages() {
   console.log("loading & saving images")
   var imgs = ["karma.png", "coins.png", "cakedayConfetti.png", "cakedayApollo.png"]//, "coins2.png", "cakedayReddit.png"]//alternative symbols
@@ -154,7 +180,7 @@ async function createSmallWidget(data) {
   if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4) && showCakedayConfetti) {
     userName += ' 🍰 '
     widget.backgroundImage = await getImageFor("cakedayConfetti")
-} else if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4) && !showCakedayConfetti) {
+  } else if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4) && !showCakedayConfetti) {
     userName += ' 🍰 '
     widget.backgroundGradient = bgGradient
    } else {
@@ -482,7 +508,7 @@ async function createLargeWidget(data) {
       headerStack.addSpacer(7)
       headerTitleCakeDay = headerStack.addImage(await getImageFor(`cakeday${standardRedditClient}`))
       headerTitleCakeDay.imageSize = new Size(25, 25)
-}
+  }
 
   let headerDescription = widget.addText(puplicDescription)
       headerDescription.font = Font.thinSystemFont(14)  
@@ -517,7 +543,7 @@ async function createLargeWidget(data) {
   let line5 = mainBodyStack.addText(`Update ${uCheck.version} Available!`)
       line5.font = Font.lightSystemFont(17)
       line5.textColor = Color.red()
-}  
+  }  
   
       widget.addSpacer()
   
@@ -540,25 +566,6 @@ async function loadAppIcon() {
 async function loadProfileImage() {
   let req = new Request(profileImg[0])
   return req.loadImage()
-}
-
-await saveImages()
-try {saveData(data)}
-catch (e) {}
-
-if (config.runsInApp) {
-    await presentMenu()
-} else if (config.runsInWidget) {
-   switch(widgetSize) {
-    case "small": widget = await createSmallWidget(data);
-    break;
-    case "medium": widget = await createMediumWidget(data);
-    break;
-    case "large": widget = await createLargeWidget(data);
-    break;
-    default: widget = await createSmallWidget(data);
-  }
-  Script.setWidget(widget)
 }
 
 async function presentMenu(data) {
