@@ -285,7 +285,7 @@ if (showCoinBalance) {
       line6.textColor = txtColor
       
   let uCheck = await updateCheck(sV)
-  if (uCheck) {
+  if (uCheck.version > sV) {
       line7 = bodyTxt.addText(`Update ${uCheck.version} Available!`)
       line7.font = Font.lightRoundedSystemFont(11)
       line7.textColor = Color.red()
@@ -398,7 +398,7 @@ async function createMediumWidget(data) {
       line6.textColor = txtColor
       
   let uCheck = await updateCheck(sV)
-  if (uCheck) {
+  if (uCheck.version > sV) {
   let line7 = leftTextStack.addText(`Update ${uCheck.version} Available!`)
       line7.font = Font.lightRoundedSystemFont(13)
       line7.textColor = Color.red()
@@ -513,7 +513,7 @@ async function createLargeWidget(data) {
       line4.textColor = txtColor
       
   let uCheck = await updateCheck(sV)
-  if (uCheck) {
+  if (uCheck.version > sV) {
   let line5 = mainBodyStack.addText(`Update ${uCheck.version} Available!`)
       line5.font = Font.lightSystemFont(17)
       line5.textColor = Color.red()
