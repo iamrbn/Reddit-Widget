@@ -90,6 +90,7 @@ You can choose one of the following three options in the sheet: Show small-, med
 2. Copy **each line** of the [Script `↗`](https://raw.githubusercontent.com/iamrbn/Reddit-Ridget/main/Reddit-Widget.js)
 or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 3. `+` Add new Script
+[Scriptable-File](https://github.com/iamrbn/Reddit-Widget/blob/f5a4da075c3a4e2b9c0917355081786cfe228d34/Reddit%20Widget.scriptable)
 
 <img title="" src="https://github.com/iamrbn/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/addNewScript.png" width="250">
 
