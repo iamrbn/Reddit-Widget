@@ -7,7 +7,7 @@ Script which shows your <img align="center" title="Karma Symbol" src="Images/kar
 **Update Notes 1.1** (May 04th 2022)
 - Updated Function for calculating karma numbers (e.g. 'en-US', 1494 = 1.494K; 20567 = 20.57K; 1000000 = 1M etc.)
 - Added Feature notification Badge also for Medium Widget
-- Added selfupdate function (Function is written by the amazing [@mvan231](https://github.com/mvan231/Scriptable#updater-mechanism-code-example) - Thx for your Support)
+- Added selfupdate function ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example) is written by the amazing [@mvan231](https://twitter.com/mvan231) - Thx for your Support)
 
 ## ✨ FEATURES
 
