@@ -1,8 +1,8 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: robot;
-//Created by me - iamrbn 
-//Script URL: https://github.com/iamrbn/Reddit-Widget
+// Created by me - iamrbn 
+// Script URL: https://github.com/iamrbn/Reddit-Widget
 
 // =========== CONFIG ===========
 const USERNAME = 'xyz-1234'//without 'u/'
@@ -16,7 +16,7 @@ const showCoinBalance = true //smallwidget, mediumwidget
 const showCakedayConfetti = true //smallwidget, mediumwidget
 const showUserTitle = true //mediumwidget, largewidget
 const cornerRadiusProfileImg = 0 //Set this to +50 for a rounded Image
-const standardRedditClient = 'Apollo'// Apollo or Reddit
+const standardRedditClient = 'Reddit'// Apollo or Reddit
 // ==============================
 
 const widgetSize = config.widgetFamily;
@@ -36,7 +36,9 @@ const bgGradient = new LinearGradient()
 const appIcon = {
 Reddit: 'https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/e8/a6/65/e8a66539-19c0-2748-3f7d-2b0797ca602d/source/512x512bb.png',
 Apollo: 'https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/d8/d8/f4/d8d8f4a8-41fb-4cef-2167-0d3589c25b5d/source/512x512bb.png'}
-'shortcut for downloading app icons from app-store: https://routinehub.co/shortcut/11635/'
+'shortcut shortcut to get the app-icon-url from app-store: https://routinehub.co/shortcut/11635/'
+const scriptURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit-Widget.js'
+const sV = 1.1
 
 // GET ACCESS-TOKEN FOR JSON API REQUEST
 let reqToken = new Request('https://www.reddit.com/api/v1/access_token')
@@ -50,7 +52,7 @@ let resToken = await reqToken.loadJSON()
 // GET USER-PROFILE JSON FROM API/V1/ME
 let myReq = new Request('https://oauth.reddit.com/api/v1/me')
     myReq.headers = {
-    'User-Agent': 'getKarmaForHRB7/v1.0',//The User-Agent content has no effect. You can write whatever you want here (e.g. 'ABC-123-XYZ-idk')
+    'User-Agent': 'getKarmaFromRedditBy-iamrbn/v1.1',//The User-Agent content has no effect. You can write whatever you want here (e.g. 'ABC-123-XYZ-idk')
     'Authorization': `${resToken.token_type} ${resToken.access_token}`
     }
 
@@ -94,16 +96,7 @@ if (minutesDiff() < 525600) { //525600min = one year
 var arr = [data.total_karma, data.link_karma, data.comment_karma, data.awarder_karma, data.awardee_karma, data.coins];
 
 arr.forEach((item, index) => {
-  arr[index] = Intl.NumberFormat('locale').format(item)//locale parameters instead of 'locale': de-DE 1000=1.000; en-GB 1000=1,000; en-US 1000=1,000;
-  if (item >= 1_000_000) {
-  arr[index] += 'M'
-} else if (item >= 1_000) {
-  arr[index] += 'k'
-  }
-});
-
-arr.forEach((item, index) => {
-  arr[index] = Intl.NumberFormat('locale', {notation:'compact', maximumSignificantDigits: 4}).format(item)
+  arr[index] = Intl.NumberFormat('en-US', {notation:'compact', maximumSignificantDigits: 4}).format(item)
 })
 
 // DECLARE VARIABLES
@@ -167,7 +160,7 @@ async function createSmallWidget(data) {
    } else {
     widget.backgroundGradient = bgGradient
   }
-  
+
       widget.addSpacer(5)
   
   let mainHeaderStack = widget.addStack()
@@ -232,7 +225,7 @@ async function createSmallWidget(data) {
       badgeSymbolElement.imageSize = new Size(15, 15)
       badgeSymbolElement.tintColor = Color.red()
     }
-  
+
       widget.addSpacer(4)
   
   let mainStack = widget.addStack()
@@ -290,7 +283,14 @@ if (showCoinBalance) {
   let line6 = bodyTxt.addText("Awardee Karma: " + awardeeKarma)
       line6.font = Font.lightRoundedSystemFont(11)
       line6.textColor = txtColor
-  
+      
+  let uCheck = await updateCheck(sV)
+  if (uCheck) {
+      line7 = bodyTxt.addText(`Update ${uCheck.version} Available!`)
+      line7.font = Font.lightRoundedSystemFont(11)
+      line7.textColor = Color.red()
+}
+
       widget.addSpacer(5)
   
       df.useShortTimeStyle()
@@ -349,6 +349,13 @@ async function createMediumWidget(data) {
       wTitle.font = Font.blackSystemFont(15)
       wTitle.textColor = txtColor
       wTitle.centerAlignText()
+      
+  if (showNotifyBadge && inboxCount > 0) {
+  let badgeSymbol = SFSymbol.named(`${inboxCount}.circle`)
+  let badgeSymbolElement = widgetStack.addImage(badgeSymbol.image)
+      badgeSymbolElement.imageSize = new Size(15, 15)
+      badgeSymbolElement.tintColor = Color.red()
+    }
   
  if (showUserTitle && userTitle != '') {
   let wSubtitle = rightHeaderStack.addText(userName + ' - ' + userTitle)
@@ -361,7 +368,7 @@ async function createMediumWidget(data) {
       wSubtitle.textColor = txtColor
       spacer = 70
  }
-  
+
   let leftTextStack = widgetStackL.addStack()
       leftTextStack.layoutVertically()
       leftTextStack.setPadding(5, 9, -5, 0)
@@ -370,25 +377,32 @@ async function createMediumWidget(data) {
       rightImageStack.layoutVertically()
       rightImageStack.setPadding(25, spacer, 0, 0)
 
-  let line1 = leftTextStack.addText("Total Karma: " + totalKarma)
-      line1.font = Font.lightRoundedSystemFont(13)
-      line1.textColor = txtColor
-  
-  let line2 = leftTextStack.addText("Comment Karma: " + commentKarma)
+  let line2 = leftTextStack.addText("Total Karma: " + totalKarma)
       line2.font = Font.lightRoundedSystemFont(13)
       line2.textColor = txtColor
   
-  let line3 = leftTextStack.addText("Post Karma: " + postKarma)
+  let line3 = leftTextStack.addText("Comment Karma: " + commentKarma)
       line3.font = Font.lightRoundedSystemFont(13)
       line3.textColor = txtColor
   
-  let line4 = leftTextStack.addText("Awarder Karma: " + awarderKarma)
+  let line4 = leftTextStack.addText("Post Karma: " + postKarma)
       line4.font = Font.lightRoundedSystemFont(13)
       line4.textColor = txtColor
   
-  let line5 = leftTextStack.addText("Awardee Karma: " + awardeeKarma)
+  let line5 = leftTextStack.addText("Awarder Karma: " + awarderKarma)
       line5.font = Font.lightRoundedSystemFont(13)
       line5.textColor = txtColor
+  
+  let line6 = leftTextStack.addText("Awardee Karma: " + awardeeKarma)
+      line6.font = Font.lightRoundedSystemFont(13)
+      line6.textColor = txtColor
+      
+  let uCheck = await updateCheck(sV)
+  if (uCheck) {
+  let line7 = leftTextStack.addText(`Update ${uCheck.version} Available!`)
+      line7.font = Font.lightRoundedSystemFont(13)
+      line7.textColor = Color.red()
+}
   
   let profileImage = rightImageStack.addImage(await loadProfileImage())
       profileImage.imageSize = new Size(77, 77)
@@ -407,7 +421,7 @@ async function createMediumWidget(data) {
       coinsNumber.font = Font.lightRoundedSystemFont(12)  
       coinsNumber.textColor = txtColor
 }
-  
+
       leftTextStack.addSpacer()
 
       df.useShortTimeStyle()
@@ -482,21 +496,28 @@ async function createLargeWidget(data) {
   let mainBodyStack = widget.addStack()
       mainBodyStack.layoutVertically()
   
-  let line2 = mainBodyStack.addText("Post Karma: " + postKarma)
+  let line1 = mainBodyStack.addText("Post Karma: " + postKarma)
+      line1.font = Font.lightSystemFont(17)
+      line1.textColor = txtColor
+  
+  let line2 = mainBodyStack.addText("Comment Karma: " + commentKarma)
       line2.font = Font.lightSystemFont(17)
       line2.textColor = txtColor
   
-  let line3 = mainBodyStack.addText("Comment Karma: " + commentKarma)
+  let line3 = mainBodyStack.addText("Awarder Karma: " + awarderKarma)
       line3.font = Font.lightSystemFont(17)
       line3.textColor = txtColor
   
-  let line4 = mainBodyStack.addText("Awarder Karma: " + awarderKarma)
+  let line4 = mainBodyStack.addText("Awardee Karma: " + awardeeKarma)
       line4.font = Font.lightSystemFont(17)
       line4.textColor = txtColor
-  
-  let line5 = mainBodyStack.addText("Awardee Karma: " + awardeeKarma)
+      
+  let uCheck = await updateCheck(sV)
+  if (uCheck) {
+  let line5 = mainBodyStack.addText(`Update ${uCheck.version} Available!`)
       line5.font = Font.lightSystemFont(17)
-      line5.textColor = txtColor    
+      line5.textColor = Color.red()
+}  
   
       widget.addSpacer()
   
@@ -523,7 +544,7 @@ async function loadProfileImage() {
 
 await saveImages()
 try {saveData(data)}
-catch {}
+catch (e) {}
 
 if (config.runsInApp) {
     await presentMenu()
@@ -564,4 +585,40 @@ async function presentMenu(data) {
   }
 }
 
+//========== Function is written by the amazing mvan231 ============
+async function updateCheck(version) {
+  let uC;
+ try {
+  let updateCheck = new Request(`${scriptURL}on`)
+    uC = await updateCheck.loadJSON()
+ } catch (e) {return log(e)}
+  
+  log(uC)
+  
+  let needUpdate = false
+  if (uC.version != version) {
+      needUpdate = true
+      console.warn(`Server Version ${uC.version} Available!`)
+    if (!config.runsInWidget) {
+      let newAlert = new Alert()
+          newAlert.title = `Server Version ${uC.version} Available!`
+          newAlert.addAction("OK")
+          newAlert.addDestructiveAction("Later")
+          newAlert.message="Changes:\n" + uC.notes + "\n\nPress OK to get the update from GitHub"
+      if (await newAlert.present() == 0) {
+        let req = new Request(scriptURL)
+        let updatedCode = await req.loadString()
+        let fm = FileManager.iCloud()
+        let path = fm.joinPath(fm.documentsDirectory(), `${Script.name()}.js`)
+        log(path)
+        fm.writeString(path, updatedCode)
+        throw new Error("Update Complete!")
+      }
+    }
+  } else {log("up to date")}
 
+  return needUpdate, uC;
+}
+
+
+//============ END SCRIPT ============
