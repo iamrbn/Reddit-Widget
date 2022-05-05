@@ -9,6 +9,9 @@ Script which shows your <img align="center" title="Karma Symbol" src="Images/kar
 - Added Feature notification Badge also for Medium Widget
 - Added selfupdate function ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example) is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter") - Thx for your Support)
 
+**Next Update Includes:**
+- Saves `USERNAME`, `PASSWORD`, `CLIENT_ID` & `CLIENT_SECRET` as JSON to iCloud. After an script-update you'll find your Login datas there.
+
 ## ✨ FEATURES
 
 ### Overview
