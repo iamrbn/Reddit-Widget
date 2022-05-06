@@ -7,7 +7,7 @@ Script which shows your <img align="center" title="Karma Symbol" src="Images/kar
 **Update Notes 1.1** (May 05th 2022)
 - Updated Function for calculating karma numbers (`e.g. 1494 = 1.494K; 20567 = 20.57K; 1000000 = 1M etc.`)
 - Added Feature notification Badge also for Medium Widget
-- Added selfupdate function ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example) is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter") - Thx for your Support)
+- Added selfupdate function ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example "GitHub Repo") is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter") - Thx for your Support)
 
 **Next Update Includes:**
 - Saves `USERNAME`, `PASSWORD`, `CLIENT_ID` & `CLIENT_SECRET` as JSON to iCloud. After an script-update you'll find your Login datas there.
@@ -56,7 +56,7 @@ const PASSWORD = 'your-password'
 const CLIENT_ID = 'ABC1234567-XYZ7654321'
 const CLIENT_SECRET = 'qwertzuiopasdfghjklyxcvbnm'
 
-const showNotifyBadge = true //smallwidget
+const showNotifyBadge = true //smallwidget, mediumwidget
 const showCoinBalance = true //smallwidget, mediumwidget
 const showCakedayConfetti = true //smallwidget, mediumwidget
 const showUserTitle = true //mediumwidget, largewidget
