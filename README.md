@@ -94,9 +94,6 @@ You can choose one of the following three options in the sheet: Show small-, med
 or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 3. `+` Add new Script
 
-[Scriptable-File](https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit%20Widget.scriptable?raw=true)
-
-
 <img title="" src="https://github.com/iamrbn/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/addNewScript.png" width="250">
 
 4. Paste it into the new Script
@@ -144,18 +141,18 @@ ___
 
 <h2 style="font-size:1"
 <p align="center" style="font-size:10vw">
-   <a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back to Start </a>
+   <a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Jump Back To Start </a>
 </p>
 </h2>
-
-<a href="https://reddit.com/user/hrb7">
-  <img title="Follow Me On Reddit @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="140">
-</a>
-
-<a href="https://reddit.com/user/iamrbn">
-  <img title="Follow Me On Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="140">
-</a>
-
-<a href="https://twitter.com/iamrbn_">
-  <img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="145">
+ 
+<p align="center">
+  <a href="https://reddit.com/user/hrb7/">
+    <img title="My first reddit account @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="150"/>
   </a>
+  <a href="https://reddit.com/user/iamrbn/">
+    <img title="My second Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="150"/>
+  </a>
+  <a href="https://twitter.com/iamrbn_/">
+    <img title="Follow Me On Twitter @iamrbn_" src="https://github.com/iamrbn/slack-status/blob/ae62582b728c2e2ad8ea6a55cc7729cf71bfaeab/Images/Badges/twitter_black.png" width="155"/>
+  </a>
+</p>
