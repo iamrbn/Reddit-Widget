@@ -16,7 +16,7 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
    - added first / error widget for all sizes
    - Added unread messages badge for large widget, too!
    - Added the reddit web-favicon and ReSurfer (_amazing reddit client, check it out_) as icon option.
-   - Added the option to use the web-browser instead of reddit, apollo or ReSurfer app
+   - Added the option to use the web-browser instead of reddit, apollo or ReSurfer app (_If you also have the reddit app installed, iOS will first open the reddit app instead of the browser_)
    - Fixed bug where long karma numbers may displayed cutted off in the small-widget
    - Small design and functionality improvements
 
@@ -87,13 +87,14 @@ Today is your Cakeday!? The widget will tell you subtly.
 6. Config Script
 
 ```javascript
-const refresh = 120 //in minutes
+const refreshInt = 90 //in minutes
+const enableNotifications = true
 const showNotifyBadge = true //all widget sizes
 const showCoinBalance = true //small- & medium widget
 const showUserTitle = true //medium- & large widget
-const appIcon = 'ReSurfer' //small- & medium widget
+const clientIcon = 'https' //small- & medium widget
 const cornerRadiusProfileImg = 0 //Set this to +25 for a rounded Image
-const urlScheme = 'surfer'
+const urlScheme = 'https'
 /*
 APP URL-SCHEMES
 Apollo = apollo,
