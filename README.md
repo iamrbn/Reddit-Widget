@@ -114,7 +114,7 @@ ___
 By running the scirpt In App it will present a menu including _Username_, _Total Karma_, _Coin Balance_ & _Unread Inbox Count_ at the Top.
 You can choose one of the following three options in the sheet: Show small-, medium-, largewidget or open your profile in your standard Reddit-Client ([Create Personal Reddit App/Script - 6. Config Script](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#-create-personal-reddit-appscript))
 
-<img title="runInApp" src="Images/Screenshots/runInApp.PNG" width="250" align="center">
+<img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">
 
 
 ## Installing
@@ -143,7 +143,7 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
-<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="coins" src="Images/coins.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center">
+<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="coins" src="Images/coins.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="https" src="https://www.reddit.com/favicon.ico" width="50" align="center"> <img title="profileIcon example" src="https://styles.redditmedia.com/t5_5u9idf/styles/profileIcon_snoo7d9ec1b8-e699-4f89-98ed-92cea07007b5-headshot.png" width="50" align="center"> 
 
 ```
 iCloud Drive/
@@ -172,9 +172,6 @@ iCloud Drive/
 </h2>
  
 <p align="center">
-  <a href="https://reddit.com/user/hrb7/">
-    <img title="My second reddit account @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="150"/>
-  </a>
   <a href="https://reddit.com/user/iamrbn/">
     <img title="My first Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="150"/>
   </a>
