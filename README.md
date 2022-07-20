@@ -88,7 +88,7 @@ Today is your Cakeday!? The widget will tell you subtly.
 
 ```javascript
 const refreshInt = 90 //in minutes
-const enableNotifications = true
+const enableNotifications = true //PUSH NOTIFICATIONS ARE MAYBE IN THE NEXT UPDATE
 const showNotifyBadge = true //all widget sizes
 const showCoinBalance = true //small- & medium widget
 const showUserTitle = true //medium- & large widget
