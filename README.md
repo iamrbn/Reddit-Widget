@@ -116,6 +116,10 @@ You can choose one of the following three options in the sheet: Show small-, med
 
 <img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">
 
+### Delete Menu
+
+<img title="Delete Menu" src="Images/Screenshots/deleteMenu.png" width="250" align="center">
+<img title="Delete Reddit-Widget Folder" src="Images/Screenshots/deleteMenu2.png" width="250" align="center">
 
 ## Installing
 
