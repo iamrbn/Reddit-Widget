@@ -1,4 +1,4 @@
-# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable `{}`
+# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable
 
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up to date")
 
