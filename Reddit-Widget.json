@@ -1,1 +1,4 @@
-{"version": "1.1", "notes":"- Edited unction for calculating karma numbers\n- Added feature notification badge also for Medium Widget\n- Added selfupdate function"}
+{
+    "version": "1.2",
+    "notes":"• Script Saves and pulls reddit login datas on device (patch: ~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json)\n• Downloads once profile image & app icons to iCloud for less mobile data usage\n• Added 'Delete Menu ⌦' for Downloaded Files\n• Added first-run widget for all sizes\n• Added unread messages badge for large widget, too!\n• Added the reddit web-favicon and ReSurfer as icon option\n• Added the option to use the web-browser instead of reddit, apollo or ReSurfer (If you also have the reddit app installed, iOS will first open the reddit app instead of the browser)\n• Fixed bug where long karma numbers may displayed cutted off in the small-widget\n• Small design and functionality improvements"
+}
