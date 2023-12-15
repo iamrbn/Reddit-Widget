@@ -46,6 +46,7 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 **Next Update Includes**
    - Push-Notifications when today is your Cakeday and new reached Karma score (_25 point steps_)
+   - Lockscreen Widgets
 
 <br>
 
@@ -56,7 +57,7 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 ### Theme
 The Widget has a **Dynamic Gradient Background**
 
-<img title="Darkmode - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center">
+<img title="Darkmode - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> <img title="Reddit Style - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center">
 
 <br>
 
@@ -96,21 +97,11 @@ Today is your Cakeday!? The widget will tell you subtly.
 
 ```javascript
 const refreshInt = 90 //in minutes
-const enableNotifications = true //PUSH NOTIFICATIONS ARE MAYBE IN THE NEXT UPDATE
+const enableNotifications = true //beta
 const showNotifyBadge = true //all widget sizes
-const showCoinBalance = true //small- & medium widget
 const showUserTitle = true //medium- & large widget
-const clientIcon = 'https' //small- & medium widget
-const cornerRadiusProfileImg = 0 //Set this to +25 for a rounded Image
-const urlScheme = 'https'
-/*
-APP URL-SCHEMES
-Apollo = apollo,
-Reddit = reddit,
-ReSurfer = surfer,
-Narwahl = narwahl,
-Web-Browser = https
-*/
+const numberFormatting = 'de-DE' //For karma valuesen. e.g.: en-EN, en-IN etc.
+const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
 ```
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 
@@ -126,7 +117,7 @@ You can choose one of the following three options in the sheet: Show small-, med
 
 ### Delete Menu
 
-<img title="Delete Menu" src="Images/Screenshots/deleteMenu.png" width="250" align="center">
+<img title="Delete Menu" src="Images/Screenshots/ deleteMenu.png" width="250" align="center">
 <img title="Delete Reddit-Widget Folder" src="Images/Screenshots/deleteMenu2.png" width="250" align="center">
 
 ## Installing
@@ -155,26 +146,29 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
-<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="coins" src="Images/coins.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="https" src="https://www.reddit.com/favicon.ico" width="50" align="center"> <img title="profileIcon example" src="https://styles.redditmedia.com/t5_5u9idf/styles/profileIcon_snoo7d9ec1b8-e699-4f89-98ed-92cea07007b5-headshot.png" width="50" align="center"> 
+<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="profileIcon example" src="https://styles.redditmedia.com/t5_5u9idf/styles/profileIcon_snoo3f2aa100-145d-4cca-9921-fa284d554577-headshot.png" width="50" align="center"> <img title="classic" src="Images/classic.png" width="50" align="center"> <img title="orange" src="Images/orange.png" width="50" align="center"> 
+<img title="roundorange" src="Images/roundorange.png" width="50" align="center"> <img title="oldReddit" src="Images/oldReddit.png" width="50" align="center"> <img title="black" src="Images/black.png" width="50" align="center"> <img title="alienblue" src="Images/alienblue.png" width="50" align="center">
 
 ```
 iCloud Drive/
 ├─ Scriptable/
 │  ├─ Reddit-Widget/
 │  │  ├─ karma.png
-│  │  ├─ coins.png
 │  │  ├─ cakedayApollo.png
 │  │  ├─ cakedayConfetti.png
-│  │  ├─ Apollo.png
-│  │  ├─ Reddit.png
-│  │  ├─ ReSurfer.png
-│  │  ├─ https.png
 │  │  ├─ profileIcon.png
+│  │  ├─ classic.png
+│  │  ├─ orange.png
+│  │  ├─ roundorange.png
+│  │  ├─ oldReddit.png
+│  │  ├─ black.png
+│  │  ├─ alienblue.png
 ---- alternative symbols ----
-│  │  ├─ coins2.png
 │  │  ├─ cakedayReddit.png
+│  │  ├─ apollo.png
+│  │  ├─ reddit.png
 ```
-<img title="coins2" src="Images/coins2.png" width="50" align="center"> <img title="cakedayReddit" src="Images/cakedayReddit.png" width="66" align="center">
+<img title="cakedayReddit" src="Images/cakedayReddit.png" width="50" align="center"> <img title="apollo" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png" width="50" align="center"> <img title="reddit" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/cb/74/90cb74af-55b2-f44e-8e15-0555c7b8beee/AppIcon-0-0-1x_U007epad-0-0-85-220.png/512x512bb.png" width="50" align="center">
 
 
 <h2 style="font-size:1"
