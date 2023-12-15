@@ -1,101 +1,98 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: red; icon-glyph: robot;
-// Created by - iamrbn
+// icon-color: orange; icon-glyph: robot;
+// Variables used by Scriptable.
+// Created by - iamrbn 
 // Script URL: https://github.com/iamrbn/Reddit-Widget
 
+// ===========================================
+// ========== START CONFIG ZONE ==============
 
-// ==============================================
-// ============= CONFIG ZONE ====================
-// ==============================================
-
-const appIcons = {//shortcut to get app-icon-urls from app-store: https://routinehub.co/shortcut/11635/
-https:'https://www.reddit.com/favicon.ico',
-Reddit:'https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/e8/a6/65/e8a66539-19c0-2748-3f7d-2b0797ca602d/source/512x512bb.png',
-Apollo:'https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/d8/d8/f4/d8d8f4a8-41fb-4cef-2167-0d3589c25b5d/source/512x512bb.png',
-ReSurfer:'https://is4-ssl.mzstatic.com/image/thumb/Purple122/v4/3d/c8/ce/3dc8cef9-6d54-eda9-1893-1ca9dbcc720f/AppIcon-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.png'};
+//shortcut to get app-icon-urls from app-store: https://routinehub.co/shortcut/11635/
+const appStoreIcons = {
+reddit: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/cb/74/90cb74af-55b2-f44e-8e15-0555c7b8beee/AppIcon-0-0-1x_U007epad-0-0-85-220.png/512x512bb.png',
+apollo:'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png'
+}
 
 const refreshInt = 90 //in minutes
-const enableNotifications = true
+const enableNotifications = true //beta
 const showNotifyBadge = true //all widget sizes
-const showCoinBalance = true //small- & medium widget
 const showUserTitle = true //medium- & large widget
-const clientIcon = 'https' //small- & medium widget
-const cornerRadiusProfileImg = 0 //Set this to +25 for a rounded Image
-const urlScheme = 'https'
-/*+++++++++++++++++++++++
-APP URL-SCHEMES
-Apollo = apollo,
-Reddit = reddit,
-ReSurfer = surfer,
-Narwahl = narwahl,
-Web-Browser = https
-+++++++++++++++++++++++*/
+const numberFormatting = 'de-DE' //For karma valuesen. e.g.: en-EN, en-IN etc.
+const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
 
-//=============================================
-// ============= END CONFIG ZONE ==============
+// =========== END CONFIG ZONE ================
 //=============================================
 
-let scriptURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit-Widget.js';
-let scriptVersion = '1.2';
-let df = new DateFormatter();
-    df.dateFormat = 'MMMM dd, yyyy';   
-let widgetSize = config.widgetFamily;
-let fm = FileManager.iCloud();
-let nKey = Keychain;
-let nParameter = await args.notification;
-let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget');
-if (!fm.fileExists(dir)) fm.createDirectory(dir);
-let jsonPath = fm.joinPath(dir, 'LoginDatas.json');
-let txtBGColor = Color.dynamic(new Color('#D5D7DCA6'), new Color('#242424A6'));
-let txtColor = Color.dynamic(Color.black(), Color.white());
-let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'));
-let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'));
-let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'));
-let bgGradient = new LinearGradient();
-    bgGradient.locations = [0, 0.4, 1];
-    bgGradient.colors = [top, middle, bottom];
+let scriptURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit-Widget.js'
+let scriptVersion = '1.3'
+let df = new DateFormatter()
+    df.dateFormat = 'MMMM dd, yyyy'
+let widgetSize = config.widgetFamily
+let fm = FileManager.iCloud()
+let nKey = Keychain
+//log(nKey.get("nameProfileImage"))
+//nKey.remove("nameProfileImage")
+let nParameter = await args.notification
+let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
+if (!fm.fileExists(dir)) fm.createDirectory(dir)
+let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
+let txtBGColor = Color.dynamic(new Color('#D5D7DCA6'), new Color('#242424A6'))
+let txtColor = Color.dynamic(Color.black(), Color.white())
+//Standard dynamic colors for background gradient
+let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'))
+let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'))
+let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'))
+/*
+//Orange background gradient like the official reddit app icon
+let top = new Color('#FF8420')
+let middle = new Color('#FD3F12')
+let bottom = new Color('#EA2128')
+*/
+let bgGradient = new LinearGradient()
+    bgGradient.locations = [0, 0.7, 1]
+    bgGradient.colors = [top, middle, bottom]
     
 if (config.runsInApp && fm.fileExists(jsonPath)) {
-   await getFromAPI();
-   await saveAllImages();
-   await presentMenu();
+   await getFromAPI()
+   await saveAllImages()
+   await presentMenu()
 } else if (config.runsInApp && !fm.fileExists(jsonPath)) {
-   await askForLoginDatas();
-   await getFromAPI();
-   await saveAllImages();
-   await presentMenu();
+   await askForLoginDatas()
+   await getFromAPI()
+   await saveAllImages()
+   await presentMenu()
 };
 
 if (config.runsInWidget) {
   switch (widgetSize) {
-    case "small": //widget = await createSmallWidget();
-     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(12, 13, 12, 11);
+    case "small":
+     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(12, 13, 12, 11)
      else widget = await createSmallWidget()
     break;
     case "medium":
-     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(14, 17, 16, 16);
+     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(14, 17, 16, 16)
      else widget = await createMediumWidget()
     break;
     case "large":
-     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(25, 19, 22, 20);
+     if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(25, 19, 22, 20)
      else widget = await createLargeWidget()
     break;
     default: widget = await createErrorWidget();
   }
   Script.setWidget(widget)
-} else if (config.runsInNotification) QuickLook.present(await getImageFor(nParameter.userInfo.img));
+} else if (config.runsInNotification) QuickLook.present(await getImageFor(nParameter.userInfo.img))
 
 
 
 
-// ******** CREATE SMALL WIDGET *********
+// ******** SMALL WIDGET *********
 async function createSmallWidget() {
-  let data = await getFromAPI();
-  let widget = new ListWidget();
-      widget.setPadding(7, 6, 2, 6);
-      widget.url = urlScheme+profileURL
-      widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt);
+  let data = await getFromAPI()
+  let widget = new ListWidget()
+      widget.setPadding(7, 6, 2, 6)
+      widget.url = profileURL
+      widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
       
   if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4)) {
       cDtrue = ' 🍰'
@@ -134,9 +131,9 @@ async function createSmallWidget() {
       rightHeaderStackR.cornerRadius = 6  
 
 
-  let appIconElement = leftHeaderStackL.addImage(await getImageFor(clientIcon))
-      appIconElement.imageSize = new Size(30, 30);
-      appIconElement.cornerRadius = 6
+  let appIconElement = leftHeaderStackL.addImage(await getImageFor(widgetIcon))
+      appIconElement.imageSize = new Size(30, 30)
+      appIconElement.cornerRadius = 15
       appIconElement.centerAlignImage()
   
       widget.addSpacer(5)
@@ -156,12 +153,12 @@ async function createSmallWidget() {
       wSubtitle.lineLimit = 1  
   
  if (showNotifyBadge && inboxCount > 0) {
-  let badgeSymbolElement = rightHeaderStackR.addImage(SFSymbol.named(`${inboxCount}.circle`).image);
-      badgeSymbolElement.imageSize = new Size(15, 15);
-      badgeSymbolElement.tintColor = Color.red();
+  let badgeSymbolElement = rightHeaderStackR.addImage(SFSymbol.named(`${inboxCount}.circle`).image)
+      badgeSymbolElement.imageSize = new Size(15, 15)
+      badgeSymbolElement.tintColor = Color.red()
     };
 
-      widget.addSpacer(3);
+      widget.addSpacer(3)
   
   let mainStack = widget.addStack()
       mainStack.backgroundColor = txtBGColor
@@ -174,28 +171,26 @@ async function createSmallWidget() {
       lineOneStack.centerAlignContent()
       lineOneStack.spacing = 4
       
-      addString(lineOneStack, await getImageFor('karma'), 0, 14, totalKarma, 11, 1.0);
-  if (showCoinBalance) {
-      addText(lineOneStack, ' | ', 11, 0.4);
-      addString(lineOneStack, await getImageFor('coins'), 0, 12, coinBalance, 11, 1.0);
-}
-
+      addString(lineOneStack, await getImageFor('karma'), 0, 14, totalKarma, 11, 1.0)
+      addText(lineOneStack, ' | ', 11, 0.4)
+      addString(lineOneStack, await getImageFor('cakedayApollo'), 0, 14, accountAge, 11, 1.0)
+      
       mainStack.addSpacer(4)
       lineOneStack.addSpacer()
   
-  let line3 = mainStack.addText("Post Karma: " + postKarma)
+  let line3 = mainStack.addText("Post: " + postKarma)
       line3.font = Font.regularRoundedSystemFont(11)
       line3.textColor = txtColor
   
-  let line4 = mainStack.addText("Comment Karma: " + commentKarma)
+  let line4 = mainStack.addText("Comment: " + commentKarma)
       line4.font = Font.regularRoundedSystemFont(11)
       line4.textColor = txtColor
   
-  let line5 = mainStack.addText("Awarder Karma: " + awarderKarma)
+  let line5 = mainStack.addText("Awarder: " + awarderKarma)
       line5.font = Font.regularRoundedSystemFont(11)
       line5.textColor = txtColor
   
-  let line6 = mainStack.addText("Awardee Karma: " + awardeeKarma)
+  let line6 = mainStack.addText("Awardee: " + awardeeKarma)
       line6.font = Font.regularRoundedSystemFont(11)
       line6.textColor = txtColor
       
@@ -216,10 +211,10 @@ async function createSmallWidget() {
       footer.centerAlignText();
   
   return widget
-};
+}
 
 
-//********** CEEATE MEDIUM WIDGET *********
+//********** MEDIUM WIDGET *********
 async function createMediumWidget() {
   let data = await getFromAPI()
   let widget = new ListWidget()
@@ -240,7 +235,7 @@ async function createMediumWidget() {
       mainHeaderStackLeft.backgroundColor = txtBGColor
       mainHeaderStackLeft.setPadding(3, 5, 2, 7)
       mainHeaderStackLeft.cornerRadius = 10
-      mainHeaderStackLeft.url = urlScheme+profileURL
+      mainHeaderStackLeft.url = profileURL
       mainHeaderStackLeft.centerAlignContent()
   
   let leftHeaderStack = mainHeaderStackLeft.addStack()
@@ -251,7 +246,7 @@ async function createMediumWidget() {
       rightHeaderStack.setPadding(0, 5, 0, 0)
   
   
-  let appIconElement = leftHeaderStack.addImage(await getImageFor(clientIcon))
+  let appIconElement = leftHeaderStack.addImage(await getImageFor(widgetIcon))
       appIconElement.imageSize = new Size(31, 31);
       appIconElement.cornerRadius = 7
   
@@ -310,29 +305,30 @@ async function createMediumWidget() {
       line7.textColor = Color.red()
 }
 
-  let profileImage = rightImageStack.addImage(await getImageFor(nKey.get("nameProfileImage")))//"profileImage"))      
+  let profileImage = rightImageStack.addImage(await getImageFor(nKey.get("nameProfileImage")))     
       profileImage.imageSize = new Size(77, 77)
-      profileImage.cornerRadius = cornerRadiusProfileImg
       profileImage.rightAlignImage()
-      profileImage.url = urlScheme+profileURL
-  
-  if (showCoinBalance) {
-      coinsStack = rightImageStack.addStack()
-      coinsStack.setPadding(2, 15, 2, 0)
-      coinsStack.cornerRadius = 5
-      coinsImage = coinsStack.addImage(await getImageFor("coins"))
-      coinsImage.imageSize = new Size(11, 15)
-      coinsStack.addSpacer(5)
-      coinsNumber = coinsStack.addText(coinBalance)
-      coinsNumber.font = Font.regularRoundedSystemFont(12)  
-      coinsNumber.textColor = txtColor
-};
+      profileImage.url = profileURL
+      
+      rightImageStack.addSpacer(5)
+    
+      createdStack = rightImageStack.addStack()
+      createdStack.addSpacer(15)
+      createdStack.setPadding(-1.5, 0, -1.5, 0)
+      //createdStack.backgroundColor = Color.green()
+      cdImage = createdStack.addImage(await getImageFor('cakedayApollo'))
+      cdImage.imageSize = new Size(17, 17)
+      createdStack.addSpacer(2)
+      cdString = createdStack.addText(accountAge)
+      cdString.font = Font.regularRoundedSystemFont(12)  
+      cdString.textColor = txtColor
+      createdStack.addSpacer(5)
 
       leftTextStack.addSpacer()
 
       df.useShortTimeStyle()
       df.useShortDateStyle()
-  let footer = widget.addText("Last Widget Refresh " + df.string(new Date()))  
+  let footer = widget.addText("Last Refresh " + df.string(new Date()))  
       footer.font = Font.lightRoundedSystemFont(9)
       footer.textColor = txtColor
       footer.textOpacity = 0.4
@@ -342,9 +338,9 @@ async function createMediumWidget() {
 };
 
 
-//********** CEEATE LARGE WIDGET *********
+//********** LARGE WIDGET *********
 async function createLargeWidget() {
-  let widget = new ListWidget();
+  let widget = new ListWidget()
   let data = await getFromAPI()
       widget.setPadding(20, 15, 3, 5)
       widget.backgroundGradient = bgGradient
@@ -358,8 +354,7 @@ async function createLargeWidget() {
   
   let profileImage = imgStack.addImage(await getImageFor(nKey.get("nameProfileImage")));
       profileImage.imageSize = new Size(88, 88)
-      profileImage.cornerRadius = cornerRadiusProfileImg
-      profileImage.url = urlScheme+profileURL
+      profileImage.url = profileURL
 
       widget.addSpacer(10)
   
@@ -373,15 +368,13 @@ async function createLargeWidget() {
   
   if (showUserTitle && userTitle != '') {
     	 hdrTtl = userTitle
-      addText(line1, userName + " ", 13, 0.7)
-      addString(line1, await getImageFor('karma'), 0, 13, totalKarma + " karma ", 13, 0.7)
-      addString(line1, await getImageFor('coins'), 0, 12, coinBalance + " Coin Balance", 13, 0.7)
-      addText(line2, "redditor since " + accountAge + " • " + dateCreated, 13, 0.7)
+      addText(line1, userName + " ", 14, 0.7)
+      addString(line1, await getImageFor('karma'), 0, 14, totalKarma + " Total Karma", 14, 0.7)
+      addString(line2, await getImageFor('cakedayApollo'), 0, 14, dateCreated + " • " + "redditor since " + accountAge, 14, 0.7)
   } else if (!showUserTitle || userTitle == "") {
     	 hdrTtl = userName
-      addString(line1, await getImageFor('karma'), 0, 12, totalKarma + " karma", 13, 0.7)
-      addString(line1, await getImageFor('coins'), 0, 10, coinBalance + " Coin Balance", 13, 0.7)
-      addText(line2, "redditor since " + accountAge + " • " + dateCreated, 13, 0.7)
+      addString(line1, await getImageFor('karma'), 0, 14, totalKarma + " Total Karma", 14, 0.7)
+      addString(line2, await getImageFor('cakedayApollo'), 0, 14, dateCreated + " • " + "redditor since " + accountAge, 14, 0.7)
   };
   
     let headerTitle = headerStack.addText(hdrTtl)
@@ -391,14 +384,13 @@ async function createLargeWidget() {
   
   if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4)) {
       headerStack.addSpacer(7);
-      headerTitleCakeDay = headerStack.addImage(await getImageFor('cakedayApollo'));
-      imgStack.backgroundImage = await getImageFor("cakedayConfetti");
-      
+      headerTitleCakeDay = headerStack.addImage(await getImageFor('cakedayApollo'))
+      imgStack.backgroundImage = await getImageFor("cakedayConfetti")
 }
 
   if (showNotifyBadge && inboxCount > 0) {
       headerStack.addSpacer(3)
-      badgeSymbolElement = headerStack.addImage(SFSymbol.named(`${inboxCount}.circle`).image);
+      badgeSymbolElement = headerStack.addImage(SFSymbol.named(`${inboxCount}.circle`).image)
       badgeSymbolElement.imageSize = new Size(20, 20)
       badgeSymbolElement.tintColor = Color.red()
     }
@@ -412,7 +404,7 @@ async function createLargeWidget() {
       headerDescription.lineLimit = 1
       headerDescription.minimumScaleFactor = 0.9
    
-      widget.addSpacer()
+      widget.addSpacer(3)
   
   let mainBodyStack = widget.addStack()
       mainBodyStack.layoutVertically()
@@ -444,7 +436,7 @@ async function createLargeWidget() {
   
       df.useShortTimeStyle()
       df.useShortDateStyle()
-  let footer = widget.addText("Last Widget Refresh " + df.string(new Date()))  
+  let footer = widget.addText("Last Refresh " + df.string(new Date()))  
       footer.font = Font.lightRoundedSystemFont(11)
       footer.textColor = txtColor
       footer.textOpacity = 0.3
@@ -491,14 +483,13 @@ async function createErrorWidget(padding, radius, size1, size2) {
 
 //==========================================
 //========== START FUNCTION AREA ===========
-//==========================================
 
 // sends request to reddit-api
-async function getFromAPI() {
+async function getFromAPI(){
 let user;
 try {
-    await fm.downloadFileFromiCloud(jsonPath);
-    user = await JSON.parse(fm.readString(jsonPath));
+    await fm.downloadFileFromiCloud(jsonPath)
+    user = await JSON.parse(fm.readString(jsonPath))
 
 let data;
 try {
@@ -508,7 +499,7 @@ let reqToken = new Request('https://www.reddit.com/api/v1/access_token')
     reqToken.headers = {'Authorization': 'Basic ' + btoa(user.CLIENT_ID + ":" + user.CLIENT_SECRET)}
     reqToken.body = `grant_type=password&username=${user.USERNAME}&password=${user.PASSWORD}`
 
-    token = await reqToken.loadJSON();
+    token = await reqToken.loadJSON()
     //console.warn(JSON.stringify(resToken, null, 1))
 
 // Get user-profile json from api/v1/me
@@ -518,108 +509,125 @@ let reqDatas = new Request('https://oauth.reddit.com/api/v1/me')
     'Authorization': `${token.token_type} ${token.access_token}`
     };
 
-    data = await reqDatas.loadJSON();
-    //console.log(JSON.stringify(data, null, 1));
-    
-    var arr = [data.total_karma, data.link_karma, data.comment_karma, data.awarder_karma, data.awardee_karma, data.coins];
-        arr.forEach((item, index) => {
-        arr[index] = Intl.NumberFormat('en-US', {notation:'compact', maximumSignificantDigits: 5}).format(item)
-});
+    data = await reqDatas.loadJSON()
+    //console.log(JSON.stringify(data, null, 1))
 
  //Declare variables
- totalKarma = arr[0];
- postKarma = arr[1];
- commentKarma = arr[2];
- awarderKarma = arr[3];
- awardeeKarma = arr[4];
- coinBalance = arr[5];
- profileImg = data.icon_img.split('?');
+ totalKarma = Intl.NumberFormat('en-EN', {notation:'compact', maximumSignificantDigits: 2}).format(data.total_karma)
+ postKarma = Intl.NumberFormat(numberFormatting).format(data.link_karma)
+ commentKarma = Intl.NumberFormat(numberFormatting).format(data.comment_karma)
+ awarderKarma = Intl.NumberFormat(numberFormatting).format(data.awarder_karma)
+ awardeeKarma = Intl.NumberFormat(numberFormatting).format(data.awardee_karma)
+ profileImg = data.icon_img.split('?')
  snoovatarImg = data.snoovatar_img //full view of profile image
- bannerImg = data.subreddit.banner_img.split('?');
  userTitle = data.subreddit.title
  userName = data.subreddit.display_name_prefixed
  puplicDescription = data.subreddit.public_description
  inboxCount = data.inbox_count //post inbox
- profileURL = "://reddit.com"+data.subreddit.url.slice(0, -1);
+ profileURL = "https://reddit.com"+data.subreddit.url.slice(0, -1)
  dateCreated = df.string(new Date(data.created*1000))//date of creating account
- minutesDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data.created * 1000).getTime()) / 1000 / 60);
- accountAge = (minutesDiff < 525600) ? Math.abs(minutesDiff/60/24).toFixed(0)+" d" : Math.abs(minutesDiff/60/24/365).toFixed(1)+" y";
-  } catch {}
-    } catch (e) {logError(e)}
-};
+ minutesDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data.created * 1000).getTime()) / 1000 / 60)
+ accountAge = (minutesDiff < 525600) ? Math.abs(minutesDiff/60/24).toFixed(0)+" d" : Math.abs(minutesDiff/60/24/365).toFixed(1)+" y"
+//console.log({profileImg})
+if (!nKey.contains("current_total_karma")) nKey.set("current_total_karma", data.total_karma)
+if (!nKey.contains("cakeday")) nKey.set("cakeday", dateCreated.slice(0, -4))
+let karmaDiffNmbr = data.total_karma - nKey.get("current_total_karma")
+//if (karmaDiffNmbr >= 25) notifier(data, '25 more upvotes wuhuu!', data.total_karma+'k', 'karma');
+//if (df.string(new Date()).slice(0, -4) == dateCreated.slice(0, -4))) notifier(data, 'Huhu 👋', 'today is your cakeday', 'cakedayApollo');
+await notifier(data, 'Ahoi 👋', 'today is your cakeday', 'cakedayApollo')
+await notifier('25 more upvotes wuhuu!', totalKarma, 'karma')
 
-function addString(stack, image, radius, size, text, txtSize, txtOpacity) {
+}catch(error){console.log("543:\n"+error)}
+    }catch(error){console.log("544:\n"+error)}
+}
+
+function addString(stack, image, radius, size, text, txtSize, txtOpacity){
   let wImg = stack.addImage(image)
       wImg.cornerRadius = radius
-      wImg.imageSize = new Size(size, size);
-      
+      wImg.imageSize = new Size(size, size)
+  stack.addSpacer(0.5)   
   let wTxt = stack.addText(text)
       wTxt.font = Font.lightRoundedSystemFont(txtSize)
       wTxt.textColor = txtColor
       wTxt.textOpacity = txtOpacity
-};
+}
 
-function addText(stack, text, size, opacity) {
+function addText(stack, text, size, opacity){
   let wTxt = stack.addText(text)
       wTxt.font = Font.lightRoundedSystemFont(size)
       wTxt.textColor = txtColor
       wTxt.textOpacity = opacity
-};
+}
 
-// Save images from github and web
-async function saveAllImages() {
-  let imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/';
-  console.log("loading & saving images");
-  var imgs = ["karma.png", "coins.png", "cakedayConfetti.png", "cakedayApollo.png", "coins2.png", "cakedayReddit.png"];
-  for (img of imgs) {
-      imgPath = fm.joinPath(dir, img);
-      if (!fm.fileExists(imgPath)) {
-      logWarning("Loading image: " + img);
-      request = new Request(imgURL + img);
-      image = await request.loadImage();
-      fm.writeImage(imgPath, image);
+function notifier(dt, title, subtitle, imgName){
+  let n = new Notification()
+      n.title = title//'25 more upvotes wuhuu '
+      n.subtitle = subtitle//data.total_karma + 'k';
+      n.identifier = subtitle//totalKarma
+      n.userInfo = {img:imgName}
+      n.addAction('Open Profile ↗', urlScheme+profileURL)
+      n.scriptName = Script.name()
+      n.threadIdentifier = Script.name()
+      n.preferredContentHeight = 77
+      n.schedule()
+      
+  nKey.set("current_total_karma", dt.total_karma)
+  //nKey.set("cakeday", "0")
+}
+
+// Save images from github and appstore
+async function saveAllImages(){
+  let imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
+  let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "roundorange.png", "oldReddit.png"]
+  for (img of imgs){
+      imgPath = fm.joinPath(dir, img)
+      if (!fm.fileExists(imgPath)){
+      console.warn("Loading image: " + img)
+      request = new Request(imgURL + img)
+      image = await request.loadImage()
+      fm.writeImage(imgPath, image)
     }
-  };
+  }
 
-  for (appIcon in appIcons) {
+  for (appIcon in appStoreIcons) {
    iconName = appIcon + ".png"
-   imgPath = fm.joinPath(dir, iconName);
-   log("success, " + iconName + " already exists in iCloud")
+   imgPath = fm.joinPath(dir, iconName)
+   //console.log(iconName + " already exists in iCloud")
     if (!fm.fileExists(imgPath)) {
-      logWarning("loading image: " + iconName);
-      req = new Request(appIcons[appIcon]);
-      img = await req.loadImage();
-      fm.writeImage(imgPath, img);
+      console.warn("loading image: " + iconName)
+      req = new Request(appStoreIcons[appIcon])
+      img = await req.loadImage()
+      fm.writeImage(imgPath, img)
     }
-  };
+  }
 
   imgName = String(profileImg[0].match(/profile.*-/)).slice(0, -1);
   if (!nKey.contains("nameProfileImage")) nKey.set("nameProfileImage", imgName);
   if (nKey.get("nameProfileImage") != imgName) await profileImageChecker();
   
 async function profileImageChecker() {
-  let imgPath = fm.joinPath(dir, nKey.get("nameProfileImage")+'.png');
+  let imgPath = fm.joinPath(dir, nKey.get("nameProfileImage")+'.png')
   
-  let alert = new Alert();
-      alert.title = "Looks Like you’ve changed your Snoovatar";
+  let alert = new Alert()
+      alert.title = "Looks Like you’ve changed your Snoovatar"
       alert.message = "Do you want to change it in the widget, too?\nNo, means you have to delete it manually via 'Delete Menu ⌦'";
-      alert.addAction("Yes");
-      alert.addCancelAction("Nope, I'll do it later on my own");
+      alert.addAction("Yes")
+      alert.addCancelAction("Nope, I'll do it later on my own")
       let idx = await alert.present();
       if (idx == 0) {
-         fm.remove(imgPath);
-         await deleteMessage(fm.fileName(imgPath, true));
-    } else if (idx == -1) await presentMenu();
-    nKey.set("nameProfileImage", imgName);
+         fm.remove(imgPath)
+         await deleteMessage(fm.fileName(imgPath, true))
+    } else if (idx == -1) await presentMenu()
+    nKey.set("nameProfileImage", imgName)
   };
   
-  imgPath = fm.joinPath(dir, imgName + '.png');
+  imgPath = fm.joinPath(dir, imgName + '.png')
   imgFileName = fm.fileName(imgPath, true);
   if (!fm.fileExists(imgPath)) {
-    logWarning("loading & saving profile Image");
-    req = new Request(profileImg[0]);
-    image = await req.loadImage();
-    fm.writeImage(imgPath, image);
+    logWarning("loading & saving profile Image")
+    req = new Request(profileImg[0])
+    image = await req.loadImage()
+    fm.writeImage(imgPath, image)
     }
 };
 
@@ -637,36 +645,36 @@ async function deleteUserDatas() {
  let alert = new Alert()
      alert.title = "Are You Sure to Delete Your Datas?"
      alert.message = "Removed files can NOT be restored"
-     alert.addAction("Profile Image");
-     alert.addAction("Login Datas");
-     alert.addAction("Both Of Them");
-     alert.addDestructiveAction("Complete 'Reddit-Widget' Folder");
-     alert.addCancelAction("Cancel");
-     let idx = await alert.present();
+     alert.addAction("Profile Image")
+     alert.addAction("Login Datas")
+     alert.addAction("Both Of Them")
+     alert.addDestructiveAction("Complete 'Reddit-Widget' Folder")
+     alert.addCancelAction("Cancel")
+     let idx = await alert.present()
      if (idx == 0) {fm.remove(dir+'/'+nKey.get("nameProfileImage")+'.png'); await deleteMessage(fm.fileName(dir+'/'+nKey.get("nameProfileImage")+'.png', true))}
-     else if (idx == 1) {fm.remove(jsonPath); await deleteMessage(fm.fileName(jsonPath, true)); throw new Error('User Deleted Login Datas');}
+     else if (idx == 1) {fm.remove(jsonPath); await deleteMessage(fm.fileName(jsonPath, true)); throw new Error('User Deleted Login Datas')}
      else if (idx == 2) {fm.remove(jsonPath); fm.remove(dir+'/'+nKey.get("nameProfileImage")+'.png'); await deleteMessage(fm.fileName(jsonPath, true)+'\n'+fm.fileName(dir+'/'+nKey.get("nameProfileImage")+'.png', true)); throw new Error('User Deleted Profile Image & LoginDatas')}
-     else if (idx == 3) await scndAlert();
-     else if (idx == -1) await presentMenu();
+     else if (idx == 3) await scndAlert()
+     else if (idx == -1) await presentMenu()
   };
 async function scndAlert() {
     filesList = fm.listContents(dir).toString().replaceAll(",", "\n").replaceAll(".icloud", "").replaceAll(/^[.]/gm, '');
-    logWarning(filesList);
-    scndAlrt = new Alert();
+    logWarning(filesList)
+    scndAlrt = new Alert()
     scndAlrt.title = "Are You Really Sure?"
     scndAlrt.message = "Removed files can NOT be restored\n\n" + filesList
     scndAlrt.addDestructiveAction("Yes, Delete Everything!");
-    scndAlrt.addCancelAction("Nope, I'm Out");
-    let idx = await scndAlrt.present();
-    if (idx == 0) {fm.remove(dir); await deleteMessage('Folder: ' + fm.fileName(dir, true))}
-    else if (idx == -1) await presentMenu();
+    scndAlrt.addCancelAction("Nope, I'm Out")
+    let idx = await scndAlrt.present()
+    if (idx == 0) {fm.remove(dir+'/'+nKey.get("nameProfileImage")+'.png'); await deleteMessage(fm.fileName(dir+'/'+nKey.get("nameProfileImage")+'.png', true))}
+    else if (idx == -1) await presentMenu()
    };
   async function deleteMessage(message) {
-    fnlAlert = new Alert();
+    fnlAlert = new Alert()
     fnlAlert.title = "Deleted Sucessfully"
     fnlAlert.message = message
-    fnlAlert.addAction("OK");
-    await fnlAlert.presentAlert();
+    fnlAlert.addAction("OK")
+    await fnlAlert.presentAlert()
 };
 
 //Asks for user login datas to save in iCloud ~ iCloud/Scriptable/Reddit-Widget
@@ -674,32 +682,32 @@ async function askForLoginDatas() {
   let alert = new Alert()
       alert.title = "No Datas Found!\nEnter Login Datas"
       alert.message = "~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json"
-      alert.addTextField('Username (without "u/")')
-      alert.addTextField("Password")
-      alert.addTextField("Client ID")
-      alert.addTextField("Client Secret");
+      alert.addTextField('Username (without "u/")', "iamrbn")
+      alert.addTextField("Password", "cojdyt-jypsyr-kaQvu3")
+      alert.addTextField("Client ID", "DqaUZmCuC-ZISbtlNWD1tw")
+      alert.addTextField("Client Secret", "HjTZVbj8e8wDNX8BO1KJhY0NZjbVMg")
       alert.addAction("Done")
       alert.addDestructiveAction("Cancel")
       alert.addAction("Documentation ↗")
-  let idx = await alert.present();
+  let idx = await alert.present()
   if (idx == 0) {
      userDatas = {
        USERNAME: alert.textFieldValue(0),
        PASSWORD: alert.textFieldValue(1),
        CLIENT_ID: alert.textFieldValue(2),
-       CLIENT_SECRET: alert.textFieldValue(3)};
-     checkObj = Object.values(userDatas).every(value => value !== "" && value.length > 3);
-     if (checkObj) fm.writeString(jsonPath, JSON.stringify(userDatas, null, 1));
-     else await askForLoginDatas();
-} else if (idx == 1) throw new Error('User Clicked "Cancel"');
+       CLIENT_SECRET: alert.textFieldValue(3)}
+     checkObj = Object.values(userDatas).every(value => value !== "" && value.length > 3)
+     if (checkObj) fm.writeString(jsonPath, JSON.stringify(userDatas, null, 1))
+     else await askForLoginDatas()
+} else if (idx == 1) throw new Error('User Clicked "Cancel"')
   else if (idx == 2) Safari.openInApp('https://github.com/iamrbn/Reddit-Widget/#create-personal-reddit-appscript', false);
-};
+}
 
 // creating menu for start script
 async function presentMenu() {
-  let alert = new Alert();
+  let alert = new Alert()
       alert.title = userName
-      alert.message = `Total Karma: ${totalKarma}\nCoin Balance: ${coinBalance}\nUnread Inbox: ${inboxCount}`
+      alert.message = `Total Karma: ${totalKarma}\nUnread Inbox: ${inboxCount}`
       alert.addAction("Small")
       alert.addAction("Medium")
       alert.addAction("Large")
@@ -716,9 +724,9 @@ async function presentMenu() {
   } else if (idx == 2) {
     widget = await createLargeWidget()
     await widget.presentLarge()
-  } else if (idx == 3) Safari.open(urlScheme+profileURL);
-    else if (idx == 4) await deleteUserDatas();
-};
+  } else if (idx == 3) Safari.open(profileURL)
+    else if (idx == 4) await deleteUserDatas()
+}
 
 //checks if's there an server update available
 async function updateCheck(version) {
@@ -726,14 +734,13 @@ async function updateCheck(version) {
  try {
   let updateCheck = new Request(`${scriptURL}on`)
       uC = await updateCheck.loadJSON()
- } catch (e) {return logWarning(e)}
+ } catch(e){return console.warn(e)}
   
-  log(uC)
-  
-  let needUpdate = false
-  if (uC.version != version) {
+  var needUpdate = false
+  if (uC.version > version){
       needUpdate = true
       console.warn(`Server Version ${uC.version} Available!`)
+      console.log(uC)
     if (!config.runsInWidget) {
       let newAlert = new Alert();
           newAlert.title = `Server Version ${uC.version} Available!`
@@ -745,18 +752,16 @@ async function updateCheck(version) {
         let updatedCode = await req.loadString()
         //let fm = FileManager.iCloud()
         let path = fm.joinPath(fm.documentsDirectory(), `${Script.name()}.js`)
-        log(path)
+        console.log(path)
         fm.writeString(path, updatedCode)
         throw new Error("Update Complete!")
       }
     }
-  } else {log("script is already up to date")}
+  } else {console.log("SCRIPT IS UP TO DATE")}
 
   return needUpdate, uC;
-};
+}
 
-//=======================================\\
 //============ END OF SCRIPT ============\\
 //=======================================\\
-
 
