@@ -1,4 +1,4 @@
 {
-    "version": "1.2",
-    "notes":"• Script Saves and pulls reddit login datas on device (path: ~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json)\n• Downloads once profile image & app icons to iCloud for less mobile data usage\n• Added 'Delete Menu ⌦' for Downloaded Files\n• Added first-run widget for all sizes\n• Added unread messages badge for large widget, too!\n• Added the reddit web-favicon and ReSurfer as icon option\n• Added the option to use the web-browser instead of reddit, apollo or ReSurfer (If you also have the reddit app installed, iOS will first open the reddit app instead of the browser)\n• Fixed bug where long karma numbers may displayed cutted off in the small-widget\n• Small design and functionality improvements"
+    "version": "1.3",
+    "notes":"• Removed the most 3rd party app icons due to recent api changes from reddit\n• Added alternative reddit icons, like alienblue, classic & black\n• Coin balance is replaced with your cakeday/account age\n• The formatting of the karma values has been adjusted slightly\n• Added the option to set the widget background gradient into reddit-orange\n• Small Code improvements"
 }
