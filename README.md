@@ -3,11 +3,19 @@
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up to date")
 
 
-Widget which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Coin Symbol" src="Images/coins.png" width="15"> Coin-Balance, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday, Profile Image etc.
+Widget which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday, Profile Image etc.
 
 <img title="Header Banner" src="Images/Screenshots/haederBanner2.png" width="1000" align="center">
 <br>
 <br>
+
+**1.3 Update Notes** (December 15th 2023)
+   - Removed the most 3rd party app icons due to recent api changes from reddit
+   - Added alternative reddit icons, like alienblue, classic & black
+   - Coin balance is replaced with your cakeday/account age
+   - The formatting of the karma values has been adjusted slightly
+   - Added the option to set the widget background gradient into reddit-orange (You have to move the comment brackets (```/*...*/```) to the default value)
+   - Small Code improvements
 
 **1.2 Update Notes** (July 20th 2022)
    - Script Saves and pulls reddit login datas on device (~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json)
