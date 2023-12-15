@@ -57,7 +57,44 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 ### Theme
 The Widget has a **Dynamic Gradient Background**
 
-<img title="Darkmode - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> <img title="Reddit Style - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center">
+<img title="Darkmode - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> 
+
+Change the background gradient to always Reddit Styled
+
+<img title="Reddit Style - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center">
+You only have to change the position of the comment brackets
+
+from:
+```Javascript
+//Standard dynamic colors for background gradient
+let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'))
+let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'))
+let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'))
+
+/*
+//Orange background gradient like the official reddit app icon
+let top = new Color('#FF8420')
+let middle = new Color('#FD3F12')
+let bottom = new Color('#EA2128')
+*/
+...
+```
+
+to:
+```Javascript
+/*
+//Standard dynamic colors for background gradient
+let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'))
+let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'))
+let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'))
+*/
+
+//Orange background gradient like the official reddit app icon
+let top = new Color('#FF8420')
+let middle = new Color('#FD3F12')
+let bottom = new Color('#EA2128')
+...
+```
 
 <br>
 
