@@ -25,7 +25,7 @@ const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue
 //=============================================
 
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit-Widget.js'
-let scriptVersion = '1.3'
+let scriptVersion = '1.3.1'
 let df = new DateFormatter()
     df.dateFormat = 'MMMM dd, yyyy'
 let widgetSize = config.widgetFamily
@@ -64,8 +64,11 @@ if (config.runsInApp && fm.fileExists(jsonPath)) {
    await presentMenu()
 };
 
-if (config.runsInWidget) {
+if (config.runsInWidget || config.runsInAccessoryWidget) {
   switch (widgetSize) {
+    //case 'accessoryInline': w = await createInline(); w.presentAccessoryInline(); break;
+    //case 'accessoryCircular': w = await createCircular(); w.presentAccessoryCircular(); break;
+    //case 'accessoryRectangular': w = await createRectangular(); w.presentAccessoryRectangular(); break;
     case "small":
      if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(12, 13, 12, 11)
      else widget = await createSmallWidget()
@@ -83,8 +86,43 @@ if (config.runsInWidget) {
   Script.setWidget(widget)
 } else if (config.runsInNotification) QuickLook.present(await getImageFor(nParameter.userInfo.img))
 
+/*
+// ******* INLINE LS WIDGET ********
+async function createInline(){
+ let data = await getFromAPI()
+ let widget = new ListWidget()
+ widget.url = profileURL
+ widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
 
+ let uCheck = await updateCheck(scriptVersion)
 
+return widget
+}
+
+// ******* CIRCULAR LS WIDGET ********
+async function createCircular(){
+ let data = await getFromAPI()
+ let widget = new ListWidget()
+ widget.url = profileURL
+ widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
+
+ let uCheck = await updateCheck(scriptVersion)
+
+return widget
+}
+
+// ****** RECTANGULAR LS WIDGET *******
+async function createRectangular(){
+ let data = await getFromAPI()
+ let widget = new ListWidget()
+ widget.url = profileURL
+ widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
+
+ let uCheck = await updateCheck(scriptVersion)
+
+return widget
+}
+*/
 
 // ******** SMALL WIDGET *********
 async function createSmallWidget() {
@@ -682,10 +720,10 @@ async function askForLoginDatas() {
   let alert = new Alert()
       alert.title = "No Datas Found!\nEnter Login Datas"
       alert.message = "~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json"
-      alert.addTextField('Username (without "u/")', "iamrbn")
-      alert.addTextField("Password", "cojdyt-jypsyr-kaQvu3")
-      alert.addTextField("Client ID", "DqaUZmCuC-ZISbtlNWD1tw")
-      alert.addTextField("Client Secret", "HjTZVbj8e8wDNX8BO1KJhY0NZjbVMg")
+      alert.addTextField('Username (without "u/")')
+      alert.addTextField("Password")
+      alert.addTextField("Client ID")
+      alert.addTextField("Client Secret")
       alert.addAction("Done")
       alert.addDestructiveAction("Cancel")
       alert.addAction("Documentation ↗")
@@ -711,7 +749,6 @@ async function presentMenu() {
       alert.addAction("Small")
       alert.addAction("Medium")
       alert.addAction("Large")
-      alert.addAction("Open Profile ↗")
       alert.addDestructiveAction("Delete Menu ⌦")
       alert.addCancelAction("Cancel")
   let idx = await alert.presentSheet()
@@ -724,8 +761,7 @@ async function presentMenu() {
   } else if (idx == 2) {
     widget = await createLargeWidget()
     await widget.presentLarge()
-  } else if (idx == 3) Safari.open(profileURL)
-    else if (idx == 4) await deleteUserDatas()
+  } else if (idx == 4) await deleteUserDatas()
 }
 
 //checks if's there an server update available
