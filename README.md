@@ -9,6 +9,15 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 <br>
 <br>
 
+<!--**1.4 Update Notes** (December XXth 2023)
+   - Added Circular Lockscreen Widget. It shows your total karma
+   - Improved layout of the Large-Widget
+   {
+    "version": "1.4",
+    "notes":"• Added Circular Lockscreen Widget. It shows your total karma\n• Improved layout of the Large-Widget"
+   }
+-->
+
 **1.3 Update Notes** (December 15th 2023)
    - Removed the most 3rd party app icons due to recent api changes from reddit
    - Added alternative reddit icons, like alienblue, classic & black
