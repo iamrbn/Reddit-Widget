@@ -184,7 +184,7 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
 
 <img title="karma" src="Images/karma.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="profileIcon example" src="https://styles.redditmedia.com/t5_5u9idf/styles/profileIcon_snoo3f2aa100-145d-4cca-9921-fa284d554577-headshot.png" width="50" align="center"> <img title="classic" src="Images/classic.png" width="50" align="center"> <img title="orange" src="Images/orange.png" width="50" align="center"> 
-<img title="roundorange" src="Images/roundorange.png" width="50" align="center"> <img title="oldReddit" src="Images/oldReddit.png" width="50" align="center"> <img title="black" src="Images/black.png" width="50" align="center"> <img title="alienblue" src="Images/alienblue.png" width="50" align="center">
+<img title="roundorange" src="Images/roundorange.png" width="50" align="center"> <img title="oldReddit" src="Images/oldReddit.png" width="50" align="center"> <img title="black" src="Images/black.png" width="50" align="center"> <img title="alienblue" src="Images/alienblue.png" width="50" align="center"> <img title="ArrowsLS" src="Images/arrowsLS.png" width="50" align="center">
 
 ```
 iCloud Drive/
@@ -200,6 +200,7 @@ iCloud Drive/
 │  │  ├─ oldReddit.png
 │  │  ├─ black.png
 │  │  ├─ alienblue.png
+│  │  ├─ arrowsLS.png
 ---- alternative symbols ----
 │  │  ├─ cakedayReddit.png
 │  │  ├─ apollo.png
