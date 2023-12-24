@@ -66,9 +66,8 @@ if (config.runsInApp && fm.fileExists(jsonPath)) {
 
 if (config.runsInWidget || config.runsInAccessoryWidget) {
   switch (widgetSize) {
-    //case 'accessoryInline': w = await createInline(); w.presentAccessoryInline(); break;
-    //case 'accessoryCircular': w = await createCircular(); w.presentAccessoryCircular(); break;
-    //case 'accessoryRectangular': w = await createRectangular(); w.presentAccessoryRectangular(); break;
+    case 'accessoryCircular': widget = await createCircular(); break;
+    //case 'accessoryRectangular':widgetw = await createRectangular(); break;
     case "small":
      if (!fm.fileExists(jsonPath) || !nKey.contains("nameProfileImage")) widget = await createErrorWidget(12, 13, 12, 11)
      else widget = await createSmallWidget()
@@ -86,31 +85,32 @@ if (config.runsInWidget || config.runsInAccessoryWidget) {
   Script.setWidget(widget)
 } else if (config.runsInNotification) QuickLook.present(await getImageFor(nParameter.userInfo.img))
 
-/*
-// ******* INLINE LS WIDGET ********
-async function createInline(){
- let data = await getFromAPI()
- let widget = new ListWidget()
- widget.url = profileURL
- widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
-
- let uCheck = await updateCheck(scriptVersion)
-
-return widget
-}
-
 // ******* CIRCULAR LS WIDGET ********
 async function createCircular(){
  let data = await getFromAPI()
  let widget = new ListWidget()
  widget.url = profileURL
- widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
+ widget.refreshAfterDate = new Date(Date.now() + 1000*60* 1)
+ widget.addAccessoryWidgetBackground = true
+ 
+ let img = widget.addImage(await getImageFor("arrowsLS"))
+     img.imageSize = new Size(40, 20)
+     img.centerAlignImage()
+   
+ widget.addSpacer(5)
+
+ let total_Karma = widget.addText(totalKarma)
+     total_Karma.textColor = Color.white()
+     total_Karma.font = Font.boldRoundedSystemFont(13)
+     total_Karma.centerAlignText()
 
  let uCheck = await updateCheck(scriptVersion)
+ if (uCheck.version > scriptVersion){}
 
 return widget
 }
 
+/*
 // ****** RECTANGULAR LS WIDGET *******
 async function createRectangular(){
  let data = await getFromAPI()
@@ -380,39 +380,60 @@ async function createMediumWidget() {
 async function createLargeWidget() {
   let widget = new ListWidget()
   let data = await getFromAPI()
-      widget.setPadding(20, 15, 3, 5)
+      widget.setPadding(10, 15, 3, 5)
       widget.backgroundGradient = bgGradient
       widget.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
   
-      widget.addSpacer()
-      
-  let imgStack = widget.addStack()
-      imgStack.cornerRadius = 10;
-      imgStack.imageSize = new Size(25, 25);      
+      //widget.addSpacer()
+  let bodyStack = widget.addStack()
+      bodyStack.layoutVertically()
+      //bodyStack.backgroundColor = Color.cyan()
+    
+  let iconStack = bodyStack.addStack()
+      iconStack.addSpacer()
+  let iconImage = iconStack.addImage(await getImageFor(widgetIcon))
+      iconImage.cornerRadius = 7
+      iconImage.imageSize = new Size(22, 22)
+      iconImage.url = profileURL
+      iconStack.addSpacer(5)
+      bodyStack.addSpacer(20)
+    
+  let imgStack = bodyStack.addStack()
+      //imgStack.cornerRadius = 10
+      //imgStack.imageSize = new Size(30, 30)
+      //imgStack.backgroundColor = Color.white()
   
   let profileImage = imgStack.addImage(await getImageFor(nKey.get("nameProfileImage")));
-      profileImage.imageSize = new Size(88, 88)
+      profileImage.imageSize = new Size(80, 80)
       profileImage.url = profileURL
-
-      widget.addSpacer(10)
+      imgStack.addSpacer()
+      //widget.addSpacer(1)
   
-  let headerStack = widget.addStack()
-  let line1 = widget.addStack()
+  let headerStack = bodyStack.addStack()
+      //headerStack.backgroundColor = Color.purple()
+      headerStack.setPadding(0, 0, 4, 0)
+  let line1 = bodyStack.addStack()
       line1.centerAlignContent()
       line1.spacing = 3
-  let line2 = widget.addStack()
+      //line1.backgroundColor = Color.magenta()
+  let line2 = bodyStack.addStack()
       line2.centerAlignContent()
       line2.spacing = 3
-  
+      //line2.backgroundColor = Color.blue()
+  let line3 = bodyStack.addStack()
+      line3.centerAlignContent()
+      line3.spacing = 3
+      //line3.backgroundColor = Color.yellow()
+    
   if (showUserTitle && userTitle != '') {
     	 hdrTtl = userTitle
-      addText(line1, userName + " ", 14, 0.7)
-      addString(line1, await getImageFor('karma'), 0, 14, totalKarma + " Total Karma", 14, 0.7)
-      addString(line2, await getImageFor('cakedayApollo'), 0, 14, dateCreated + " • " + "redditor since " + accountAge, 14, 0.7)
+      addText(line1, userName + " ", 16, 0.7)
+      addString(line1, await getImageFor('karma'), 0, 15, totalKarma + " Total Karma", 15, 0.9)
+      addString(line2, await getImageFor('cakedayApollo'), 0, 15, dateCreated + " • " + "redditor since " + accountAge, 15, 0.9)
   } else if (!showUserTitle || userTitle == "") {
     	 hdrTtl = userName
-      addString(line1, await getImageFor('karma'), 0, 14, totalKarma + " Total Karma", 14, 0.7)
-      addString(line2, await getImageFor('cakedayApollo'), 0, 14, dateCreated + " • " + "redditor since " + accountAge, 14, 0.7)
+      addString(line1, await getImageFor('karma'), 0, 15, totalKarma + " Total Karma", 15, 0.9)
+      addString(line2, await getImageFor('cakedayApollo'), 0, 15, dateCreated + " • " + "redditor since " + accountAge, 15, 0.9)
   };
   
     let headerTitle = headerStack.addText(hdrTtl)
@@ -425,7 +446,7 @@ async function createLargeWidget() {
       headerTitleCakeDay = headerStack.addImage(await getImageFor('cakedayApollo'))
       imgStack.backgroundImage = await getImageFor("cakedayConfetti")
 }
-
+  var inboxCount = 3
   if (showNotifyBadge && inboxCount > 0) {
       headerStack.addSpacer(3)
       badgeSymbolElement = headerStack.addImage(SFSymbol.named(`${inboxCount}.circle`).image)
@@ -433,55 +454,57 @@ async function createLargeWidget() {
       badgeSymbolElement.tintColor = Color.red()
     }
 
-      widget.addSpacer(3)
+      bodyStack.addSpacer(7)
       
-  let headerDescription = widget.addText(puplicDescription)
-      headerDescription.font = Font.lightRoundedSystemFont(13)  
+  let headerDescription = line3.addText(puplicDescription)
+      headerDescription.font = Font.lightRoundedSystemFont(16)  
       headerDescription.textColor = txtColor
-      headerDescription.textOpacity = 0.7
+      headerDescription.textOpacity = 0.8
       headerDescription.lineLimit = 1
-      headerDescription.minimumScaleFactor = 0.9
+      headerDescription.minimumScaleFactor = 0.5
    
-      widget.addSpacer(3)
+      bodyStack.addSpacer(10)
   
-  let mainBodyStack = widget.addStack()
+  let mainBodyStack = bodyStack.addStack()
       mainBodyStack.layoutVertically()
+      //mainBodyStack.backgroundColor = Color.green()
   
-  let line3 = mainBodyStack.addText("Post Karma: " + postKarma)
-      line3.font = Font.lightRoundedSystemFont(17)
-      line3.textColor = txtColor
-  
-  let line4 = mainBodyStack.addText("Comment Karma: " + commentKarma)
+  let line4 = mainBodyStack.addText("Post Karma: " + postKarma)
       line4.font = Font.lightRoundedSystemFont(17)
       line4.textColor = txtColor
   
-  let line5 = mainBodyStack.addText("Awarder Karma: " + awarderKarma)
+  let line5 = mainBodyStack.addText("Comment Karma: " + commentKarma)
       line5.font = Font.lightRoundedSystemFont(17)
       line5.textColor = txtColor
   
-  let line6 = mainBodyStack.addText("Awardee Karma: " + awardeeKarma)
+  let line6 = mainBodyStack.addText("Awarder Karma: " + awarderKarma)
       line6.font = Font.lightRoundedSystemFont(17)
       line6.textColor = txtColor
+  
+  let line7 = mainBodyStack.addText("Awardee Karma: " + awardeeKarma)
+      line7.font = Font.lightRoundedSystemFont(17)
+      line7.textColor = txtColor
       
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      line7 = mainBodyStack.addText(`Update ${uCheck.version} Available!`)
-      line7.font = Font.lightSystemFont(17)
-      line7.textColor = Color.red()
-};
-  
-      widget.addSpacer();
+      line8 = mainBodyStack.addText(`Update ${uCheck.version} Available!`)
+      line8.font = Font.lightSystemFont(17)
+      line8.textColor = Color.red()
+}
+      bodyStack.addSpacer()
+      //widget.addSpacer(10)
   
       df.useShortTimeStyle()
       df.useShortDateStyle()
   let footer = widget.addText("Last Refresh " + df.string(new Date()))  
       footer.font = Font.lightRoundedSystemFont(11)
       footer.textColor = txtColor
-      footer.textOpacity = 0.3
+      footer.textOpacity = 0.5
       footer.centerAlignText();
   
   return widget
 };
+
 
 // creating error widget (first run or no datas saved)
 async function createErrorWidget(padding, radius, size1, size2) {
