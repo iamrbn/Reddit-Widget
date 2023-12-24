@@ -19,7 +19,7 @@ const enableNotifications = true //beta
 const showNotifyBadge = true //all widget sizes
 const showUserTitle = true //medium- & large widget
 const numberFormatting = 'de-DE' //For karma valuesen. e.g.: en-EN, en-IN etc.
-const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
+const widgetIcon = 'oldReddit' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
 
 // =========== END CONFIG ZONE ================
 //=============================================
