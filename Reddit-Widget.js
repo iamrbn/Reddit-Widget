@@ -25,7 +25,7 @@ const widgetIcon = 'oldReddit' //small- & medium widget; available icons: alienb
 //=============================================
 
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Reddit-Widget.js'
-let scriptVersion = '1.3.1'
+let scriptVersion = '1.4'
 let df = new DateFormatter()
     df.dateFormat = 'MMMM dd, yyyy'
 let widgetSize = config.widgetFamily
