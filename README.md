@@ -9,7 +9,10 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 <br>
 <br>
 
-<!--**1.4 Update Notes** (December XXth 2023)
+<!--  
+<img title="Circular Lockscreen Widget" src="Images/Screenshots/circularLockscreen.png" width="350" align="right">
+
+**1.4 Update Notes** (December XXth 2023)
    - Added Circular Lockscreen Widget. It shows your total karma
    - Improved layout of the Large-Widget
    {
@@ -18,13 +21,19 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
    }
 -->
 
+<br>
+
 **1.3 Update Notes** (December 15th 2023)
    - Removed the most 3rd party app icons due to recent api changes from reddit
    - Added alternative reddit icons, like alienblue, classic & black
    - Coin balance is replaced with your cakeday/account age
    - The formatting of the karma values has been adjusted slightly
-   - Added the option to set the widget background gradient into reddit-orange (You have to move the comment brackets (```/*...*/```) to the default value)
    - Small Code improvements
+   - Added the option to set the widget background gradient into reddit-orange
+   (You have to move the comment brackets (```/*...*/```) to the default value)
+  
+
+<br>
 
 **1.2 Update Notes** (July 20th 2022)
    - Script Saves and pulls reddit login datas on device (~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json)
