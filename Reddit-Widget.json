@@ -1,4 +1,4 @@
 {
-    "version": "1.3.1",
-    "notes":"• Removed 'Open Profile' dialog\n• Added basics for lockscreen widgets\n• Removed the most 3rd party app icons due to recent api changes from reddit\n• Added alternative reddit icons, like alienblue, classic & black\n• Coin balance is replaced with your cakeday/account age\n• The formatting of the karma values has been adjusted slightly\n• Added the option to set the widget background gradient into reddit-orange\n• Small Code improvements"
+    "version": "1.4",
+    "notes":"• Added Circular Lockscreen Widget. It shows your total karma\n• Small improvemts of the Large-Widget"
 }
