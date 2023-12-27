@@ -1,6 +1,6 @@
 # <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable
 
-![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up to date")
+![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up-to-date")
 
 
 Widget which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday, Profile Image etc.
@@ -9,17 +9,18 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 <br>
 <br>
 
-<!--  
-<img title="Circular Lockscreen Widget" src="Images/Screenshots/circularLockscreen.png" width="350" align="right">
 
-**1.4 Update Notes** (December XXth 2023)
+<img title="Circular Lockscreen Widget" src="Images/Screenshots/circularLockscreen.png" width="375" align="right" style="border-radius:50%">
+
+**1.4 Update Notes** (December 27th 2023)
    - Added Circular Lockscreen Widget. It shows your total karma
-   - Improved layout of the Large-Widget
-   {
-    "version": "1.4",
-    "notes":"• Added Circular Lockscreen Widget. It shows your total karma\n• Improved layout of the Large-Widget"
-   }
--->
+   - Small improvements of the Large-Widget
+
+<br>
+
+**1.3.1 Update Notes** (December 19th 2023)
+   - Removed 'Open Profile' dialog
+   - Added basics for lockscreen widgets
 
 <br>
 
@@ -32,7 +33,6 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
    - Added the option to set the widget background gradient into reddit-orange
    (You have to move the comment brackets (```/*...*/```) to the default value)
   
-
 <br>
 
 **1.2 Update Notes** (July 20th 2022)
@@ -62,9 +62,9 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 <br>
 
-**Next Update Includes**
+**Next Update Includes** (...maybe)
    - Push-Notifications when today is your Cakeday and new reached Karma score (_25 point steps_)
-   - Lockscreen Widgets
+   - Rectangular Lockscreen Widgets
 
 <br>
 
