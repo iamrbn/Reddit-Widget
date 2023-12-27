@@ -89,23 +89,31 @@ if (config.runsInWidget || config.runsInAccessoryWidget) {
 async function createCircular(){
  let data = await getFromAPI()
  let widget = new ListWidget()
- widget.url = profileURL
- widget.refreshAfterDate = new Date(Date.now() + 1000*60* 1)
- widget.addAccessoryWidgetBackground = true
- 
- let img = widget.addImage(await getImageFor("arrowsLS"))
-     img.imageSize = new Size(40, 20)
-     img.centerAlignImage()
-   
- widget.addSpacer(5)
-
- let total_Karma = widget.addText(totalKarma)
-     total_Karma.textColor = Color.white()
-     total_Karma.font = Font.boldRoundedSystemFont(13)
-     total_Karma.centerAlignText()
+     widget.url = profileURL
+     widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
+     widget.addAccessoryWidgetBackground = true
 
  let uCheck = await updateCheck(scriptVersion)
- if (uCheck.version > scriptVersion){}
+
+ if (uCheck.version > scriptVersion){
+    updateDialog = widget.addText(`Update\n${uCheck.version}\nAvailable`)
+    updateDialog.font = Font.boldRoundedSystemFont(10)
+    updateDialog.textColor = Color.white()
+    updateDialog.centerAlignText()
+ } else {
+    img = widget.addImage(await getImageFor("arrowsLS"))
+    img.imageSize = new Size(40, 20)
+    img.centerAlignImage()
+    
+    widget.addSpacer(5)
+    
+    total_Karma = widget.addText(totalKarma)
+    total_Karma.textColor = Color.white()
+    total_Karma.font = Font.boldRoundedSystemFont(13)
+    total_Karma.minimumScaleFactor = 0.8
+    total_Karma.lineLimit = 1
+    total_Karma.centerAlignText()
+ }
 
 return widget
 }
@@ -115,8 +123,8 @@ return widget
 async function createRectangular(){
  let data = await getFromAPI()
  let widget = new ListWidget()
- widget.url = profileURL
- widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
+     widget.url = profileURL
+     widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
 
  let uCheck = await updateCheck(scriptVersion)
 
@@ -639,7 +647,7 @@ function notifier(dt, title, subtitle, imgName){
 // Save images from github and appstore
 async function saveAllImages(){
   let imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
-  let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "roundorange.png", "oldReddit.png"]
+  let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "roundorange.png", "oldReddit.png", "arrowsLS.png"]
   for (img of imgs){
       imgPath = fm.joinPath(dir, img)
       if (!fm.fileExists(imgPath)){
