@@ -11,9 +11,15 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 
 <img title="Circular Lockscreen Widget" src="Images/Screenshots/circularLockscreen.png" width="375" align="right" style="border-radius:50%">
+<!--
+**1.4.1 Update Notes** (January 17th 2024)
+   - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
+   - Added also Rectangular-Lockscree-Widget with the same functions
+<br>
+-->
 
 **1.4 Update Notes** (December 27th 2023)
-   - Added Circular Lockscreen Widget. It shows your total karma
+   - Added Circular-Lockscreen-Widget. It shows your total karma
    - Small improvements of the Large-Widget
 
 <br>
@@ -64,7 +70,6 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 **Next Update Includes** (...maybe)
    - Push-Notifications when today is your Cakeday and new reached Karma score (_25 point steps_)
-   - Rectangular Lockscreen Widgets
 
 <br>
 
