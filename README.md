@@ -1,4 +1,4 @@
-# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable
+# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable App
 
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up-to-date")
 
@@ -9,8 +9,6 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 <br>
 <br>
 
-
-<img title="Circular Lockscreen Widget" src="Images/Screenshots/circularLockscreen.png" width="375" align="right" style="border-radius:50%">
 <!--
 **1.4.1 Update Notes** (January 17th 2024)
    - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
@@ -166,9 +164,18 @@ const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 
 Helper-Shortcut for downloading App-Icon-URLs from the App-Store: https://routinehub.co/shortcut/11635/
+
 ___
 
-### Run Script In App
+### Widget Parameter
+You can set ```Karma``` or ```Post``` in the Lockscreen-Widgets.
+
+'Karma' is just for the circular available!
+
+<img title="Lockscreen Widgets" src="Images/Screenshots/lockscreenWidgets.png" width="375" align="center">
+<br>
+
+## Run Script In App
 
 By running the scirpt In App it will present a menu including _Username_, _Total Karma_, _Coin Balance_ & _Unread Inbox Count_ at the Top.
 You can choose one of the following three options in the sheet: Show small-, medium-, largewidget or open your profile in your standard Reddit-Client ([Create Personal Reddit App/Script - 6. Config Script](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#-create-personal-reddit-appscript))
@@ -199,7 +206,7 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 3. chose or search for scriptable
 4. Chose the widget-size and tap `"Add Widget"`
 5. Tap the widget and choose the script, then set `"When Interacting" = "Run Script"` 
-6. [Set the widget Parameters](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#set-widget-parameter) (if you want)
+6. Set the widget Parameters (Only Lockscreen-Widgets)
 7. Done
 
 ### On First Run
