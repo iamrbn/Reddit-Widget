@@ -1,4 +1,4 @@
 {
-    "version": "1.4",
-    "notes":"• Added Circular Lockscreen Widget. It shows your total karma\n• Small improvemts of the Large-Widget"
+    "version": "1.4.1",
+    "notes":"• Added second Circular-Lockscreen-Widget, which shows status of your last post or comment\n• Added also Rectangular-Lockscree-Widget with the same functions"
 }
