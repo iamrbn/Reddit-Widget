@@ -1,9 +1,9 @@
-# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit User Widget for Scriptable App
+# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit Widget for Scriptable App
 
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up-to-date")
 
 
-Widget which shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday, Profile Image etc.
+This widget shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday and Profile Image on your home and lockscreen
 
 <img title="Header Banner" src="Images/Screenshots/haederBanner2.png" width="1000" align="center">
 <br>
@@ -11,7 +11,8 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 
 **1.4.1 Update Notes** (January 17th 2024)
    - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
-   - Added also Rectangular-Lockscree-Widget with the same functions
+   - Added also Rectangular-Lockscree-Widget with the same functions    
+-> [Jump To Lockscreen Widgets](https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#widget-parameter)
 
 <br>
 
@@ -167,8 +168,7 @@ Helper-Shortcut for downloading App-Icon-URLs from the App-Store: https://routin
 ___
 
 ### Widget Parameter
-You can set ```Karma``` or ```Post``` in the Lockscreen-Widgets.
-
+You can set ```Karma``` or ```Post``` in the Lockscreen-Widgets.    
 'Karma' is just for the circular available!
 
 <img title="Lockscreen Widgets" src="Images/Screenshots/lockscreenWidgets.png" width="375" align="center">
