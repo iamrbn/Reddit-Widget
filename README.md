@@ -9,12 +9,11 @@ Widget which shows your <img align="center" title="Karma Symbol" src="Images/kar
 <br>
 <br>
 
-<!--
 **1.4.1 Update Notes** (January 17th 2024)
    - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
    - Added also Rectangular-Lockscree-Widget with the same functions
+
 <br>
--->
 
 **1.4 Update Notes** (December 27th 2023)
    - Added Circular-Lockscreen-Widget. It shows your total karma
