@@ -5,9 +5,28 @@
 
 This widget shows your <img align="center" title="Karma Symbol" src="Images/karma.png" width="17"> Karma, <img align="center" title="Cakeday Symbol" src="Images/cakedayApollo.png" width="18"> Cakeday and Profile Image on your home and lockscreen
 
+**Karma Widget**
 <img title="Header Banner" src="Images/Screenshots/haederBanner2.png" width="1000" align="center">
 <br>
 <br>
+<!--
+This widget shows your last Post on your home and lockscreen
+
+**Last Post Widget**
+<img title="Header Banner2" src="Images/Screenshots/haederBanner3.png" width="1000" align="center">
+<br>
+<br>
+
+**1.5 Update Notes** (November 1st 2024)
+   - Module file has been added with parts of the original script for performance improvements
+   - Last post lockscreen-widgets have been revised
+   - Also added last post homescreen-widgets (small, medium, large)
+   - Removed some parts of the delete menu
+   - Some parts of the code that were not used have been removed.
+   - General code improvements
+
+<br>
+-->
 
 **1.4.1 Update Notes** (January 17th 2024)
    - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
@@ -63,11 +82,6 @@ This widget shows your <img align="center" title="Karma Symbol" src="Images/karm
    - Long **usernames** (_up to 13 symbols_) may not display correctly (_Small-Widget_)
    - Long **usertitles** may not be displayed correctly in conjunction with **username** (_Medium-Widget_)
    - and some small other bugs...
-
-<br>
-
-**Next Update Includes** (...maybe)
-   - Push-Notifications when today is your Cakeday and new reached Karma score (_25 point steps_)
 
 <br>
 
