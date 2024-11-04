@@ -1,4 +1,4 @@
-# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit Widget for Scriptable App
+# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit overview widget for [Scriptable-App](https://scriptable.app/)
 
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up-to-date")
 
@@ -10,14 +10,16 @@ This widget shows your <img align="center" title="Karma Symbol" src="Images/karm
 <br>
 <br>
 <!--
-This widget shows your last Post on your home and lockscreen
+This version of the widget shows your last Post on your home and lockscreen
 
 **Last Post Widget**
 <img title="Header Banner2" src="Images/Screenshots/haederBanner3.png" width="1000" align="center">
 <br>
 <br>
 
-**1.5 Update Notes** (November 1st 2024)
+
+<details open>
+   <summary><b>1.5 Update Notes (November 1st 2024)</b></summary>
    - Module file has been added with parts of the original script for performance improvements
    - Last post lockscreen-widgets have been revised
    - Also added last post homescreen-widgets (small, medium, large)
@@ -28,26 +30,33 @@ This widget shows your last Post on your home and lockscreen
 <br>
 -->
 
-**1.4.1 Update Notes** (January 17th 2024)
+   <details>
+   <summary><b>1.4.1 Update Notes (January 17th 2024)</b></summary>
+   
    - Added a second Circular-Lockscreen-Widget, which shows upvotes and comments of your recent post/comment
    - Added also Rectangular-Lockscree-Widget with the same functions    
 -> [Jump To Lockscreen Widgets](https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#widget-parameter)
+   </details>
 
-<br>
 
-**1.4 Update Notes** (December 27th 2023)
+
+   <details>
+   <summary><b>1.4 Update Notes (December 27th 2023)</b></summary>
+   
    - Added Circular-Lockscreen-Widget. It shows your total karma
    - Small improvements of the Large-Widget
+   </details>
 
-<br>
-
-**1.3.1 Update Notes** (December 19th 2023)
+   <details>
+   <summary><b>1.3.1 Update Notes (December 19th 2023)</b></summary>
+   
    - Removed 'Open Profile' dialog
    - Added basics for lockscreen widgets
+   </details>
 
-<br>
-
-**1.3 Update Notes** (December 15th 2023)
+   <details>
+   <summary><b>1.3 Update Notes (December 15th 2023)</b></summary>
+   
    - Removed the most 3rd party app icons due to recent api changes from reddit
    - Added alternative reddit icons, like alienblue, classic & black
    - Coin balance is replaced with your cakeday/account age
@@ -55,10 +64,11 @@ This widget shows your last Post on your home and lockscreen
    - Small Code improvements
    - Added the option to set the widget background gradient into reddit-orange
    (You have to move the comment brackets (```/*...*/```) to the default value)
-  
-<br>
+   </details>
 
-**1.2 Update Notes** (July 20th 2022)
+   <details>
+   <summary><b>1.2 Update Notes (July 20th 2022)</b></summary>
+   
    - Script Saves and pulls reddit login datas on device (~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json)
    - Downloads once profile image & app icons to iCloud for less mobile data usage
    - Added 'Delete Menu ⌦' for Downloaded Files
@@ -68,50 +78,44 @@ This widget shows your last Post on your home and lockscreen
    - Added the option to use the web-browser instead of reddit, apollo or ReSurfer app (_If you also have the reddit app installed, iOS will first open the reddit app instead of the browser_)
    - Fixed bug where long karma numbers may displayed cutted off in the small-widget
    - Small design and functionality improvements
+   </details>
 
-<br>
-
-**1.1 Update Notes** (May 05th 2022)
+   <details>
+   <summary><b>1.1 Update Notes (May 05th 2022)</b></summary>
+   
    - Updated Function for calculating karma numbers `(e.g. 1494 = 1.494K; 20567 = 20.57K; 1000000 = 1M etc.)`
    - Added Feature notification Badge also for Medium Widget
    - Added selfupdate function[^1]
+   </details>
+
 
 <br>
 
-**Known Issues**
-   - Long **usernames** (_up to 13 symbols_) may not display correctly (_Small-Widget_)
-   - Long **usertitles** may not be displayed correctly in conjunction with **username** (_Medium-Widget_)
-   - and some small other bugs...
-
-<br>
+## Overview
 
 
-## Widget Overview
-
-
-### Theme
+### Themes
 The Widget has a **Dynamic Gradient Background**
 
-<img title="Darkmode - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center"> <img title="Lightmode - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> 
+<img title="Darkmode Orange - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center"> <img title="Lightmode White - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> 
 
-Change the background gradient to always Reddit Styled
+Change the background gradient to always blue
 
-<img title="Reddit Style - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center">
+<img title="Blue styled - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center">
 You only have to change the position of the comment brackets
 
 from:
 ```Javascript
 //Standard dynamic colors for background gradient
-let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'))
-let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'))
-let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'))
-
+let top = Color.dynamic(new Color('#ffffff'), new Color('#FF8420'))
+let middle = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
+let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
 /*
-//Orange background gradient like the official reddit app icon
-let top = new Color('#FF8420')
-let middle = new Color('#FD3F12')
-let bottom = new Color('#EA2128')
-*/
+//Blue background gradient
+let top = new Color('#0F2D60')
+let middle = new Color('#000427')
+let bottom = new Color('#000000')
+*/  
 ...
 ```
 
@@ -119,15 +123,14 @@ to:
 ```Javascript
 /*
 //Standard dynamic colors for background gradient
-let top = Color.dynamic(new Color('#ffffff'), new Color('#0F2D60'))
-let middle = Color.dynamic(new Color('#EDEDED'), new Color('#000427'))
-let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#000000'))
+let top = Color.dynamic(new Color('#ffffff'), new Color('#FF8420'))
+let middle = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
+let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
 */
-
-//Orange background gradient like the official reddit app icon
-let top = new Color('#FF8420')
-let middle = new Color('#FD3F12')
-let bottom = new Color('#EA2128')
+//Blue background gradient
+let top = new Color('#0F2D60')
+let middle = new Color('#000427')
+let bottom = new Color('#000000')
 ...
 ```
 
@@ -165,41 +168,45 @@ Today is your Cakeday!? The widget will tell you subtly.
 5. Copy Client_ID & Client_Secret
 <img title="get app parameter" src="Images/Screenshots/new_application[step3].png" width="850">
 
-6. Config Script
-
-```javascript
-const refreshInt = 90 //in minutes
-const enableNotifications = true //beta
-const showNotifyBadge = true //all widget sizes
-const showUserTitle = true //medium- & large widget
-const numberFormatting = 'de-DE' //For karma valuesen. e.g.: en-EN, en-IN etc.
-const widgetIcon = 'orange' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
-```
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
-
-Helper-Shortcut for downloading App-Icon-URLs from the App-Store: https://routinehub.co/shortcut/11635/
 
 ___
 
-### Widget Parameter
-You can set ```Karma``` or ```Post``` in the Lockscreen-Widgets.    
-'Karma' is just for the circular available!
+### Config Script
+You can set your own constants at the top of the script
 
-<img title="Lockscreen Widgets" src="Images/Screenshots/lockscreenWidgets.png" width="375" align="center">
+```javascript
+// ===========================================
+// ========== START CONFIG ZONE ==============
+ 
+let refreshInt = 60 //refreshinterval as number in minutes
+let showNotifyBadge = true //all home-widget sizes
+let showUserTitle = false //medium- & large widget
+let numberFormatting = 'de-DE' //For karma valuese. e.g.: en-EN, en-IN etc.
+let widgetIcon = 'alienblue' //small- & medium widget; available icons: alienblue, black, classic, orange, roundorange, oldReddit, reddit, apollo;
+let widgetType = 'karma' //karma or post
+
+// =========== END CONFIG ZONE ================
+//=============================================
+
+```
 <br>
 
-## Run Script In App
+### Widget Parameter
+You can set ```Karma``` or ```Post``` individual in each Widgets.    
+'Karma' is not for the rectangular lockscreen widget available!
 
-By running the scirpt In App it will present a menu including _Username_, _Total Karma_, _Coin Balance_ & _Unread Inbox Count_ at the Top.
-You can choose one of the following three options in the sheet: Show small-, medium-, largewidget or open your profile in your standard Reddit-Client ([Create Personal Reddit App/Script - 6. Config Script](https://github.com/iamrbn/Reddit-Widget/edit/main/README.md#-create-personal-reddit-appscript))
+<br>
+
+### Run Script In App
+
+By running the scirpt In App it will present a menu with the following options.
 
 <img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">
 
-### Delete Menu
+<br>
 
-<img title="Delete Menu" src="Images/Screenshots/ deleteMenu.png" width="250" align="center">
-<img title="Delete Reddit-Widget Folder" src="Images/Screenshots/deleteMenu2.png" width="250" align="center">
-
+<!--
 ## Installing
 
 ### Install Script
@@ -221,26 +228,29 @@ or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
 5. Tap the widget and choose the script, then set `"When Interacting" = "Run Script"` 
 6. Set the widget Parameters (Only Lockscreen-Widgets)
 7. Done
+-->
 
-### On First Run
+</br>
 
-It will Downloads and Save the Following Symbols at the directory "Reddit-Widget"
+## On First Run
 
-<img title="karma" src="Images/karma.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="profileIcon example" src="https://styles.redditmedia.com/t5_5u9idf/styles/profileIcon_snoo3f2aa100-145d-4cca-9921-fa284d554577-headshot.png" width="50" align="center"> <img title="classic" src="Images/classic.png" width="50" align="center"> <img title="orange" src="Images/orange.png" width="50" align="center"> 
-<img title="roundorange" src="Images/roundorange.png" width="50" align="center"> <img title="oldReddit" src="Images/oldReddit.png" width="50" align="center"> <img title="black" src="Images/black.png" width="50" align="center"> <img title="alienblue" src="Images/alienblue.png" width="50" align="center"> <img title="redditLS" src="Images/redditLS.png" width="50" align="center"> <img title="ArrowsLS" src="Images/arrowsLS.png" width="50" align="center">
+It will Downloads and Save the Following Symbols and a JavaScript Module at the directory "Reddit-Widget"
+
+<img title="JavaScript module example icon" src="https://github.com/iamrbn/Mastodon-Widget/blob/ba5664d4d8205dd5480d4120a7162eb802e9f9cd/Images/jsModule.png" width="60" align="center"> <img title="karma" src="Images/karma.png" width="50" align="center"> <img title="cakedayApollo" src="Images/cakedayApollo.png" width="50" align="center"> <img title="cakedayConfetti" src="Images/cakedayConfetti.png" width="100" align="center"> <img title="snoovatar_ example" src="https://i.redd.it/snoovatar/avatars/d891afd6-32e8-4094-8e2b-34a7fedb879a.png" width="50" align="center"> <img title="oldReddit" src="Images/oldReddit.png" width="50" align="center"> <img title="classic" src="Images/classic.png" width="50" align="center"> <img title="orange" src="Images/orange.png" width="50" align="center"> 
+<img title="black" src="Images/black.png" width="50" align="center"> <img title="alienblue" src="Images/alienblue.png" width="50" align="center"> <img title="redditLS" src="Images/redditLS.png" width="50" align="center"> <img title="ArrowsLS" src="Images/arrowsLS.png" width="50" align="center">
 
 ```
 iCloud Drive/
 ├─ Scriptable/
 │  ├─ Reddit-Widget/
+│  │  ├─ redditModule.js
 │  │  ├─ karma.png
 │  │  ├─ cakedayApollo.png
 │  │  ├─ cakedayConfetti.png
-│  │  ├─ profileIcon.png
+│  │  ├─ snoovatar_xxx.png
+│  │  ├─ oldReddit.png
 │  │  ├─ classic.png
 │  │  ├─ orange.png
-│  │  ├─ roundorange.png
-│  │  ├─ oldReddit.png
 │  │  ├─ black.png
 │  │  ├─ alienblue.png
 │  │  ├─ arrowsLS.png
@@ -248,9 +258,8 @@ iCloud Drive/
 ---- alternative symbols ----
 │  │  ├─ cakedayReddit.png
 │  │  ├─ apollo.png
-│  │  ├─ reddit.png
 ```
-<img title="cakedayReddit" src="Images/cakedayReddit.png" width="50" align="center"> <img title="apollo" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png" width="50" align="center"> <img title="reddit" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/cb/74/90cb74af-55b2-f44e-8e15-0555c7b8beee/AppIcon-0-0-1x_U007epad-0-0-85-220.png/512x512bb.png" width="50" align="center">
+<img title="cakedayReddit" src="Images/cakedayReddit.png" width="50" align="center"> <img title="apollo" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png" width="50" align="center">
 
 
 <h2 style="font-size:1"
