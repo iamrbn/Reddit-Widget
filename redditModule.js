@@ -1,6 +1,6 @@
 //=======================================//
 //=========== START OF MODULE ===========//
-//============= Version 0.9 =================//
+//============= Version 1.0 =================//
 
 
 // sends request to reddit-api
@@ -73,28 +73,42 @@ async function getKarmaFromAPI(numberFormatting){
      minutesDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data.created * 1000).getTime()) / 1000 / 60)
      accountAge = (minutesDiff < 525600) ? Math.abs(minutesDiff/60/24).toFixed(0)+" d" : Math.abs(minutesDiff/60/24/365).toFixed(1)+" y"
      //console.log({profileImg})
-
-     //Declare variables post
-     subreddit = data2.data.children[idx].data.subreddit_name_prefixed
-     subURL = 'https://reddit.com/' + subreddit
-     body = data2.data.children[idx].data.body.replace(/[\[\]]/g, '').replace(/\(.+?\)/g, '↗')
-     kind = data2.data.children[idx].kind // 't1_' = comment / 't3_' = post
-     linkAuthor = data2.data.children[idx].data.link_author // Author of main post or comment
-     author = data2.data.children[idx].data.author //Author of comment / answer
-     postAuthor = (kind.includes('t1')) ?  author : linkAuthor
-     link = data2.data.children[idx].data.link_permalink
-     contentLink = data2.data.children[idx].data.link_url
-     score = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.score)
+    
+     //Declare post variables
+     sub = data2.data.children[idx].data.subreddit_name_prefixed
+     subURL = 'https://reddit.com/' + sub
+     upvotes = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.score)
      downvotes = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.downs)
-     title = data2.data.children[idx].data.link_title
      numComments = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.num_comments)
      postCreated = df.string(new Date(data2.data.children[idx].data.created * 1000))
+     kind = data2.data.children[idx].kind // 't1_' = comment / 't2_' = account  / 't3_' = link / 't4_' =  message / 't5_' = subreddit / 't6_' = award
+     author = 'u/' + data2.data.children[idx].data.author
+     
+     if (kind.includes('t1')){ // comment
+         title = data2.data.children[idx].data.link_title
+         body = data2.data.children[idx].data.body.replace(/[\[\]]/g, '').replace(/\(.+?\)/g, '↗')
+         link = data2.data.children[idx].data.link_permalink
+         contentLink = data2.data.children[idx].data.link_url
+         link_author = '‣ u/'  + data2.data.children[idx].data.link_author //of link post
+         numCrossposts = ''
+         url = ''
+     } else if (kind.includes('t3')){ // link
+         title = data2.data.children[idx].data.title
+         body = data2.data.children[idx].data.selftext
+         link = 'https://reddit.com' + data2.data.children[idx].data.permalink
+         contentLink = data2.data.children[idx].data.preview.images[0].resolutions[5].url.split('?')[0]
+         link_author = ''
+         url = data2.data.children[idx].data.url + '↗'
+         numCrossposts = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.num_crossposts)
+     } 
+     
      timeDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data2.data.children[idx].data.created * 1000).getTime()) / 1000 / 60)
      postAge = "--"
      if (timeDiff > 525600) postAge = Math.abs(timeDiff/60/24/365).toFixed(1)+"y"
      else if (timeDiff > 1440) postAge = Math.abs(timeDiff/60/24).toFixed(0)+"d"
      else if (timeDiff > 60) postAge = Math.abs(timeDiff/60).toFixed(0)+"h"
      else if (timeDiff >= 1) postAge= Math.abs(timeDiff).toFixed(0)+"m"
+     
          } catch(error){
              console.warn(error.message)
         }
@@ -118,21 +132,22 @@ async function getKarmaFromAPI(numberFormatting){
         profileCreated,
         minutesDiff,
         accountAge,
-        // post content //
-        subreddit,
+        // POST CONTENT //
+        sub,
         subURL,
-        body,
-        kind,
-        linkAuthor,
-        author,
-        postAuthor,
-        link,
-        contentLink,
-        score,
+        upvotes,
         downvotes,
-        title,
         numComments,
         postCreated,
+        kind,
+        author,
+        title,
+        body,
+        link,
+        link_author,
+        contentLink,
+        numCrossposts,
+        url,
         timeDiff,
         postAge
     }
@@ -235,13 +250,16 @@ function addText(stack, text, size, opacity){
     
 
 // creating menu for start script
-async function presentMenu(username, totalKarma, inboxCount, imgKey){
+async function presentMenu(api, username, totalKarma, accountAge, inboxCount, imgKey){
   let alrt = new Alert()
       alrt.title = username
-      alrt.message = `${totalKarma} Total Karma\nUnread Inbox: ${inboxCount}`
+      alrt.message = `${totalKarma} Total Karma\nRedditor Since ${accountAge}\nUnread Inbox: ${inboxCount}`
       alrt.addDestructiveAction("⌦ Delete Menu")
+      alrt.addAction('⚙︎ Report Bug')
       alrt.addCancelAction("Cancel")
-      idx = (await alrt.presentSheet() === 0) ? await deleteUserDatas(imgKey) : null
+      idx = await alrt.presentSheet()
+      if (idx === 0) await deleteUserDatas(imgKey)
+      else if (idx === 1) await reportBug(api)
 };
 
 
@@ -291,10 +309,10 @@ async function deleteUserDatas(imgKey){
   let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
   let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
   let alert = new Alert()
-      alert.title = "Are You Sure to Delete Your Datas?"
+      alert.title = "Are You Sure To Delete?"
       alert.message = "Removed files can NOT be restored"
-      alert.addAction("Profile Image")
-      alert.addAction("Login Datas")
+      alert. addDestructiveAction("Profile Image")
+      alert. addDestructiveAction("Login Datas")
       alert.addCancelAction("Cancel")
   let idx = await alert.present()
   if (idx === 0){
@@ -341,6 +359,27 @@ async function scndAlert(){
     };
 
 
+async function reportBug(api){
+    fm = FileManager.iCloud()
+    dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
+    bugPath = fm.joinPath(dir, 'apiResponse_'+Date.now()+'.json')
+
+    info = new Alert()
+    info.title = "This function saves your API response in the Reddit-Widget folder"
+    info.message = "Please contact the script owner via GitHub issue"
+    info.addAction("Continue")
+    info.addCancelAction("Cancel")
+    idx = await info.presentSheet()
+    if (idx === 0){
+        FileManager.iCloud().writeString(bugPath, JSON.stringify(api, null, 2))
+        await popUp('Successfully Saved File', '~ '+bugPath)
+        Safari.open('https://github.com/iamrbn/Reddit-Widget/issues/')
+    } else {
+        console.warn('>> USER CLICKED CANCEL')
+    }
+};
+
+
 async function popUp(title ,message){
       alrt = new Alert()
       alrt.title = title
@@ -351,9 +390,16 @@ async function popUp(title ,message){
 };
     
     
-//Loads image from given url
-async function loadImage(imgURL){
-    return await new Request(imgURL).loadImage()
+//creates background of widget
+async function createWidgetBG(widget, gradient, imgURL){
+    try {
+        return await new Request(imgURL).loadImage()
+    } catch(err){
+        console.warn(err.message)
+    } finally {
+        //return await new Request('https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/Screenshots/RedditStyle_darkmodeGradient.png').loadImage()
+        widget.backgroundGradient = gradient
+    }
 };
 
 
@@ -453,9 +499,10 @@ module.exports = {
     presentMenu,
     askForLoginDatas,
     deleteUserDatas,
+    reportBug,
     scndAlert,
     popUp,
-    loadImage,
+    createWidgetBG,
     saveAllImages,
     addString,
     errorWidget,
