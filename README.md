@@ -1,4 +1,4 @@
-# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit overview widget for [Scriptable-App](https://scriptable.app/)
+# <img title="Reddit Favicon" src="https://www.reddit.com/favicon.ico" width="27"/> Reddit widget for [Scriptable-App](https://scriptable.app/)
 
 ![](https://img.shields.io/badge/dynamic/json?color=FF4B1B&style=plastic&label=Script%20Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fiamrbn%2FReddit-Widget%2Fmain%2FReddit-Widget.json "Hi there 👋 I'm always up-to-date")
 
@@ -99,41 +99,6 @@ The Widget has a **Dynamic Gradient Background**
 
 <img title="Darkmode Orange - Medium Sized Widget" src="Images/Screenshots/RedditStyle_darkmodeGradient.png" width="250" align="center"> <img title="Lightmode White - Medium Sized Widget" src="Images/Screenshots/lightmodeGradient.png" width="250" align="center"> 
 
-Change the background gradient to always blue
-
-<img title="Blue styled - Medium Sized Widget" src="Images/Screenshots/darkmodeGradient.png" width="250" align="center">
-You only have to change the position of the comment brackets
-
-from:
-```Javascript
-//Standard dynamic colors for background gradient
-let top = Color.dynamic(new Color('#ffffff'), new Color('#FF8420'))
-let middle = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
-let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
-/*
-//Blue background gradient
-let top = new Color('#0F2D60')
-let middle = new Color('#000427')
-let bottom = new Color('#000000')
-*/  
-...
-```
-
-to:
-```Javascript
-/*
-//Standard dynamic colors for background gradient
-let top = Color.dynamic(new Color('#ffffff'), new Color('#FF8420'))
-let middle = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
-let bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
-*/
-//Blue background gradient
-let top = new Color('#0F2D60')
-let middle = new Color('#000427')
-let bottom = new Color('#000000')
-...
-```
-
 <br>
 
 ### First Run
@@ -144,7 +109,7 @@ Open the Script an Enter your Datas from Reddit.
 
 <br>
 
-### Happy Cakeday
+### Happy Cakeday Buddy
 Today is your Cakeday!? The widget will tell you subtly.  
 
 <img title="Cakeday Banner" src="Images/Screenshots/cakedayBanner2.png" width="1000" align="center">
