@@ -17,7 +17,7 @@ This version of the widget shows your last Post on your home and lockscreen
 <img title="Header Banner2" src="Images/Screenshots/bannerLastPost.png" width="1000" align="center">
 <br>
 
-<img title="Header Banner2" src="Images/Screenshots/LockscreenWidgets_Banner.png" width="1000" align="center">
+<img title="Header Banner2" src="Images/Screenshots/bannerLockscreenWidgets.png" width="1000" align="center">
 <br>
 <br>
 
@@ -32,6 +32,8 @@ This version of the widget shows your last Post on your home and lockscreen
    - Removed some parts of the delete menu
    - Some parts of the code that were not used have been removed
    - General code improvements
+</details>
+
 
 <br>
 
