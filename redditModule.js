@@ -10,13 +10,13 @@ async function getKarmaFromAPI(numberFormatting){
   let fm = FileManager.iCloud()
   let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
   let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
-  let user, data
+  let user, userData, postData;
   
   try {
      await fm.downloadFileFromiCloud(jsonPath)
      user = await JSON.parse(fm.readString(jsonPath))
      try {
-        // Get Access-Token for json api request
+        // get access-token for api request
         let reqToken = new Request('https://www.reddit.com/api/v1/access_token')
              reqToken.method = 'POST'
              reqToken.headers = {
@@ -25,95 +25,102 @@ async function getKarmaFromAPI(numberFormatting){
              reqToken.body = `grant_type=password&username=${user.USERNAME}&password=${user.PASSWORD}`
                 
              token = await reqToken.loadJSON()
-             //console.warn(JSON.stringify(resToken, null, 1))
+             //console.warn(JSON.stringify(token, null, 1))
         
-        // Get user-profile json from api/v1/me
-        let reqDatas = new Request('https://oauth.reddit.com/api/v1/me')
-             reqDatas.headers = {
+        // get user datas with token
+        let reqUserData = new Request('https://oauth.reddit.com/api/v1/me')
+             reqUserData.headers = {
                  'user-Agent': 'getKarmaFromRedditBy-iamrbn/v1.4',
                  'Authorization': `${token.token_type} ${token.access_token}`
             }
              
-             data = await reqDatas.loadJSON()
-             //console.log(JSON.stringify(data, null, 2))
+             userData = await reqUserData.loadJSON()
+             //console.log(JSON.stringify(userData, null, 2))
          
-        let reqDatas2 = new Request(`https://oauth.reddit.com/user/${ user.USERNAME }/overview/new/?limit=7`)
-             reqDatas2.headers = {
+        let reqPostData = new Request(`https://oauth.reddit.com/user/${ user.USERNAME }/overview/new/?limit=7`)
+             reqPostData.headers = {
                  'user-Agent': 'getKarmaFromRedditBy-iamrbn/v1.4',
                  'Authorization': `${token.token_type} ${token.access_token}`
             }
              
-             data2 = await reqDatas2.loadJSON()
-             //console.log(JSON.stringify(data2, null, 2))
+             postData = await reqPostData.loadJSON()
+             //console.log(JSON.stringify(postData, null, 2))
           
         let arr = []
-        for (i=0; i<data2.data.children.length; i++){
-             arr.push(data2.data.children[i].data.created * 1000)
+        for (i = 0; i < postData.data.children.length; i++){
+             arr.push(postData.data.children[i].data.created * 1000)
              //log(arr)// always the 3th number is the biggest?
              max = arr.reduce((a, b) => Math.max(a, b), -Infinity)
              idx = arr.reduce((idxMax, element, index) => element > arr[idxMax] ? index : idxMax, 0)
-           }
-           //console.warn(idx + ': ' + max)
-           //console.log(data2.data.children[idx])
+            }
+             //console.warn(idx + ': ' + max)
+             //idx += 1
+             //console.log(postData.data.children[idx])
+         
+             //Declare account variables
+             totalKarma = Intl.NumberFormat('en-EN', {notation:'compact', maximumSignificantDigits: 2}).format(userData.total_karma)
+             postKarma = Intl.NumberFormat(numberFormatting).format(userData.link_karma)
+             commentKarma = Intl.NumberFormat(numberFormatting).format(userData.comment_karma)
+             awarderKarma = Intl.NumberFormat(numberFormatting).format(userData.awarder_karma)
+             awardeeKarma = Intl.NumberFormat(numberFormatting).format(userData.awardee_karma)
+             snoovatarImg = userData.snoovatar_img
+             usertitle = userData.subreddit.title
+             username = userData.subreddit.display_name_prefixed
+             puplicDescription = userData.subreddit.public_description
+             inboxCount = userData.inbox_count
+             profileURL = "https://reddit.com"+userData.subreddit.url.slice(0, -1)
+             profileCreated = df.string(new Date(userData.created*1000))
+             minutesDiff = Math.floor((new Date(Date.now()).getTime() - new Date(userData.created * 1000).getTime()) / 1000 / 60)
+             accountAge = (minutesDiff < 525600) ? Math.abs(minutesDiff/60/24).toFixed(0)+" d" : Math.abs(minutesDiff/60/24/365).toFixed(1)+" y"
+             //console.log({snoovatarImg})
+         
+            //Declare post variables
+             sub = postData.data.children[idx].data.subreddit_name_prefixed
+             subURL = 'https://reddit.com/' + sub
+             upvotes = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.score)
+             downvotes = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.downs)
+             numComments = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.num_comments)
+             postCreated = df.string(new Date(postData.data.children[idx].data.created * 1000))
+             kind = postData.data.children[idx].kind // 't1_' = comment / 't2_' = account  / 't3_' = link / 't4_' =  message / 't5_' = subreddit / 't6_' = award
+             author = 'u/' + postData.data.children[idx].data.author
      
-     //Declare variables account
-     totalKarma = Intl.NumberFormat('en-EN', {notation:'compact', maximumSignificantDigits: 2}).format(data.total_karma)
-     postKarma = Intl.NumberFormat(numberFormatting).format(data.link_karma)
-     commentKarma = Intl.NumberFormat(numberFormatting).format(data.comment_karma)
-     awarderKarma = Intl.NumberFormat(numberFormatting).format(data.awarder_karma)
-     awardeeKarma = Intl.NumberFormat(numberFormatting).format(data.awardee_karma)
-     profileImg = data.icon_img.split('?')
-     snoovatarImg = data.snoovatar_img //full view of profile image
-     usertitle = data.subreddit.title
-     username = data.subreddit.display_name_prefixed
-     puplicDescription = data.subreddit.public_description
-     inboxCount = data.inbox_count //post inbox
-     profileURL = "https://reddit.com"+data.subreddit.url.slice(0, -1)
-     profileCreated = df.string(new Date(data.created*1000))//date of creating account
-     minutesDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data.created * 1000).getTime()) / 1000 / 60)
-     accountAge = (minutesDiff < 525600) ? Math.abs(minutesDiff/60/24).toFixed(0)+" d" : Math.abs(minutesDiff/60/24/365).toFixed(1)+" y"
-     //console.log({profileImg})
-    
-     //Declare post variables
-     sub = data2.data.children[idx].data.subreddit_name_prefixed
-     subURL = 'https://reddit.com/' + sub
-     upvotes = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.score)
-     downvotes = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.downs)
-     numComments = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.num_comments)
-     postCreated = df.string(new Date(data2.data.children[idx].data.created * 1000))
-     kind = data2.data.children[idx].kind // 't1_' = comment / 't2_' = account  / 't3_' = link / 't4_' =  message / 't5_' = subreddit / 't6_' = award
-     author = 'u/' + data2.data.children[idx].data.author
-     
-     if (kind.includes('t1')){ // comment
-         title = data2.data.children[idx].data.link_title
-         body = data2.data.children[idx].data.body.replace(/[\[\]]/g, '').replace(/\(.+?\)/g, '↗')
-         link = data2.data.children[idx].data.link_permalink
-         contentLink = data2.data.children[idx].data.link_url
-         link_author = '‣ u/'  + data2.data.children[idx].data.link_author //of link post
-         numCrossposts = ''
-         url = ''
-     } else if (kind.includes('t3')){ // link
-         title = data2.data.children[idx].data.title
-         body = data2.data.children[idx].data.selftext
-         link = 'https://reddit.com' + data2.data.children[idx].data.permalink
-         contentLink = data2.data.children[idx].data.preview.images[0].resolutions[5].url.split('?')[0]
-         link_author = ''
-         url = data2.data.children[idx].data.url + '↗'
-         numCrossposts = Intl.NumberFormat(numberFormatting).format(data2.data.children[idx].data.num_crossposts)
-     } 
-     
-     timeDiff = Math.floor((new Date(Date.now()).getTime() - new Date(data2.data.children[idx].data.created * 1000).getTime()) / 1000 / 60)
-     postAge = "--"
-     if (timeDiff > 525600) postAge = Math.abs(timeDiff/60/24/365).toFixed(1)+"y"
-     else if (timeDiff > 1440) postAge = Math.abs(timeDiff/60/24).toFixed(0)+"d"
-     else if (timeDiff > 60) postAge = Math.abs(timeDiff/60).toFixed(0)+"h"
-     else if (timeDiff >= 1) postAge= Math.abs(timeDiff).toFixed(0)+"m"
-     
-         } catch(error){
-             console.warn(error.message)
+        if (kind.includes('t1')){ // comment
+            title = postData.data.children[idx].data.link_title
+            body = postData.data.children[idx].data.body.replace(/[\[\]]/g, '').replace(/\(.+?\)/g, '↗')
+            link = postData.data.children[idx].data.link_permalink
+            contentLink = postData.data.children[idx].data.link_url
+            link_author = '‣ u/'  + postData.data.children[idx].data.link_author //of link post
+            numCrossposts = ''
+            url = ''
+        } else if (kind.includes('t3')){ // link
+            title = postData.data.children[idx].data.title
+            body = postData.data.children[idx].data.selftext
+            link = 'https://reddit.com' + postData.data.children[idx].data.permalink
+            contentLink = postData.data.children[idx].data.preview.images[0].resolutions[5].url.split('?')[0]
+            link_author = ''
+            url = postData.data.children[idx].data.url + '↗'
+            numCrossposts = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.num_crossposts)
+        } 
+        
+        if (contentLink.includes('/gallery/')){
+            let fullPostCommentData = await new Request(`https://www.reddit.com/r/${ postData.data.children[idx].data.subreddit }/comments/${ postData.data.children[idx].data.parent_id.split('_')[1] }/.json`).loadJSON()
+                 mediaID = fullPostCommentData[0].data.children[0].data.gallery_data.items[0].media_id
+                 mediaURL = fullPostCommentData[0].data.children[0].data.media_metadata[mediaID].p[5].u
+                 contentLink = mediaURL.replaceAll('&amp;', '&')
         }
-    } catch(error){
-         console.warn(error.message)
+     
+            timeDiff = Math.floor((new Date(Date.now()).getTime() - new Date(postData.data.children[idx].data.created * 1000).getTime()) / 1000 / 60)
+            postAge = "--"
+        if (timeDiff > 525600) postAge = Math.abs(timeDiff/60/24/365).toFixed(1)+"y"
+        else if (timeDiff > 1440) postAge = Math.abs(timeDiff/60/24).toFixed(0)+"d"
+        else if (timeDiff > 60) postAge = Math.abs(timeDiff/60).toFixed(0)+"h"
+        else if (timeDiff >= 1) postAge= Math.abs(timeDiff).toFixed(0)+"m"
+         
+         } catch(err){
+             console.error('ERROR: No response from reddit API')
+        }
+    } catch(err){
+         console. error('ERROR: Failed to load user credentials from icloud')
     }
          
     return {
@@ -122,7 +129,6 @@ async function getKarmaFromAPI(numberFormatting){
         commentKarma,
         awarderKarma,
         awardeeKarma,
-        profileImg,
         snoovatarImg,
         usertitle,
         username,
@@ -132,7 +138,6 @@ async function getKarmaFromAPI(numberFormatting){
         profileCreated,
         minutesDiff,
         accountAge,
-        // POST CONTENT //
         sub,
         subURL,
         upvotes,
@@ -151,19 +156,17 @@ async function getKarmaFromAPI(numberFormatting){
         timeDiff,
         postAge
     }
-
 };
 
 
  // Save images from github and appstore
-async function saveAllImages(imgKey, profileImg){
+async function saveAllImages(imgKey, snoovatarImg){
       //log({profileImg})
       let fm = FileManager.iCloud()
       let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
       let imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
-      let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "roundorange.png", "oldReddit.png", "arrowsLS.png", "redditLS.png"]
+      let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "oldReddit.png", "arrowsLS.png", "redditLS.png"]
       let appStoreIcons = {
-          reddit: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/cb/74/90cb74af-55b2-f44e-8e15-0555c7b8beee/AppIcon-0-0-1x_U007epad-0-0-85-220.png/512x512bb.png',
           apollo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png'
           }
           
@@ -189,40 +192,30 @@ async function saveAllImages(imgKey, profileImg){
             }
         }
      
-      imgName = profileImg[0].match(/snoovatar.*/)[0].replace('/avatars/', '_').replace('-headshot.png', '');
+      imgName = snoovatarImg.match(/snoovatar.*/)[0].replace('/avatars/', '_').replace('.png', '')
       //log({imgName})
+      
       if (!imgKey.contains("nameProfileImage")){
             imgKey.set("nameProfileImage", imgName)
         }
       if (imgKey.get("nameProfileImage") != imgName){
-            await profileImageChecker()
+            imgPathOld = fm.joinPath(dir, imgKey.get("nameProfileImage") + '.png')
+            try {
+                    fm.remove(imgPathOld)
+                    await popUp("DELETED SUCCESSFULLY!" ,fm.fileName(imgPathOld, true))
+                    imgKey.set("nameProfileImage", imgName)
+                    await presentMenu()
+               } catch(err){
+                    console.error(err.message)
+               }
         }
-      
-     async function profileImageChecker(){
-      let imgPath = fm.joinPath(dir, imgKey.get("nameProfileImage") + '.png')
-      let alert = new Alert()
-           alert.title = "Looks Like you’ve changed your Snoovatar"
-           alert.message = "Do you want to change it in the widget, too?\nNo, means you have to delete it manually via 'Delete Menu ⌦'"
-           alert.addAction("Yes")
-           alert.addCancelAction("Nope, I'll do it later on my own")
-           idx = await alert.present()
-           if (idx == 0){
-               fm.remove(imgPath)
-               await rModule.popUp("DELETED SUCCESSFULLY!" ,fm.fileName(imgPath, true))
-          } else if (idx == -1){
-               await presentMenu()
-          }
-          
-        imgKey.set("nameProfileImage", imgName)
-      }
       
          imgPath = fm.joinPath(dir, imgName + '.png')
          imgFileName = fm.fileName(imgPath, true)
       if (!fm.fileExists(imgPath)){
-          logWarning("Loading & Saving Current Profile Image")
-          req = new Request(profileImg[0])
-          image = await req.loadImage()
-          fm.writeImage(imgPath, image)
+          console.warn("Loading & Saving Current Profile Image: " + imgName + '.png')
+          img = await new Request(snoovatarImg).loadImage()
+          fm.writeImage(imgPath, img)
       }
 }; 
 
@@ -271,7 +264,6 @@ async function askForLoginDatas(){
       let alert = new Alert()
            alert.title = "No Data Found in iCloud!"
            alert.message = "Please Enter Login Datas"
-           //alert.message = "~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json"
            alert.addTextField('Username')
            alert.addTextField("Password")
            alert.addTextField("Client ID")
@@ -312,7 +304,7 @@ async function deleteUserDatas(imgKey){
       alert.title = "Are You Sure To Delete?"
       alert.message = "Removed files can NOT be restored"
       alert. addDestructiveAction("Profile Image")
-      alert. addDestructiveAction("Login Datas")
+      alert. addDestructiveAction("User Credentials")
       alert.addCancelAction("Cancel")
   let idx = await alert.present()
   if (idx === 0){
@@ -385,33 +377,45 @@ async function popUp(title ,message){
       alrt.title = title
       alrt.message = message
       alrt.addAction("OK")
-        
       await alrt.presentAlert()
 };
-    
-    
+
+
 //creates background of widget
-async function createWidgetBG(widget, gradient, imgURL){
+async function createBG(base, dock, url){
     try {
-        return await new Request(imgURL).loadImage()
+        base.backgroundImage = await new Request(url).loadImage()
     } catch(err){
-        console.warn(err.message)
+        //console.warn('Error creating widget background:\nNo image from the specified URL could be loaded. Maybe there is no usable image from the last post!')
     } finally {
-        //return await new Request('https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/Screenshots/RedditStyle_darkmodeGradient.png').loadImage()
-        widget.backgroundGradient = gradient
-    }
+            bgGradient = new LinearGradient()
+            top = Color.dynamic(new Color('#FFFFFF'), new Color('#FF8420'))
+            top2 = Color.dynamic(new Color('#FFFFFF'), new Color('#FF5304'))
+            middle = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
+            bottom = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
+            location = [0, 0.8, 1]
+            color = [top, middle, bottom]
+            
+             if (dock){
+                location = [0, 0.33, 0.63, 1]
+                color = [bottom, middle, middle, top2]
+            }
+             
+            bgGradient.locations = location
+            bgGradient.colors = color
+            base.backgroundGradient = bgGradient
+        }
 };
 
 
 // get image from icloud ~iCloud/Scriptable/Reddit-Widget
 async function getImageFor(name){
-      let fm = FileManager.iCloud()
-      let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
-      imgPath = fm.joinPath(dir, name + ".png")
+      fm = FileManager.iCloud()
+      dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
+      imgPath = fm.joinPath(dir, name + '.png')
       await fm.downloadFileFromiCloud(imgPath)
-      img = await fm.readImage(imgPath)
       
- return img
+ return await fm.readImage(imgPath)
 };
     
 
@@ -421,7 +425,7 @@ async function errorWidget(bgGradient, padding, radius, size1, size2){
            errWidget.url = "scriptable:///run/Reddit%20Widget"
            errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 15)
            errWidget.setPadding(padding, padding, padding, padding)
-           errWidget.backgroundGradient = bgGradient
+           await rModule.createBG(errWidget, false, null)
           
            errWidget.addText("Couldn’t find login datas - Looks like your first run").font = Font.boldMonospacedSystemFont(size1)
             
@@ -453,15 +457,16 @@ async function errorWidget(bgGradient, padding, radius, size1, size2){
     
 //Checks if's there an server update on GitHub available
 async function updateCheck(fm, modulePath, version){
-  let url = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/'
-  let endpoints = ['Reddit-Widget.js', 'redditModule.js']
-  let uC
+  fm = fm = FileManager.iCloud()
+  url = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/'
+  endpoints = ['Reddit-Widget.js', 'redditModule.js']
+  let uC;
   
   try {
       updateCheck = new Request(url + endpoints[0] + 'on')
       uC = await updateCheck.loadJSON()
     } catch (err){
-        return log(err.message)
+       return log(err.message)
     }
 
   needUpdate = false
@@ -502,7 +507,7 @@ module.exports = {
     reportBug,
     scndAlert,
     popUp,
-    createWidgetBG,
+    createBG,
     saveAllImages,
     addString,
     errorWidget,
