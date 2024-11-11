@@ -9,26 +9,31 @@ This widget shows your <img align="center" title="Karma Symbol" src="Images/karm
 <img title="Header Banner" src="Images/Screenshots/haederBanner2.png" width="1000" align="center">
 <br>
 <br>
-<!--
+
+
 This version of the widget shows your last Post on your home and lockscreen
 
 **Last Post Widget**
 <img title="Header Banner2" src="Images/Screenshots/bannerLastPost.png" width="1000" align="center">
 <br>
+
+<img title="Header Banner2" src="Images/Screenshots/LockscreenWidgets_Banner.png" width="1000" align="center">
 <br>
+<br>
+
 
 
 <details open>
    <summary><b>1.5 Update Notes (November 11th 2024)</b></summary>
+   
    - Module file has been added with parts of the original script for performance improvements
    - Last post lockscreen-widgets have been revised
    - Also added last post homescreen-widgets (small, medium, large)
    - Removed some parts of the delete menu
-   - Some parts of the code that were not used have been removed.
+   - Some parts of the code that were not used have been removed
    - General code improvements
 
 <br>
--->
 
    <details>
    <summary><b>1.4.1 Update Notes (January 17th 2024)</b></summary>
@@ -123,15 +128,15 @@ Today is your Cakeday!? The widget will tell you subtly.
 1. Login to your Account and go to https://old.reddit.com/prefs/apps/
 
 2. Create new **Personal Script**
-<img title="create another app..." src="Images/Screenshots/create_personal_script[step1].png" width="850">
+<img title="create another app..." src="https://github.com/iamrbn/Reddit-Widget/blob/175d5a4fb4eced970edccb2dcf818f699d6a6bdc/Images/Screenshots/create_personal_script%5Bstep1%5D.png" width="850">
 
 3. Click Checkbox "script" and set a redirect uri (e.g. same as in the image)
-<img title="config app parameter" src="Images/Screenshots/create_application[step2].png" width="850">
+<img title="config app parameter" src="https://github.com/iamrbn/Reddit-Widget/blob/175d5a4fb4eced970edccb2dcf818f699d6a6bdc/Images/Screenshots/create_application%5Bstep2%5D.png" width="850">
 
 4. Create App
 
 5. Copy Client_ID & Client_Secret
-<img title="get app parameter" src="Images/Screenshots/new_application[step3].png" width="850">
+<img title="get app parameter" src="https://github.com/iamrbn/Reddit-Widget/blob/175d5a4fb4eced970edccb2dcf818f699d6a6bdc/Images/Screenshots/new_application%5Bstep3%5D.png" width="850">
 
 Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
 
@@ -165,35 +170,10 @@ You can set ```Karma``` or ```Post``` individual in each Widgets.
 
 ### Run Script In App
 
-By running the scirpt In App it will present a menu with the following options.
+By running the scirpt In App it will present a menu with the following options.    
+_'Report Bug' Saves just a JSON with the reddit API response. You've to share it manually to get help!_
 
-<img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">
-
-<br>
-
-<!--
-## Installing
-
-### Install Script
-1. Install [Scriptable for iOS `↗`](https://apps.apple.com/us/app/scriptable/id1405459188?ign-mpt=uo%3D4 "App Store")
-2. Copy **each line** of the [Script `↗`](https://raw.githubusercontent.com/iamrbn/Reddit-Ridget/main/Reddit-Widget.js)
-or download [this](https://routinehub.co/shortcut/10438/) helper shortcut
-3. `+` Add new Script
-
-<img title="" src="https://github.com/iamrbn/slack-status/blob/0fd4225b87fa60148bb652e258962b588b3c4a3f/Images/addNewScript.png" width="250">
-
-4. Paste it into the new Script
-5. Finish
-
-### Add Widget To Homescreen
-1. Go to your homescreen and long tab anywhere
-2. By tapping the `+` it will opens the gallery
-3. chose or search for scriptable
-4. Chose the widget-size and tap `"Add Widget"`
-5. Tap the widget and choose the script, then set `"When Interacting" = "Run Script"` 
-6. Set the widget Parameters (Only Lockscreen-Widgets)
-7. Done
--->
+<img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">    
 
 </br>
 
