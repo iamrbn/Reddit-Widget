@@ -13,13 +13,13 @@ This widget shows your <img align="center" title="Karma Symbol" src="Images/karm
 This version of the widget shows your last Post on your home and lockscreen
 
 **Last Post Widget**
-<img title="Header Banner2" src="Images/Screenshots/haederBanner3.png" width="1000" align="center">
+<img title="Header Banner2" src="Images/Screenshots/bannerLastPost.png" width="1000" align="center">
 <br>
 <br>
 
 
 <details open>
-   <summary><b>1.5 Update Notes (November 1st 2024)</b></summary>
+   <summary><b>1.5 Update Notes (November 11th 2024)</b></summary>
    - Module file has been added with parts of the original script for performance improvements
    - Last post lockscreen-widgets have been revised
    - Also added last post homescreen-widgets (small, medium, large)
