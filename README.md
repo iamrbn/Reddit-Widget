@@ -126,6 +126,7 @@ Today is your Cakeday!? The widget will tell you subtly.
 ## ⚙️ SETUP
 
 ### Create Personal Reddit App/Script
+**Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2**
 
 1. Login to your Account and go to https://old.reddit.com/prefs/apps/
 
@@ -141,9 +142,7 @@ Today is your Cakeday!? The widget will tell you subtly.
 <img title="get app parameter" src="https://github.com/iamrbn/Reddit-Widget/blob/175d5a4fb4eced970edccb2dcf818f699d6a6bdc/Images/Screenshots/new_application%5Bstep3%5D.png" width="850">
 
 6. Run Script in-app and enter your created user credentials
-<img title="input datas" src="userCredentialsInputMockup.png" width="850">
-
-**Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2**
+<img title="input datas" src="Images/Screenshots/userCredentialsInputMockup.png" width="450">
 
 ___
 
@@ -178,7 +177,8 @@ You can set ```Karma``` or ```Post``` individual in each Widgets.
 By running the scirpt In App it will present a menu with the following options.    
 _'Report Bug' Saves just a JSON with the reddit API response. You've to share it manually to get help!_
 
-<img title="runInApp" src="Images/Screenshots/runInApp.png" width="425" align="center">    
+
+<img title="runInApp" src="Images/Screenshots/runInApp.png" width="450" align="center">    
 
 </br>
 
