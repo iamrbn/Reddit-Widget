@@ -140,7 +140,10 @@ Today is your Cakeday!? The widget will tell you subtly.
 5. Copy Client_ID & Client_Secret
 <img title="get app parameter" src="https://github.com/iamrbn/Reddit-Widget/blob/175d5a4fb4eced970edccb2dcf818f699d6a6bdc/Images/Screenshots/new_application%5Bstep3%5D.png" width="850">
 
-Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2
+6. Run Script in-app and enter your created user credentials
+<img title="input datas" src="userCredentialsInputMockup.png" width="850">
+
+**Official Reddit API Guidelines: https://github.com/reddit-archive/reddit/wiki/OAuth2**
 
 ___
 
@@ -175,7 +178,7 @@ You can set ```Karma``` or ```Post``` individual in each Widgets.
 By running the scirpt In App it will present a menu with the following options.    
 _'Report Bug' Saves just a JSON with the reddit API response. You've to share it manually to get help!_
 
-<img title="runInApp" src="Images/Screenshots/runInApp.png" width="250" align="center">    
+<img title="runInApp" src="Images/Screenshots/runInApp.png" width="425" align="center">    
 
 </br>
 
