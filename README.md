@@ -112,7 +112,7 @@ The Widget has a **Dynamic Gradient Background**
 When you add the widget but also saved your login datas (via script) youll get the Error/First Run Widget.    
 Open the Script an Enter your Datas from Reddit.
 
-<img title="Preview Error/First Run Widget" src="Images/Screenshots/previewError-FirstRun_Widgets.png" width="500" align="center">
+<img title="Preview Error/First Run Widget" src="Images/Screenshots/errorFirstRun.png" width="750" align="center">
 
 <br>
 
