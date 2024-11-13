@@ -11,7 +11,7 @@ This widget shows your <img align="center" title="Karma Symbol" src="Images/karm
 <br>
 
 
-This version of the widget shows your last Post on your home and lockscreen
+This version of the widget shows your last Post on your home and lockscreen  <img align="upper" title="upvotes" src="Images/arrowsLS.png" width="30">
 
 **Last Post Widget**
 <img title="Header Banner2" src="Images/Screenshots/bannerLastPost.png" width="1000" align="center">
@@ -28,8 +28,10 @@ This version of the widget shows your last Post on your home and lockscreen
    
    - Module file has been added with parts of the original script for performance improvements
    - Last post lockscreen-widgets have been revised
+   - Error widgets have been revised
    - Also added last post homescreen-widgets (small, medium, large)
    - Removed some parts of the delete menu
+   - improved delete menu code
    - Some parts of the code that were not used have been removed
    - General code improvements
 </details>
