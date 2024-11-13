@@ -108,11 +108,11 @@ The Widget has a **Dynamic Gradient Background**
 
 <br>
 
-### First Run
-When you add the widget but also saved your login datas (via script) youll get the Error/First Run Widget.    
-Open the Script an Enter your Datas from Reddit.
+### Error Widegt
+The error widget is displayed if you have not yet entered any user credentials or if there is no response from the reddit API.    
+Reasons for this could be, for example, no internet connection.
 
-<img title="Preview Error/First Run Widget" src="Images/Screenshots/errorFirstRun.png" width="750" align="center">
+<img title="Preview Error/First Run Widget" src="Images/Screenshots/errorFirstRunBanner.png" width="1000" align="center">
 
 <br>
 
