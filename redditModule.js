@@ -1,6 +1,6 @@
 //=======================================//
 //=========== START OF MODULE ===========//
-//============= Version 1.0 =================//
+//============= Version 1.0 =============//
 
 
 // sends request to reddit-api
@@ -9,7 +9,7 @@ async function getKarmaFromAPI(numberFormatting){
        df.dateFormat = 'MMMM dd, yyyy'
   let fm = FileManager.iCloud()
   let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
-  let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
+  let jsonPath = fm.joinPath(dir, 'UserCredentials.json')
   let user, userData, postData;
   
   try {
@@ -77,9 +77,9 @@ async function getKarmaFromAPI(numberFormatting){
             //Declare post variables
              sub = postData.data.children[idx].data.subreddit_name_prefixed
              subURL = 'https://reddit.com/' + sub
-             upvotes = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.score)
+             upvotes = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.score).toString()
              downvotes = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.downs)
-             numComments = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.num_comments)
+             numComments = Intl.NumberFormat(numberFormatting).format(postData.data.children[idx].data.num_comments).toString()
              postCreated = df.string(new Date(postData.data.children[idx].data.created * 1000))
              kind = postData.data.children[idx].kind // 't1_' = comment / 't2_' = account  / 't3_' = link / 't4_' =  message / 't5_' = subreddit / 't6_' = award
              author = 'u/' + postData.data.children[idx].data.author
@@ -115,46 +115,48 @@ async function getKarmaFromAPI(numberFormatting){
         else if (timeDiff > 1440) postAge = Math.abs(timeDiff/60/24).toFixed(0)+"d"
         else if (timeDiff > 60) postAge = Math.abs(timeDiff/60).toFixed(0)+"h"
         else if (timeDiff >= 1) postAge= Math.abs(timeDiff).toFixed(0)+"m"
+        
+        return {
+            totalKarma,
+            postKarma,
+            commentKarma,
+            awarderKarma,
+            awardeeKarma,
+            snoovatarImg,
+            usertitle,
+            username,
+            puplicDescription,
+            inboxCount,
+            profileURL,
+            profileCreated,
+            minutesDiff,
+            accountAge,
+            sub,
+            subURL,
+            upvotes,
+            downvotes,
+            numComments,
+            postCreated,
+            kind,
+            author,
+            title,
+            body,
+            link,
+            link_author,
+            contentLink,
+            numCrossposts,
+            url,
+            timeDiff,
+            postAge
+        }
          
          } catch(err){
-             console.error('ERROR: No response from reddit API')
+             console.error('ERROR 404: No response from reddit API')
+             return 404
         }
     } catch(err){
-         console. error('ERROR: Failed to load user credentials from icloud')
-    }
-         
-    return {
-        totalKarma,
-        postKarma,
-        commentKarma,
-        awarderKarma,
-        awardeeKarma,
-        snoovatarImg,
-        usertitle,
-        username,
-        puplicDescription,
-        inboxCount,
-        profileURL,
-        profileCreated,
-        minutesDiff,
-        accountAge,
-        sub,
-        subURL,
-        upvotes,
-        downvotes,
-        numComments,
-        postCreated,
-        kind,
-        author,
-        title,
-        body,
-        link,
-        link_author,
-        contentLink,
-        numCrossposts,
-        url,
-        timeDiff,
-        postAge
+         console. error('ERROR 410: Failed to load user credentials from iCloud')
+         return 410
     }
 };
 
@@ -260,10 +262,10 @@ async function presentMenu(api, username, totalKarma, accountAge, inboxCount, im
 async function askForLoginDatas(){
       let fm = FileManager.iCloud()
       let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
-      let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
+      let jsonPath = fm.joinPath(dir, 'UserCredentials.json')
       let alert = new Alert()
            alert.title = "No Data Found in iCloud!"
-           alert.message = "Please Enter Login Datas"
+           alert.message = "Please Enter Your Credentials"
            alert.addTextField('Username')
            alert.addTextField("Password")
            alert.addTextField("Client ID")
@@ -282,13 +284,13 @@ async function askForLoginDatas(){
          checkObj = Object.values(userDatas).every(value => value !== "" && value.length > 3)
          if (checkObj){
              FileManager.iCloud().writeString(jsonPath, JSON.stringify(userDatas, null, 1))
-             await popUp('SUCCESSFULLY SAVED!', '~ iCloud/Scriptable/Reddit-Widget/LoginDatas.json')
+             await popUp('SUCCESSFULLY SAVED!', '~ iCloud/Scriptable/Reddit-Widget/UserCredentials.json')
          } else {
             await popUp('ERROR: Input Too Short!', 'Please Try Again')
             await askForLoginDatas()
         }
      } else if (idx === 1){
-         throw new Error('User Clicked "Cancel!"')
+         throw new Error('User clicked Cancel')
      } else if (idx === 2){
          Safari.openInApp('https://github.com/iamrbn/Reddit-Widget/#create-personal-reddit-appscript', false)
     }
@@ -299,7 +301,7 @@ async function askForLoginDatas(){
 async function deleteUserDatas(imgKey){
   let fm = FileManager.iCloud()
   let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
-  let jsonPath = fm.joinPath(dir, 'LoginDatas.json')
+  let jsonPath = fm.joinPath(dir, 'UserCredentials.json')
   let alert = new Alert()
       alert.title = "Are You Sure To Delete?"
       alert.message = "Removed files can NOT be restored"
@@ -419,39 +421,127 @@ async function getImageFor(name){
 };
     
 
-// creating error widget (first run or no datas saved)
-async function errorWidget(bgGradient, padding, radius, size1, size2){
-      let errWidget = new ListWidget()
-           errWidget.url = "scriptable:///run/Reddit%20Widget"
-           errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 15)
-           errWidget.setPadding(padding, padding, padding, padding)
-           await rModule.createBG(errWidget, false, null)
-          
-           errWidget.addText("Couldn’t find login datas - Looks like your first run").font = Font.boldMonospacedSystemFont(size1)
-            
-           errWidget.addSpacer()
-         
-           errWidget.addText("Please open the script and enter your login datas or visit").font = Font.regularMonospacedSystemFont(size2)
-            
-           errWidget.addSpacer()
-      
-      let linkButton = errWidget.addStack()
-           linkButton.setPadding(7, 0, 7, 0)
-           linkButton.backgroundColor = Color.white()
-           linkButton.cornerRadius = radius
-           linkButton.centerAlignContent()
-           linkButton.url = 'https://github.com/iamrbn/Reddit-Widget/'
-            
-          linkButton.addSpacer();
+// creating error homescreen widget (first run or no datas saved)
+async function errorWidget(type, code){
+    //if (code != 404 || code != 410){throw new Error(`Unknown Error code => ${code}`)}
+    //if (typeof code != 'number'){throw new Error(`Unknown Error code => ${code}`)}
+    title = (code === 410) ? "No Credentials Found" : "No API Response"
+    body = (code === 410) ? "Please tap widget to run script and enter your user credentials or visit the Repo for more information" : "Maybe there is no internet connection"
+    symbol = (code === 410) ? 'questionmark.folder' : 'network.slash' // questionmark.folder - exclamationmark.magnifyingglass
+    button = (code === 410) ? "GitHub Repo ↗" :  "Check Connection ↗"
+    url = (code === 410)? "https://github.com/iamrbn/Reddit-Widget?tab=readme-ov-file#%EF%B8%8F-setup" : "https://github.com/iamrbn/"
+    
+    if (type === 'small'){
+        padding = 12
+        radius = 13
+        size = 14
+        symbolSize = 30
+    } else if (type === 'medium'){
+        padding = 14
+        radius = 17
+        size = 16
+        symbolSize = 35
+    } else if (type === 'large'){
+        padding = 25
+        radius = 19
+        size = 22
+        symbolSize = 80
+    }
+    
+    errWidget = new ListWidget()
+    errWidget.url = "scriptable:///run/Reddit%20Widget"
+    errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 1)
+    errWidget.setPadding(padding, padding, padding, padding)
+    await createBG(errWidget, false, null)
+    
+    wTitle = errWidget.addText(title)
+    wTitle.font = Font.boldMonospacedSystemFont(size)
+    wTitle.minimumScaleFactor = 0.7
+    wTitle.lineLimit = 1
+    
+    errWidget.addSpacer(3)
+    
+    wBody = errWidget.addText(body)
+    wBody.font = Font.regularMonospacedSystemFont(size)
+    wBody.minimumScaleFactor = 0.6
+    
+    errWidget.addSpacer(5)
+    
+    sf = SFSymbol.named(symbol)
+    sf.applyFont(Font.regularRoundedSystemFont(150))
+    wIMG = errWidget.addImage(sf.image)
+    wIMG.imageSize = new Size(symbolSize, symbolSize)
+    wIMG.tintColor = Color.dynamic(Color.black(), Color.white())
+    wIMG.imageOpacity = 0.4
+    wIMG.centerAlignImage()
+    
+    errWidget.addSpacer()
+    
+    linkButton = errWidget.addStack()
+    linkButton.setPadding(5, 0, 5, 0)
+    linkButton.spacing = 3
+    await createBG(linkButton, true, null)
+    linkButton.cornerRadius = radius
+    linkButton.centerAlignContent()
+    linkButton.borderColor = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
+    linkButton.borderWidth = 0.5
+    linkButton.url = url
+    linkButton.addSpacer()
         
-      let wURL = linkButton.addText("GitHub Repo ↗")
-           wURL.font = Font.semiboldMonospacedSystemFont(size2)
-           wURL.textColor = Color.blue()
-           wURL.centerAlignText()
-            
-          linkButton.addSpacer()
-        
+    wURL = linkButton.addText(button)
+    wURL.font = Font.regularMonospacedSystemFont(size-2)
+    wURL.minimumScaleFactor = 0.7
+    wURL.textColor = Color.blue()//Color.dynamic(Color.blue(), new Color('#1F8FFF'))
+    wURL.shadowColor = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
+    wURL.shadowOffset = new Point(0, 2)
+    wURL.shadowRadius = 1
+    wURL.centerAlignText()
+    
+    linkButton.addSpacer()
+
   return errWidget
+};
+
+
+// creating error lockscreen widget (first run or no datas saved)
+async function errorWidgetLS(type, code){
+    errWidget = new ListWidget()
+    errWidget.addAccessoryWidgetBackground = true
+    errWidget.url = "scriptable:///run/Reddit%20Widget"
+    errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 1)
+    
+    if (type === 'accessoryRectangular'){
+        errWidget.setPadding(0, 0, 0, 0)
+        txt = (code === 404) ? 'No API Response' : 'No User Credentials Found'
+        scale = (code === 404) ? 1.0 : 0.8
+        title = errWidget.addText(txt)
+        title.font = Font.boldMonospacedSystemFont(11)
+        title.minimumScaleFactor = scale
+        title.centerAlignText()
+        errWidget.addSpacer(2)
+        bdy = (code === 404) ? 'Maybe there is no internet connection' : 'Tap widget to start the setup'
+        body = errWidget.addText(bdy)
+        body.font = Font.regularMonospacedSystemFont(10)
+        body.minimumScaleFactor = scale
+        body.centerAlignText()
+        symbol = (code === 404) ? 'network.slash' : 'questionmark.folder'
+        sf = SFSymbol.named(symbol)
+        sf.applyFont(Font.regularRoundedSystemFont(150))
+        img = errWidget.addImage(sf.image)
+        img.imageSize = new Size(16, 16)
+        img.tintColor = Color.white()
+        img.imageOpacity = 0.5
+        img.centerAlignImage()
+    } else if (type === 'accessoryCircular'){
+        txt = (code === 404) ? 'No API\nResponse' : 'Tap\nto\nSetup\n☞'
+        errWidget.setPadding(2, 0, 0, 0)
+        title = errWidget.addText(txt)
+        size = (code === 404) ? 8 : 9
+        title.font = Font.boldMonospacedSystemFont(size)
+        title.centerAlignText()
+    } 
+    
+ return errWidget
 };
 
     
@@ -511,6 +601,7 @@ module.exports = {
     saveAllImages,
     addString,
     errorWidget,
+    errorWidgetLS,
     addText
 };
 
