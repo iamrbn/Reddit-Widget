@@ -1,6 +1,6 @@
 //=======================================//
 //=========== START OF MODULE ===========//
-//============= Version 1.0 =============//
+//============= Version 1.1 =============//
 
 
 // sends request to reddit-api
@@ -546,8 +546,10 @@ async function errorWidgetLS(type, code){
 
     
 //Checks if's there an server update on GitHub available
-async function updateCheck(fm, modulePath, version){
+async function updateCheck(version){
   fm = fm = FileManager.iCloud()
+  dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
+  modulePath = fm.joinPath(dir, 'redditModule.js')
   url = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/'
   endpoints = ['Reddit-Widget.js', 'redditModule.js']
   let uC;
