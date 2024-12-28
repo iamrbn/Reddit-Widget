@@ -1,6 +1,6 @@
 //=======================================//
 //=========== START OF MODULE ===========//
-//============= Version 1.1 =============//
+//============= Version 1.1.1 ===========//
 
 
 // sends request to reddit-api
@@ -18,6 +18,7 @@ async function getKarmaFromAPI(numberFormatting){
      try {
         // get access-token for api request
         let reqToken = new Request('https://www.reddit.com/api/v1/access_token')
+             reqToken.timeoutInterval = 60 * 30
              reqToken.method = 'POST'
              reqToken.headers = {
                  'Authorization': 'Basic ' + btoa(user.CLIENT_ID + ":" + user.CLIENT_SECRET)
@@ -29,6 +30,7 @@ async function getKarmaFromAPI(numberFormatting){
         
         // get user datas with token
         let reqUserData = new Request('https://oauth.reddit.com/api/v1/me')
+             reqUserData.timeoutInterval = 60 * 60
              reqUserData.headers = {
                  'user-Agent': 'getKarmaFromRedditBy-iamrbn/v1.4',
                  'Authorization': `${token.token_type} ${token.access_token}`
@@ -38,6 +40,7 @@ async function getKarmaFromAPI(numberFormatting){
              //console.log(JSON.stringify(userData, null, 2))
          
         let reqPostData = new Request(`https://oauth.reddit.com/user/${ user.USERNAME }/overview/new/?limit=7`)
+             reqPostData.timeoutInterval = 60 * 60
              reqPostData.headers = {
                  'user-Agent': 'getKarmaFromRedditBy-iamrbn/v1.4',
                  'Authorization': `${token.token_type} ${token.access_token}`
@@ -151,7 +154,7 @@ async function getKarmaFromAPI(numberFormatting){
         }
          
          } catch(err){
-             console.error('ERROR 404: No response from reddit API')
+             console.error('ERROR 404: No or Bad response from reddit API')
              return 404
         }
     } catch(err){
@@ -162,13 +165,15 @@ async function getKarmaFromAPI(numberFormatting){
 
 
  // Save images from github and appstore
-async function saveAllImages(imgKey, snoovatarImg){
+async function saveAllImages(snoovatarImg){
+     
       //log({profileImg})
-      let fm = FileManager.iCloud()
-      let dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
-      let imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
-      let imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "oldReddit.png", "arrowsLS.png", "redditLS.png"]
-      let appStoreIcons = {
+      imgKey = Keychain
+      fm = FileManager.iCloud()
+      dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
+      imgURL = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/Images/'
+      imgs = ["karma.png", "cakedayConfetti.png", "cakedayApollo.png", "cakedayReddit.png", "alienblue.png", "black.png", "classic.png", "orange.png", "oldReddit.png", "arrowsLS.png", "redditLS.png"]
+      appStoreIcons = {
           apollo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/d8/a6/a1d8a63c-1534-2a04-b0fe-3de6e9c800b9/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-85-220.png/512x512bb.png'
           }
           
@@ -245,16 +250,16 @@ function addText(stack, text, size, opacity){
     
 
 // creating menu for start script
-async function presentMenu(api, username, totalKarma, accountAge, inboxCount, imgKey){
+async function presentMenu(api, imgKey){
   let alrt = new Alert()
-      alrt.title = username
-      alrt.message = `${totalKarma} Total Karma\nRedditor Since ${accountAge}\nUnread Inbox: ${inboxCount}`
-      alrt.addDestructiveAction("⌦ Delete Menu")
-      alrt.addAction('⚙︎ Report Bug')
-      alrt.addCancelAction("Cancel")
-      idx = await alrt.presentSheet()
-      if (idx === 0) await deleteUserDatas(imgKey)
-      else if (idx === 1) await reportBug(api)
+       alrt.title = api.username
+       alrt.message = `${api.totalKarma} Total Karma\nRedditor Since ${api.totalKarma}\nUnread Inbox: ${api.inboxCount}`
+       alrt.addDestructiveAction("⌦ Delete Menu")
+       alrt.addAction('⚙︎ Report Bug')
+       alrt.addCancelAction("Cancel")
+       idx = await alrt.presentSheet()
+       if (idx === 0) await deleteUserDatas(imgKey)
+       else if (idx === 1) await reportBug(api)
 };
 
 
@@ -375,9 +380,7 @@ async function reportBug(api){
 
 
 async function popUp(title ,message){
-      alrt = new Alert()
-      alrt.title = title
-      alrt.message = message
+      alrt = Object.assign(new Alert(), {title: title, message: message})
       alrt.addAction("OK")
       await alrt.presentAlert()
 };
@@ -422,126 +425,140 @@ async function getImageFor(name){
     
 
 // creating error homescreen widget (first run or no datas saved)
-async function errorWidget(type, code){
-    //if (code != 404 || code != 410){throw new Error(`Unknown Error code => ${code}`)}
-    //if (typeof code != 'number'){throw new Error(`Unknown Error code => ${code}`)}
-    title = (code === 410) ? "No Credentials Found" : "No API Response"
-    body = (code === 410) ? "Please tap widget to run script and enter your user credentials or visit the Repo for more information" : "Maybe there is no internet connection"
-    symbol = (code === 410) ? 'questionmark.folder' : 'network.slash' // questionmark.folder - exclamationmark.magnifyingglass
-    button = (code === 410) ? "GitHub Repo ↗" :  "Check Connection ↗"
-    url = (code === 410)? "https://github.com/iamrbn/Reddit-Widget?tab=readme-ov-file#%EF%B8%8F-setup" : "https://github.com/iamrbn/"
+async function infoWidget(code, update){
+    iWidget = new ListWidget()
+    iWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 1)
     
-    if (type === 'small'){
+    if (code === 410){
+        title = "No Credentials Found"
+        titleShort = "Tap\nto\nSetup\n☞"
+        body = "Tap widget to start the setup"
+        symbol = "questionmark.folder"
+        button = "GitHub Repo ↗"
+        url = "https://github.com/iamrbn/Reddit-Widget?tab=readme-ov-file#%EF%B8%8F-setup"
+    } else if (code === 404){
+        title = "No Reddit API Response"
+        titleShort = "No API\nResponse"
+        body = "Maybe there ist no internet connection"
+        symbol = "network.slash"
+        button = "Check Connection ↗"
+        url = "https://github.com/iamrbn"
+    } else if (update.needUpdate){
+        title = `Update ${update.uC.version} Available`
+        titleShort = `Update ${update.uC.version} Available`
+        body = "Please run script to Update"
+        symbol = "gear.badge"
+        button = "Run Script ↗"
+        url = "scriptable:///run/Reddit%20Widget"
+    }
+    
+    sf = SFSymbol.named(symbol)
+    sf.applyFont(Font.regularRoundedSystemFont(200))
+        
+    if (config.widgetFamily === 'small'){
         padding = 12
         radius = 13
         size = 14
         symbolSize = 30
-    } else if (type === 'medium'){
+    } else if (config.widgetFamily === 'medium'){
         padding = 14
         radius = 17
         size = 16
         symbolSize = 35
-    } else if (type === 'large'){
+    } else if (config.widgetFamily === 'large'){
         padding = 25
         radius = 19
         size = 22
         symbolSize = 80
+    } else if (config.widgetFamily === 'accessoryRectangular'){
+        padding = 0
+    } else if (config.widgetFamily === 'accessoryCircular'){
+        padding = 0
     }
     
-    errWidget = new ListWidget()
-    errWidget.url = "scriptable:///run/Reddit%20Widget"
-    errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 1)
-    errWidget.setPadding(padding, padding, padding, padding)
-    await createBG(errWidget, false, null)
+    iWidget.setPadding(padding, padding, padding, padding)
     
-    wTitle = errWidget.addText(title)
-    wTitle.font = Font.boldMonospacedSystemFont(size)
-    wTitle.minimumScaleFactor = 0.7
-    wTitle.lineLimit = 1
-    
-    errWidget.addSpacer(3)
-    
-    wBody = errWidget.addText(body)
-    wBody.font = Font.regularMonospacedSystemFont(size)
-    wBody.minimumScaleFactor = 0.6
-    
-    errWidget.addSpacer(5)
-    
-    sf = SFSymbol.named(symbol)
-    sf.applyFont(Font.regularRoundedSystemFont(150))
-    wIMG = errWidget.addImage(sf.image)
-    wIMG.imageSize = new Size(symbolSize, symbolSize)
-    wIMG.tintColor = Color.dynamic(Color.black(), Color.white())
-    wIMG.imageOpacity = 0.4
-    wIMG.centerAlignImage()
-    
-    errWidget.addSpacer()
-    
-    linkButton = errWidget.addStack()
-    linkButton.setPadding(5, 0, 5, 0)
-    linkButton.spacing = 3
-    await createBG(linkButton, true, null)
-    linkButton.cornerRadius = radius
-    linkButton.centerAlignContent()
-    linkButton.borderColor = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
-    linkButton.borderWidth = 0.5
-    linkButton.url = url
-    linkButton.addSpacer()
+    if ( [ 'small', 'medium', 'large' ].includes(config.widgetFamily) ){
+        await createBG(iWidget, false, null)
         
-    wURL = linkButton.addText(button)
-    wURL.font = Font.regularMonospacedSystemFont(size-2)
-    wURL.minimumScaleFactor = 0.7
-    wURL.textColor = Color.blue()//Color.dynamic(Color.blue(), new Color('#1F8FFF'))
-    wURL.shadowColor = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
-    wURL.shadowOffset = new Point(0, 2)
-    wURL.shadowRadius = 1
-    wURL.centerAlignText()
+        //iWidget.addSpacer()
+        
+        wTitle = iWidget.addText(title)
+        wTitle.font = Font.boldMonospacedSystemFont(size)
+        wTitle.minimumScaleFactor = 0.7
+        wTitle.centerAlignText()
+        //wTitle.lineLimit = 1
+        
+        iWidget.addSpacer()
+        
+        wBody = iWidget.addText(body)
+        wBody.font = Font.regularMonospacedSystemFont(size)
+        wBody.minimumScaleFactor = 0.6
+        wBody.centerAlignText()
+        
+        iWidget.addSpacer()//5
+        
+        wIMG = iWidget.addImage(sf.image)
+        //wIMG.imageSize = new Size(symbolSize, symbolSize)
+        wIMG.tintColor = Color.dynamic(Color.black(), Color.white())
+        wIMG.imageOpacity = 0.5
+        wIMG.centerAlignImage()
+        
+        iWidget.addSpacer()
+        
+        linkButton = iWidget.addStack()
+        linkButton.setPadding(5, 0, 5, 0)
+        linkButton.spacing = 3
+        await createBG(linkButton, true, null)
+        linkButton.cornerRadius = radius
+        linkButton.centerAlignContent()
+        linkButton.borderColor = Color.dynamic(new Color('#EDEDED'), new Color('#FD3F12'))
+        linkButton.borderWidth = 0.5
+        linkButton.url = url
+        
+        linkButton.addSpacer()
+        
+        wURL = linkButton.addText(button)
+        wURL.font = Font.regularMonospacedSystemFont(size-2)
+        wURL.minimumScaleFactor = 0.7
+        wURL.textColor = Color.blue()//Color.dynamic(Color.blue(), new Color('#1F8FFF'))
+        wURL.shadowColor = Color.dynamic(new Color('#D4D4D4'), new Color('#EA2128'))
+        wURL.shadowOffset = new Point(0, 2)
+        wURL.shadowRadius = 1
+        wURL.centerAlignText()
     
-    linkButton.addSpacer()
-
-  return errWidget
-};
-
-
-// creating error lockscreen widget (first run or no datas saved)
-async function errorWidgetLS(type, code){
-    errWidget = new ListWidget()
-    errWidget.addAccessoryWidgetBackground = true
-    errWidget.url = "scriptable:///run/Reddit%20Widget"
-    errWidget.refreshAfterDate = new Date(Date.now() + 1000 * 60 * 1)
-    
-    if (type === 'accessoryRectangular'){
-        errWidget.setPadding(0, 0, 0, 0)
-        txt = (code === 404) ? 'No API Response' : 'No User Credentials Found'
-        scale = (code === 404) ? 1.0 : 0.8
-        title = errWidget.addText(txt)
-        title.font = Font.boldMonospacedSystemFont(11)
-        title.minimumScaleFactor = scale
+        linkButton.addSpacer()
+    } else if (config.widgetFamily === 'accessoryRectangular'){
+        iWidget.addAccessoryWidgetBackground = true
+        iWidget.url = url
+        
+        title = iWidget.addText(title)
+        title.font = Font.boldMonospacedSystemFont(10)
+        title.minimumScaleFactor = 0.8
         title.centerAlignText()
-        errWidget.addSpacer(2)
-        bdy = (code === 404) ? 'Maybe there is no internet connection' : 'Tap widget to start the setup'
-        body = errWidget.addText(bdy)
-        body.font = Font.regularMonospacedSystemFont(10)
-        body.minimumScaleFactor = scale
-        body.centerAlignText()
-        symbol = (code === 404) ? 'network.slash' : 'questionmark.folder'
-        sf = SFSymbol.named(symbol)
-        sf.applyFont(Font.regularRoundedSystemFont(150))
-        img = errWidget.addImage(sf.image)
-        img.imageSize = new Size(16, 16)
-        img.tintColor = Color.white()
-        img.imageOpacity = 0.5
+        
+        iWidget.addSpacer(2)
+        
+        subtitle = iWidget.addText(body)
+        subtitle.font = Font.regularMonospacedSystemFont(9)
+        subtitle.minimumScaleFactor = 0.8
+        subtitle.centerAlignText()
+        
+        img = iWidget.addImage(sf.image)
+        //img.imageSize = new Size(16, 16)
+        //img.tintColor = Color.white()
         img.centerAlignImage()
-    } else if (type === 'accessoryCircular'){
-        txt = (code === 404) ? 'No API\nResponse' : 'Tap\nto\nSetup\n☞'
-        errWidget.setPadding(2, 0, 0, 0)
-        title = errWidget.addText(txt)
-        size = (code === 404) ? 8 : 9
-        title.font = Font.boldMonospacedSystemFont(size)
+        
+    } else if (config.widgetFamily === 'accessoryCircular'){
+        iWidget.addAccessoryWidgetBackground = true
+        iWidget.url = url
+        title = iWidget.addText(titleShort)
+        title.font = Font.boldMonospacedSystemFont(8)
         title.centerAlignText()
+        
     } 
-    
- return errWidget
+
+  return iWidget
 };
 
     
@@ -550,6 +567,7 @@ async function updateCheck(version){
   fm = fm = FileManager.iCloud()
   dir = fm.joinPath(fm.documentsDirectory(), 'Reddit-Widget')
   modulePath = fm.joinPath(dir, 'redditModule.js')
+  fm = fm = FileManager.iCloud()
   url = 'https://raw.githubusercontent.com/iamrbn/Reddit-Widget/main/'
   endpoints = ['Reddit-Widget.js', 'redditModule.js']
   let uC;
@@ -579,8 +597,8 @@ async function updateCheck(version){
         reqModule = new Request(url + endpoints[1])
         moduleFile = await reqModule.loadString()
         fm.writeString(modulePath, moduleFile)
-        throw new Error("Update Complete!")
-      }
+        throw "Update Complete!"
+      } else {throw "Update Canceled!"}
     }
   } else {
       console.log(">> SCRIPT IS UP TO DATE!")
@@ -602,8 +620,7 @@ module.exports = {
     createBG,
     saveAllImages,
     addString,
-    errorWidget,
-    errorWidgetLS,
+    infoWidget,
     addText
 };
 
