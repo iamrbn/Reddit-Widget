@@ -21,9 +21,7 @@ let widgetType = 'post' // input: karma or post
 // =========== END CONFIG ZONE ================
 //=============================================
 
-let df = new DateFormatter()
-    df.dateFormat = 'MMMM dd, yyyy'
-let wSize = config.widgetFamily
+let df = Object.assign(new DateFormatter(), {dateFormat: 'MMMM dd, yyyy'})
 let fm = FileManager.iCloud()
 let imgKey = Keychain
 let wParameter = await args.widgetParameter
@@ -38,133 +36,121 @@ let modulePath = fm.joinPath(dir, 'redditModule.js')
 if (!fm.fileExists(modulePath)) await loadModule()
 if (!fm.isFileDownloaded(modulePath)) await fm.downloadFileFromiCloud(modulePath)
 let rModule = importModule(modulePath)
-let uCheck = await rModule.updateCheck(1.5)
 let jsonPath = fm.joinPath(dir, 'UserCredentials.json')
 let txtBGColor = Color.dynamic(new Color('#D5D7DC40'), new Color('#24242421'))
 let txtColor = Color.dynamic(Color.black(), Color.white())
 let d = await rModule.getKarmaFromAPI(numberFormatting)
+let uCheck = await rModule.updateCheck(1.52)
 
 if (config.runsInApp && typeof d !== "number"){
-    await rModule.saveAllImages(imgKey, d.snoovatarImg)
-    await rModule.presentMenu(d, d.username, d.totalKarma, d.accountAge, d.inboxCount, imgKey)
+    await rModule.saveAllImages(d.snoovatarImg)
+    await rModule.presentMenu(d, imgKey)
 } else if (config.runsInApp && typeof d === "number"){
     await rModule.askForLoginDatas()
-    await rModule.saveAllImages(imgKey, d.snoovatarImg)
-    await rModule.presentMenu(d, d.username, d.totalKarma, d.accountAge, d.inboxCount, imgKey)
+    await rModule.saveAllImages(d.snoovatarImg)
+    await rModule.presentMenu(d, imgKey)
 } else if (config.runsInWidget || config.runsInAccessoryWidget){
-    switch (wSize){
-      
+    switch (config.widgetFamily){
       case 'accessoryCircular':
-        if (typeof d === "number" || !imgKey.contains("nameProfileImage")) w = await rModule.errorWidgetLS(wSize, d)
+        if (typeof d === "number" || uCheck.needUpdate) w = await rModule.infoWidget(d, uCheck)
         else if (widgetType === 'karma') w = await circularKarmaWidget()
         else if (widgetType === 'post') w = await circularPostWidget()
       break;
         
       case 'accessoryRectangular':
-        if (typeof d === "number" || !imgKey.contains("nameProfileImage")) w = await rModule.errorWidgetLS(wSize, d)
+        if (typeof d === "number" || uCheck.needUpdate) w = await rModule.infoWidget(d, uCheck)
         else w = await rectangularPostWidget()
       break;
         
       case 'small':
-        if (typeof d === "number" || !imgKey.contains("nameProfileImage")) w = await rModule.errorWidget(wSize, d)
+        if (typeof d === "number" || uCheck.needUpdate) w = await rModule.infoWidget(d, uCheck)
         else if (widgetType === 'post') w = await smallPostWidget()
         else if (widgetType === 'karma') w = await smallKarmaWidget()
       break;
       
       case 'medium':
-        if (typeof d === "number" || !imgKey.contains("nameProfileImage")) w = await rModule.errorWidget(wSize, d)
+        if (typeof d === "number" || uCheck.needUpdate) w = await rModule.infoWidget(d, uCheck)
         else if (widgetType === 'post') w = await mediumPostWidget()
         else if (widgetType === 'karma') w = await mediumKarmaWidget()
       break;
       
       case 'large':
-        if (typeof d === "number" || !imgKey.contains("nameProfileImage")) w = await rModule.errorWidget(wSize, d)
+        if (typeof d === "number" || uCheck.needUpdate) w = await rModule.infoWidget(d, uCheck)
         else if (widgetType === 'post') w = await largePostWidget()
         else if (widgetType === 'karma') w = await largeKarmaWidget()
       break;
-        
-      default: w = await rModule.errorWidget(wSize, d)
+      default: w = await rModule.infoWidget(d, uCheck)
     }
     Script.setWidget(w)
 };
-    
-    
-// ******* CIRCULAR LS WIDGET ********
-//*********** Recent Post ************
+   
+     
+//************************************    
+//******** CIRCULAR LS WIDGET ********
+//************************************
 async function circularPostWidget(){
   let w = new ListWidget()
       w.url = d.link
       w.refreshAfterDate = new Date(Date.now()+1000*60*refreshInt)
       w.addAccessoryWidgetBackground = true
-     
-  let upvoteStack = w.addStack()
-      upvoteStack.spacing = 3
-      upvoteStack.centerAlignContent()
+
+      let upvoteStack = w.addStack()
+          upvoteStack.spacing = 3
+          upvoteStack.centerAlignContent()
       
-      w.addSpacer(2)
+          w.addSpacer(2)
       
-  let commentStack = w.addStack()
-      commentStack.spacing = 3
-      commentStack.centerAlignContent()
-    
-  if (uCheck.needUpdate){
-      updateDialog = w.addText(`Update\n${uCheck.uC.version}\nAvailable`)
-      updateDialog.font = Font.boldRoundedSystemFont(9)
-      updateDialog.textColor = Color.white()
-      updateDialog.centerAlignText()
-  } else {
-     let upvoteSF = SFSymbol.named('arrow.up')
-         upvoteSF.applyFont(Font.lightRoundedSystemFont(150))
+      let commentStack = w.addStack()
+          commentStack.spacing = 3
+          commentStack.centerAlignContent()
+   
+      let upvoteSF = SFSymbol.named('arrow.up')
+          upvoteSF.applyFont(Font.lightRoundedSystemFont(150))
         
-     let upvoteImg = upvoteStack.addImage(upvoteSF.image)
-         upvoteImg.imageSize = new Size(18, 13)
-         upvoteImg.centerAlignImage()
-         upvoteImg.tintColor = Color.white()
+      let upvoteImg = upvoteStack.addImage(upvoteSF.image)
+          upvoteImg.imageSize = new Size(18, 13)
+          upvoteImg.centerAlignImage()
+          upvoteImg.tintColor = Color.white()
         
-     let wUpvote = upvoteStack.addText(d.upvotes)
-         wUpvote.font = Font.boldRoundedSystemFont(12)
-         wUpvote.textColor = Color.white()
-         wUpvote.centerAlignText()
+      let wUpvote = upvoteStack.addText(d.upvotes)
+          wUpvote.font = Font.boldRoundedSystemFont(12)
+          wUpvote.textColor = Color.white()
+          wUpvote.centerAlignText()
         
-     let commentSF = SFSymbol.named('bubble.left.and.bubble.right')
-         commentSF.applyFont(Font.lightRoundedSystemFont(150))
+      let commentSF = SFSymbol.named('bubble.left.and.bubble.right')
+          commentSF.applyFont(Font.lightRoundedSystemFont(150))
+       
+      let commentImg = commentStack.addImage(commentSF.image) //bubble or bubble.fill
+          commentImg.imageSize = new Size(18, 18)
+          commentImg.tintColor = Color.white()
+          commentImg.centerAlignImage()
         
-     let commentImg = commentStack.addImage(commentSF.image) //bubble or bubble.fill
-         commentImg.imageSize = new Size(18, 18)
-         commentImg.tintColor = Color.white()
-         commentImg.centerAlignImage()
-        
-     let wComment = commentStack.addText(d.numComments)
-         wComment.font = Font.boldRoundedSystemFont(12)
-         wComment.textColor = Color.white()
-         wComment.centerAlignText()
-  }
+      let wComment = commentStack.addText(d.numComments)
+          wComment.font = Font.boldRoundedSystemFont(12)
+          wComment.textColor = Color.white()
+          wComment.centerAlignText()
+  //}
     
  return w
 };
-    
-    
-// ****** RECTANGULAR LS WIDGET *******
-//*********** Recent Post **************
+  
+      
+//*************************************  
+//****** RECTANGULAR LS WIDGET ********
+//*************************************
 async function rectangularPostWidget(){
   let w = new ListWidget()
       w.url = d.link
       w.setPadding(0, 0, 0, 0)
       w.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
-    
-  let mainStack = w.addStack()
-      mainStack.layoutVertically()
-      mainStack.backgroundColor = Color.black()
-      mainStack.cornerRadius = 10
-      mainStack.size = new Size(156, 72)
-      mainStack.setPadding(0, 2, -1, 2)
+
+      let mainStack = w.addStack()
+          mainStack.layoutVertically()
+          mainStack.backgroundColor = Color.black()
+          mainStack.cornerRadius = 10
+          mainStack.size = new Size(156, 72)
+          mainStack.setPadding(0, 2, -1, 2)
          
-  if (uCheck.needUpdate){
-      updateDialog = mainStack.addText(`Update\n${uCheck.uC.version}\nAvailable`)
-      updateDialog.font = Font.boldRoundedSystemFont(10)
-      updateDialog.textColor = Color.white()
-      updateDialog.centerAlignText()
-  } else {
       let headerStack = mainStack.addStack()
           headerStack.centerAlignContent()
         
@@ -244,33 +230,25 @@ async function rectangularPostWidget(){
           wAuthor.font = Font.regularRoundedSystemFont(9)
           wAuthor.textColor = Color.white()
           wAuthor.minimumScaleFactor = 0.8
-  }
+  //}
     
  return w
 };
 
-    
-//-----------------------------------------------
 
-    
-// ******** SMALL POST WIDGET *********
-//*********** Recent Post *************
+//*************************************    
+//******** SMALL POST WIDGET **********
+//*************************************
 async function smallPostWidget(){
   let w = new ListWidget()
       w.url = d.link
       w.setPadding(5, 5, 1, 3)
       w.refreshAfterDate = new Date(Date.now()+1000*60*refreshInt)
       await rModule.createBG(w, false, d.contentLink)
-    
-  let mainStack = w.addStack()
-      mainStack.layoutVertically()
+
+      let mainStack = w.addStack()
+          mainStack.layoutVertically()
          
-  if (uCheck.needUpdate){
-      updateDialog = mainStack.addText(`Update ${uCheck.uC.version} Available!`)
-      updateDialog.font = Font.boldRoundedSystemFont(11)
-      updateDialog.textColor = Color.green()
-      updateDialog.centerAlignText()
-  } else {
       let headerStack = mainStack.addStack()
           headerStack.spacing = 4
           headerStack.centerAlignContent()
@@ -300,7 +278,6 @@ async function smallPostWidget(){
         sFont = Font.boldRoundedSystemFont(10)
         sOpacity = 1.0
       }
-
           wSubtitle.font = sFont
           wSubtitle.textOpacity = sOpacity
           wSubtitle.minimumScaleFactor = 0.8
@@ -364,7 +341,7 @@ async function smallPostWidget(){
       let wAuthor = footerStack.addText(d.author + ' • ' + d.postAge)
           wAuthor.font = Font.lightRoundedSystemFont(9)
           wAuthor.minimumScaleFactor = 0.8
-  }
+  //}
       w.addSpacer(1)
       
       df.useShortTimeStyle()
@@ -375,25 +352,21 @@ async function smallPostWidget(){
              
  return w 
 };
-    
-    
-// ******** MEDIUM POST WIDGET *********
-//*********** Recent Post **************
+
+
+
+//*************************************  
+//******** MEDIUM POST WIDGET *********
+//*************************************
 async function mediumPostWidget(){
   let w = new ListWidget()
       w.setPadding(10, 10, 2, 5)
       w.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
       await rModule.createBG(w, false, d.contentLink)
-      
-  let mainStack = w.addStack()
-      mainStack.layoutVertically()
-         
-  if (uCheck.needUpdate){
-      updateDialog = mainStack.addText(`Server version ${uCheck.uC.version} is now available!`)
-      updateDialog.font = Font.boldRoundedSystemFont(12)
-      updateDialog.textColor = Color.green()
-      updateDialog.centerAlignText()
-  } else {
+
+      let mainStack = w.addStack()
+          mainStack.layoutVertically()
+       
       let headerStack = mainStack.addStack()
           headerStack.spacing = 6
           headerStack.centerAlignContent()
@@ -509,7 +482,7 @@ async function mediumPostWidget(){
       let wAuthor = footerStack.addText(d.author + ' • ' + d.postAge)
           wAuthor.font = Font.regularRoundedSystemFont(11)
           //wAuthor.minimumScaleFactor = 0.8
-  }
+  //}
       
       w.addSpacer(2)
           
@@ -522,24 +495,19 @@ async function mediumPostWidget(){
  return w
 };
     
-    
-// ******** LARGE POST WIDGET *********
-//*********** Recent Post *************
+
+//*************************************
+//******** LARGE POST WIDGET **********
+//*************************************
 async function largePostWidget(){
   let w = new ListWidget()
       w.setPadding(10, 10, 3, 5)
       w.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
       await rModule.createBG(w, false, d.contentLink)
-    
-  let mainStack = w.addStack()
-      mainStack.layoutVertically()
+
+      let mainStack = w.addStack()
+          mainStack.layoutVertically()
          
-  if (uCheck.needUpdate){
-      updateDialog = mainStack.addText(`Server version ${uCheck.uC.version} is now available!`)
-      updateDialog.font = Font.boldRoundedSystemFont(15)
-      updateDialog.textColor = Color.green()
-      updateDialog.centerAlignText()
-  } else {
       let headerStack = mainStack.addStack()
           headerStack.spacing = 6
           headerStack.centerAlignContent()
@@ -657,7 +625,6 @@ async function largePostWidget(){
       let wAuthor = footerStack.addText(d.author + ' • ' + d.postAge)
           wAuthor.font = Font.lightRoundedSystemFont(13)
           //wAuthor.minimumScaleFactor = 0.8
-  }
       
       w.addSpacer(2)
           
@@ -670,49 +637,43 @@ async function largePostWidget(){
  return w
 };
    
-     
-//-------------------------------------------------
 
 
-//******** CIRCULAR LS WIDGET ********
-//********* Karma Overview ***********
+//***************************************
+//******** CIRCULAR KARMA WIDGET ********
+//***************************************
 async function circularKarmaWidget(){
    let w = new ListWidget()
        w.url = d.link
        w.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
        w.addAccessoryWidgetBackground = true
-    
-   if (uCheck.needUpdate){
-      updateDialog = w.addText(`Update\n${uCheck.uC.version}\nAvailable`)
-      updateDialog.font = Font.boldRoundedSystemFont(9)
-      updateDialog.textColor = Color.white()
-      updateDialog.centerAlignText()
-   } else {
-      img = w.addImage(await rModule.getImageFor("arrowsLS"))
-      img.imageSize = new Size(40, 20)
-      img.centerAlignImage()
+      
+       img = w.addImage(await rModule.getImageFor("arrowsLS"))
+       img.imageSize = new Size(40, 20)
+       img.centerAlignImage()
         
-      w.addSpacer(5)
+       w.addSpacer(5)
         
-      total_Karma = w.addText(d.totalKarma)
-      total_Karma.textColor = Color.white()
-      total_Karma.font = Font.boldRoundedSystemFont(13)
-      total_Karma.minimumScaleFactor = 0.6
-      total_Karma.lineLimit = 1
-      total_Karma.centerAlignText()
-   }
+       total_Karma = w.addText(d.totalKarma)
+       total_Karma.textColor = Color.white()
+       total_Karma.font = Font.boldRoundedSystemFont(13)
+       total_Karma.minimumScaleFactor = 0.6
+       total_Karma.lineLimit = 1
+       total_Karma.centerAlignText()
     
   return w
 };
   
-    
-// ******** SMALL WIDGET *********
+  
+//*************************************
+//******** SMALL KARMA WIDGET *********
+//*************************************
 async function smallKarmaWidget(){
   let w = new ListWidget()
       w.setPadding(7, 6, 2, 6)
       w.url = d.link
       w.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt)
-          
+
   if (df.string(new Date()).slice(0, -4) == d.profileCreated.slice(0, -4)){
       cDtrue = ' 🍰'
       w.backgroundImage = await rModule.getImageFor("cakedayConfetti")
@@ -816,12 +777,6 @@ async function smallKarmaWidget(){
   let line6 = mainStack.addText("Awardee: " + d.awardeeKarma)
       line6.font = Font.regularRoundedSystemFont(11)
       line6.textColor = txtColor
-          
-  if (uCheck.needUpdate){
-      line7 = mainStack.addText(`Update ${uCheck.uC.version} Available!`)
-      line7.font = Font.mediumMonospacedSystemFont(11)
-      line7.textColor = Color.red();
-  }
     
       w.addSpacer(4)
      
@@ -835,13 +790,15 @@ async function smallKarmaWidget(){
  return w
 };
     
-    
-//********** MEDIUM WIDGET *********
+
+//****************************************
+//********** MEDIUM KARMA WIDGET *********
+//****************************************
 async function mediumKarmaWidget(){
   let w = new ListWidget()
       w.setPadding(11, 15, 3, 15)
       w.refreshAfterDate = new Date(Date.now() + 1000 * 60 * refreshInt)
-          
+
   if (df.string(new Date()).slice(0, -4) == d.profileCreated.slice(0, -4)) w.backgroundImage = await rModule.getImageFor("cakedayConfetti")
   else await rModule.createBG(w, false, null)
     
@@ -921,12 +878,6 @@ async function mediumKarmaWidget(){
   let line6 = leftTextStack.addText("Awardee Karma: " + d.awardeeKarma)
       line6.font = Font.lightRoundedSystemFont(13)
       line6.textColor = txtColor
-      
-  if (uCheck.needUpdate){
-      line7 = leftTextStack.addText(`Update ${uCheck.uC.version} Available!`)
-      line7.font = Font.lightRoundedSystemFont(13)
-      line7.textColor = Color.red()
-  }
     
   let profileImage = rightImageStack.addImage(await rModule.getImageFor(imgKey.get("nameProfileImage")))     
       profileImage.imageSize = new Size(77, 77)
@@ -957,15 +908,17 @@ async function mediumKarmaWidget(){
      
  return w
 };
-    
-    
-//********** LARGE WIDGET *********
+  
+      
+//***************************************
+//********** LARGE KARMA WIDGET *********
+//***************************************
 async function largeKarmaWidget(){
   let w = new ListWidget()
       w.setPadding(10, 15, 3, 5)
       w.refreshAfterDate = new Date(Date.now() + 1000*60*refreshInt)
       await rModule.createBG(w, false, null)
-      
+
   let bodyStack = w.addStack()
       bodyStack.layoutVertically()
        
@@ -1059,13 +1012,9 @@ async function largeKarmaWidget(){
       line7.font = Font.lightRoundedSystemFont(17)
       line7.textColor = txtColor
           
-  if (uCheck.needUpdate){
-      line8 = mainBodyStack.addText(`Update ${uCheck.uC.version} Available!`)
-      line8.font = Font.lightSystemFont(17)
-      line8.textColor = Color.red()
-  }
       bodyStack.addSpacer()
-      
+
+    
       df.useShortTimeStyle()
   let footer = w.addText("Last Refresh " + df.string(new Date()))  
       footer.font = Font.lightRoundedSystemFont(11)
@@ -1079,10 +1028,14 @@ async function largeKarmaWidget(){
 
 //Loads javascript module from github if needed
 async function loadModule(){
-   req = new Request('https://raw.githubusercontent.com/iamrbn/reddit-widget/main/redditModule.js')
-   moduleFile = await req.loadString()
-   fm.writeString(modulePath, moduleFile)
-   console.warn('loaded module file from github repo')
+  try {
+     req = new Request('https://raw.githubusercontent.com/iamrbn/reddit-widget/main/redditModule.js')
+     moduleFile = await req.loadString()
+     fm.writeString(modulePath, moduleFile)
+     console.warn('Loaded module file from github repo!')
+  } catch (err){
+     throw new Error('Failed to load module file from github repo!\n' + err.message) 
+  }
 };
 
 
