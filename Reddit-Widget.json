@@ -1,4 +1,4 @@
 {
-    "version": 1.5,
-    "notes":"• Module file has been added with parts of the original script for performance improvements\n• Last post lockscreen-widgets have been revised\n• The error widgets have also been revised\n• Also added last post homescreen-widgets\n• Added 'report bug' menu to save api response as json\n• Some parts of the delete menu have been removed and the rest has been revised\n• Code snippets that were not used have been removed\n• Small design improvements at some points\n• General code improvements"
+    "version": 1.51,
+    "notes":"• Revised error & update-widget\n •Small script and module improvements"
 }
