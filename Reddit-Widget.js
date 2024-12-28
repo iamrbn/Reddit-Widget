@@ -40,7 +40,7 @@ let jsonPath = fm.joinPath(dir, 'UserCredentials.json')
 let txtBGColor = Color.dynamic(new Color('#D5D7DC40'), new Color('#24242421'))
 let txtColor = Color.dynamic(Color.black(), Color.white())
 let d = await rModule.getKarmaFromAPI(numberFormatting)
-let uCheck = await rModule.updateCheck(1.52)
+let uCheck = await rModule.updateCheck(1.51)
 
 if (config.runsInApp && typeof d !== "number"){
     await rModule.saveAllImages(d.snoovatarImg)
